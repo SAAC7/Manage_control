@@ -1,14 +1,12 @@
-# Ignore Python cache files
-__pycache__/
-
-# Ignore migrations cache files in specific apps
-Asesores/migrations/__pycache__/
-Asesores/__pycache__/
-Login/migrations/__pycache__/
-Login/__pycache__/
-Cotizadores/migrations/__pycache__/
-Cotizadores/__pycache__/
-Produccion/migrations/__pycache__/
-Produccion/__pycache__/
-Diseñadores/migrations/__pycache__/
-Diseñadores/__pycache__/
+# Ignorar archivos y directorios generados por Python
+Fabrica_Project/Fabrica_Project/__pycache__/
+Fabrica_Project/Asesores/migrations/__pycache__/
+Fabrica_Project/Asesores/__pycache__/
+Fabrica_Project/Login/migrations/__pycache__/
+Fabrica_Project/Login/__pycache__/
+Fabrica_Project/Cotizadores/migrations/__pycache__/
+Fabrica_Project/Cotizadores/__pycache__/
+Fabrica_Project/Produccion/migrations/__pycache__/
+Fabrica_Project/Produccion/__pycache__/
+Fabrica_Project/Diseñadores/migrations/__pycache__/
+Fabrica_Project/Diseñadores/__pycache__/
