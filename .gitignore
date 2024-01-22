@@ -1,4 +1,5 @@
 # Ignorar archivos y directorios generados por Python
+__pycache__/
 Fabrica_Project/Fabrica_Project/__pycache__/
 Fabrica_Project/Asesores/migrations/__pycache__/
 Fabrica_Project/Asesores/__pycache__/
