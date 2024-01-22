@@ -1,0 +1,88 @@
+@startuml
+actor Cliente
+actor Asesor
+actor Diseñador
+actor Cotizador
+actor Administracion
+actor Trabajador
+
+participant Sistema
+
+activate Sistema
+
+== Cliente solicita cotización ==
+Cliente -> Asesor: Solicitar Cotización
+activate Asesor
+Asesor -> Sistema: Generar Presupuesto
+loop Asesor aprueba presupuesto
+alt Asesor tiene diseño Y el diseño es valido
+loop Diseño es valido
+ Asesor -> Sistema: Sube Diseño
+Sistema -> Sistema: valida el diseño
+Sistema -> Asesor: Notifica de la validez del diseño
+end
+else Diseñador sube el diseño
+loop Asesor aprueba diseño
+Sistema -> Asesor: Se notifica que se mandara a diseño
+Sistema-> Diseñador: Solicitar Diseño
+activate Diseñador
+loop Diseño es valido
+Diseñador -> Sistema: Subir Diseño
+Sistema -> Sistema: Valida el diseño
+Sistema -> Diseñador: Notifica de la validez del diseño
+end
+deactivate Diseñador
+Sistema -> Asesor: notifica del Diseño
+Asesor -> Sistema: Valida el diseño
+end
+end
+
+
+Sistema-> Cotizador: Notifcar Petición de Cotización
+activate Cotizador
+loop Cotizacion Valida
+Cotizador -> Sistema: Cargar Cotizacion
+Sistema -> Sistema: Valida la Cotizacion
+Sistema -> Cotizador: Notifica de la validez de la cotizacion
+end
+deactivate Cotizador
+Sistema -> Asesor: Notifica de la cotizacion
+Asesor -> Sistema: Aprobar Cotización
+end
+
+
+Asesor -> Sistema: Generar Orden de Producción
+Sistema -> Administracion: Notifica de Orden de Producción
+
+
+activate Administracion
+
+
+
+loop Hasta finalizar Orden
+Administracion -> Sistema: Asignar Trabajo
+deactivate Administracion
+
+Sistema -> Trabajador: Muestra Trabajo
+
+activate Trabajador
+Trabajador -> Trabajador: Realizar Trabajo
+Trabajador -> Sistema: Finalizar Trabajo
+deactivate Trabajador
+Sistema -> Administracion: Notifica de Finalizacion de trabajo
+activate Administracion
+Administracion -> Sistema: Notificar Finalización
+end
+
+
+deactivate Administracion
+
+Sistema-> Asesor: Notificar Finalización
+
+Asesor -> Cliente: Entrega de Producto
+Asesor -> Sistema: Notificar entrega del producto
+
+deactivate Asesor
+deactivate Cliente
+deactivate Sistema
+@enduml

@@ -1,0 +1,79 @@
+@startuml
+|Asesor|
+start
+:Login;
+:Generar Presupuesto;
+repeat
+repeat
+  if (Diseño) then (no)
+    |Diseñador|
+    :Recibe Peticion de Diseño;
+    :Sube Diseño;
+  endif
+|Asesor|
+repeat while (Aprobado)
+ |Cotizador|
+ :Recibe para Cotizar;
+ :Sube Cotizacion;
+|Asesor|
+ repeat while (Aprobado)
+:Genera orden;
+|Administracion|
+:Recibe Orden de Produccion;
+Repeat
+:Asigna Trabajo;
+if (Asignado) then (si)
+|Diseño|
+:Recibe Orden;
+:Diseña CNC;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|Corte|
+:Recibe Orden;
+:Realiza Corte;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|Seccionadora|
+:Recibe Orden;
+:Realiza Corte;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|Trazo|
+:Recibe Orden;
+:Realiza Trazo;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|Armado|
+:Recibe Orden;
+:Realiza Armado;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|PostFormado|
+:Recibe Orden;
+:Realiza Trabajo;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|CNC|
+:Recibe Orden;
+:Realiza Trabajo;
+endif;
+|Administracion|
+if (Asignado) then (si)
+|Tecnicos|
+:Recibe Orden;
+:Realiza Instalacion;
+endif;
+|Administracion|
+Repeat while (Finalizado)
+:Se notifica;
+|Asesor|
+:Recibe Notificacion;
+:Entrega;
+stop
+@enduml
