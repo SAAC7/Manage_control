@@ -1,0 +1,293 @@
+<mxfile host="Electron" modified="2024-01-18T21:56:08.761Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="WDNyKosS3ieRFYd78T8w" version="22.1.21" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="3293" dy="3129" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="022_QiMPyhlzap2xASss-29" value="Crear Diseño" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="240" y="-1020" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-30" value="Crear Cotización" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="524" y="-950" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-31" value="Presentar Cotización" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="230" y="-880" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-59" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;dashed=1;dashPattern=12 12;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-32" target="022_QiMPyhlzap2xASss-31" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-60" value="&amp;lt;&amp;lt;exclude&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="022_QiMPyhlzap2xASss-59" vertex="1" connectable="0">
+          <mxGeometry x="0.0573" y="-1" relative="1" as="geometry">
+            <mxPoint x="36" y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-32" value="Ajuste de Diseño y Cotizacion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="380" y="-800" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-33" value="Generar Orden de Pedido" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="220" y="-740" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-34" value="Asignar Produccion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="524" y="-670" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-37" value="Fabricación del Mueble" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="524" y="-820" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-39" style="shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=none;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-38" target="022_QiMPyhlzap2xASss-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-40" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=classic;endFill=1;dashed=1;dashPattern=12 12;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-38" target="022_QiMPyhlzap2xASss-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-63" value="&amp;lt;&amp;lt;exclude&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="022_QiMPyhlzap2xASss-40" vertex="1" connectable="0">
+          <mxGeometry x="0.2662" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-42" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-38" target="022_QiMPyhlzap2xASss-31" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-43" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-38" target="022_QiMPyhlzap2xASss-33" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-38" value="Asesor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="20" y="-850" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-49" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-46" target="022_QiMPyhlzap2xASss-30" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-46" value="Cotizador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="750" y="-920" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-52" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-51" target="022_QiMPyhlzap2xASss-37" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-51" value="Trabajador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="750" y="-810" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-56" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-55" target="022_QiMPyhlzap2xASss-34" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-55" value="Administracion" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="750" y="-660" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-58" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-57" target="022_QiMPyhlzap2xASss-34" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-57" value="Gerente" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="750" y="-530" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-62" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="022_QiMPyhlzap2xASss-61" target="022_QiMPyhlzap2xASss-29" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="022_QiMPyhlzap2xASss-61" value="Diseñador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="20" y="-1010" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-0" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Sistema de Gestion de Produccion&amp;nbsp;&lt;/b&gt;&lt;/font&gt;" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry y="-1600" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-3" value="&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Completo&lt;/b&gt;&lt;/div&gt;&lt;ul&gt;&lt;li&gt;Los Asesores deben crear presupuestos con la informacion necesaria&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sistema debe de solicitar un diseño, sin diseño se enviaran las observacions y detalles(una imagen con medidas) del presupuesto al Diseñador&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El Diseñador debe de poder ver los datos del presupuesto para poder crear el diseño&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El Diseñador debe de poder subir el archivo del diseño (archivo de sketchup o rar)&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El asesor debe de ver si se ha completado el diseño&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sistema al tener los comentarios y observaciones y el diseño lo debe de pasar al area de Cotizaciones&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El Cotizador asignado debe de poder ver todos los datos del presupuesto e igualmente el diseño&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El cotizador debe de poder subir el archivo (imagen o excel)&amp;nbsp;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El asesor debe de ver si se ha completado la cotizacion&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sisteme en todo momento debe de mostrarle los archivos y detalles del presupuesto al asesor para ver si se aprueba o Descarta&lt;br&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El asesor puede aprobar el presupuesto o añadir cambios&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sistema si recibe cambios debe de repetir todo el proceso con los nuevos datos pero mostrando los datos ateriores igualmente&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sistema si se aprueba el presupueto debe de pasarlo al area de produccion&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sistema debe de poder llevar un registro de cuando inico la produccion pero tambien el tiempo que lleva en cada area como tambien el trabajador encargado&lt;/li&gt;&lt;li style=&quot;&quot;&gt;Cada Trabajador debe de poder ver la lista de actividades que tiene que realizar y poder marcar como finalizado&amp;nbsp;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El asesor siempre debe de saber en que proceso de produccion va la produccion&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El sistema debe de notifiacar al asesor cuando se haya finalizado la produccion&lt;/li&gt;&lt;li style=&quot;&quot;&gt;El asesor tiene que registrar la entrega del producto&lt;/li&gt;&lt;/ul&gt;" style="text;strokeColor=none;align=left;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-470" y="-1550" width="470" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-7" value="Gracias por proporcionar más detalles. Basándome en esta información adicional, parece que el sistema descrito en el texto y el diagrama de clases están bastante alineados. Aquí hay una comparación paso a paso:&#xa;&#xa;&#xa;1. **Creación del presupuesto**: El Asesor inicia el proceso creando un presupuesto, que incluye sus comentarios y un diseño. Esto se alinea con la operación `crear()` en la clase &quot;PROYECTO&quot; en el diagrama de clases.&#xa;&#xa;&#xa;2. **Diseño**: Si el Asesor no carga su diseño, sus comentarios se trasladan al Diseñador, quien se encargará de la creación. Esto se alinea con las operaciones `verDatos()` y `subirArchivo()` en la clase &quot;DISEÑADOR&quot;.&#xa;&#xa;&#xa;3. **Cotización**: Una vez completado el diseño, el presupuesto se traslada al departamento de cotizaciones. Cualquiera de los Cotizadores puede generar la cotización. Esto se alinea con las operaciones `verDatos()` y `subirArchivo()` en la clase &quot;COTIZADOR&quot;.&#xa;&#xa;&#xa;4. **Revisión del presupuesto**: Con el presupuesto completo, el Asesor revisa si se aprueba, descarta o requiere cambios. Esto se alinea con las operaciones `verDiseno()` y `verCotizacion()` en la clase &quot;ASESOR&quot;.&#xa;&#xa;&#xa;5. **Producción**: Si la cotización es aprobada junto con el diseño, se procede a generar una orden de producción. Esto podría estar representado en el diagrama de clases, pero no está claro sin más detalles.&#xa;&#xa;&#xa;6. **Finalización de la producción**: Al finalizar la producción de un trabajo, el Asesor recibe una notificación. Esto también podría estar representado en el diagrama de clases, pero no está claro sin más detalles.&#xa;&#xa;&#xa;En resumen, aunque el texto y el diagrama de clases parecen describir el mismo sistema, hay algunos detalles en el texto que no están claramente representados en el diagrama de clases. Por ejemplo, el texto menciona específicamente los archivos de SketchUp y PDF, pero estos detalles no se reflejan en el diagrama de clases. Además, el texto describe un proceso de revisión y aprobación que implica repetir ciertos pasos si se requieren cambios, pero no está claro cómo se representa esto en el diagrama de clases. Por lo tanto, aunque hay una alineación general, se necesitaría un análisis más detallado para confirmar si coinciden exactamente." style="text;whiteSpace=wrap;fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-860" y="-1040" width="560" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-8" value="Claro, aquí te proporciono algunos casos de uso basados en la información que proporcionaste:&#xa;&#xa;&#xa;1. **Caso de uso: Crear presupuesto**&#xa;    - **Actor**: Asesor&#xa;    - **Precondiciones**: El Asesor debe tener la información necesaria para el presupuesto.&#xa;    - **Flujo principal**:&#xa;        1. El Asesor inicia la creación del presupuesto.&#xa;        2. El Asesor ingresa los detalles del presupuesto.&#xa;        3. El Asesor sube el diseño (si está disponible).&#xa;        4. El sistema guarda el presupuesto.&#xa;    - **Postcondiciones**: Se crea un nuevo presupuesto en el sistema.&#xa;    - **Excepciones**: Si el Asesor no sube un diseño, el sistema envía los detalles del presupuesto al Diseñador.&#xa;&#xa;&#xa;2. **Caso de uso: Crear diseño**&#xa;    - **Actor**: Diseñador&#xa;    - **Precondiciones**: El Diseñador ha recibido los detalles del presupuesto.&#xa;    - **Flujo principal**:&#xa;        1. El Diseñador revisa los detalles del presupuesto.&#xa;        2. El Diseñador crea el diseño.&#xa;        3. El Diseñador sube el archivo de diseño al sistema.&#xa;    - **Postcondiciones**: Se crea un nuevo diseño en el sistema.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;3. **Caso de uso: Generar cotización**&#xa;    - **Actor**: Cotizador&#xa;    - **Precondiciones**: El diseño ha sido completado y el presupuesto ha sido enviado al departamento de cotizaciones.&#xa;    - **Flujo principal**:&#xa;        1. El Cotizador revisa los detalles del presupuesto y el diseño.&#xa;        2. El Cotizador genera la cotización.&#xa;        3. El Cotizador sube el archivo de cotización al sistema.&#xa;    - **Postcondiciones**: Se genera una nueva cotización en el sistema.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;4. **Caso de uso: Revisar cotización**&#xa;    - **Actor**: Asesor&#xa;    - **Precondiciones**: La cotización ha sido generada.&#xa;    - **Flujo principal**:&#xa;        1. El Asesor revisa la cotización.&#xa;        2. El Asesor aprueba, descarta o solicita cambios en la cotización.&#xa;    - **Postcondiciones**: El estado de la cotización se actualiza en el sistema.&#xa;    - **Excepciones**: Si el Asesor solicita cambios, el sistema inicia nuevamente el proceso desde el paso 1.&#xa;&#xa;&#xa;Estos son solo algunos ejemplos de casos de uso basados en la información que proporcionaste. Cada caso de uso incluye el actor (la persona o sistema que realiza la acción), las precondiciones (lo que debe ser cierto antes de que pueda comenzar el caso de uso), el flujo principal (los pasos que se siguen para completar el caso de uso), las postcondiciones (lo que es cierto después de que se completa el caso de uso) y las excepciones (lo que sucede si algo sale mal o si hay alguna desviación del flujo principal). Por favor, ten en cuenta que estos son solo ejemplos y podrían necesitar ser ajustados o ampliados para adaptarse a las necesidades específicas de tu sistema." style="text;whiteSpace=wrap;fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-870" y="-540" width="560" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-9" value="Por supuesto, aquí te proporciono más casos de uso basados en la información que proporcionaste:&#xa;&#xa;&#xa;5. **Caso de uso: Aprobar presupuesto**&#xa;    - **Actor**: Asesor&#xa;    - **Precondiciones**: La cotización ha sido revisada por el Asesor.&#xa;    - **Flujo principal**:&#xa;        1. El Asesor aprueba la cotización.&#xa;        2. El sistema pasa el presupuesto al área de producción.&#xa;    - **Postcondiciones**: El presupuesto aprobado se encuentra en el área de producción.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;6. **Caso de uso: Solicitar cambios en el presupuesto**&#xa;    - **Actor**: Asesor&#xa;    - **Precondiciones**: La cotización ha sido revisada por el Asesor.&#xa;    - **Flujo principal**:&#xa;        1. El Asesor solicita cambios en la cotización.&#xa;        2. El sistema inicia nuevamente el proceso desde el paso 1 con los nuevos datos.&#xa;    - **Postcondiciones**: El sistema muestra los datos anteriores y nuevos del presupuesto.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;7. **Caso de uso: Generar orden de producción**&#xa;    - **Actor**: Sistema&#xa;    - **Precondiciones**: La cotización ha sido aprobada por el Asesor.&#xa;    - **Flujo principal**:&#xa;        1. El sistema genera una orden de producción derivada de la cotización seleccionada.&#xa;        2. El sistema utiliza una tabla que contiene el número de orden, el ID del trabajador, y las fechas de inicio y finalización.&#xa;    - **Postcondiciones**: Se genera una nueva orden de producción en el sistema.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;8. **Caso de uso: Marcar trabajo como finalizado**&#xa;    - **Actor**: Trabajador&#xa;    - **Precondiciones**: El Trabajador ha recibido una lista de actividades a realizar.&#xa;    - **Flujo principal**:&#xa;        1. El Trabajador realiza las actividades asignadas.&#xa;        2. El Trabajador marca las actividades como finalizadas en el sistema.&#xa;    - **Postcondiciones**: El estado de las actividades se actualiza en el sistema.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;9. **Caso de uso: Notificar finalización de producción**&#xa;    - **Actor**: Sistema&#xa;    - **Precondiciones**: Todas las actividades de producción han sido marcadas como finalizadas.&#xa;    - **Flujo principal**:&#xa;        1. El sistema notifica al Asesor de la finalización de la producción.&#xa;    - **Postcondiciones**: El Asesor recibe la notificación de finalización de producción.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;10. **Caso de uso: Registrar entrega del producto**&#xa;    - **Actor**: Asesor&#xa;    - **Precondiciones**: La producción ha sido finalizada.&#xa;    - **Flujo principal**:&#xa;        1. El Asesor registra la entrega del producto en el sistema.&#xa;    - **Postcondiciones**: Se registra la entrega del producto en el sistema.&#xa;    - **Excepciones**: Ninguna.&#xa;&#xa;&#xa;Estos son solo algunos ejemplos de casos de uso basados en la información que proporcionaste. Cada caso de uso incluye el actor (la persona o sistema que realiza la acción), las precondiciones (lo que debe ser cierto antes de que pueda comenzar el caso de uso), el flujo principal (los pasos que se siguen para completar el caso de uso), las postcondiciones (lo que es cierto después de que se completa el caso de uso) y las excepciones (lo que sucede si algo sale mal o si hay alguna desviación del flujo principal). Por favor, ten en cuenta que estos son solo ejemplos y podrían necesitar ser ajustados o ampliados para adaptarse a las necesidades específicas de tu sistema." style="text;whiteSpace=wrap;fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-880" y="200" width="560" height="930" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-13" style="shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-10" target="TXay83gfQH7YR7HTGBkE-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-23" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-10" target="TXay83gfQH7YR7HTGBkE-22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-25" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-10" target="TXay83gfQH7YR7HTGBkE-24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-33" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-10" target="TXay83gfQH7YR7HTGBkE-32" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-10" value="Asesor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="-150" y="-70" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-34" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;dashed=1;dashPattern=12 12;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-11" target="TXay83gfQH7YR7HTGBkE-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-35" value="&amp;lt;&amp;lt;exclude&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="TXay83gfQH7YR7HTGBkE-34" vertex="1" connectable="0">
+          <mxGeometry x="0.2534" y="-4" relative="1" as="geometry">
+            <mxPoint x="-22" y="12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-11" value="Crear Presupuesto" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="120" y="-190" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-16" style="shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-14" target="TXay83gfQH7YR7HTGBkE-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-14" value="Diseñador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="799" y="-180" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-15" value="Crear Diseño" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="540" y="-190" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-19" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-17" target="TXay83gfQH7YR7HTGBkE-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-17" value="Cotizador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="799" y="180" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-18" value="Generar Cotizacion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="540" y="170" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-36" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;dashed=1;dashPattern=12 12;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-22" target="TXay83gfQH7YR7HTGBkE-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-37" value="&amp;lt;&amp;lt;Include&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" parent="TXay83gfQH7YR7HTGBkE-36" vertex="1" connectable="0">
+          <mxGeometry x="0.0494" y="1" relative="1" as="geometry">
+            <mxPoint y="21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-22" value="Aprobar Presupuesto" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="120" y="-80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-24" value="Solicitar Cambios en el Presupuesto" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="120" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-27" value="Generar Orden de Produccion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="365" y="-80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-31" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-29" target="TXay83gfQH7YR7HTGBkE-30" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-29" value="Trabajador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="799" y="60" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-30" value="Finalizar Tabajo" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="540" y="50" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-32" value="Registrar Entrega del producto" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="120" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-41" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="TXay83gfQH7YR7HTGBkE-38" target="TXay83gfQH7YR7HTGBkE-39" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-38" value="Adrministrador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="799" y="-60" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="TXay83gfQH7YR7HTGBkE-39" value="Asignar Tabajo" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="540" y="-70" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-0" target="iO9kJRo08QqhtwGdoEuc-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-12" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-0" target="iO9kJRo08QqhtwGdoEuc-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-20" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-0" target="iO9kJRo08QqhtwGdoEuc-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-22" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-0" target="iO9kJRo08QqhtwGdoEuc-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-0" value="Asesor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="-20" y="940" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-7" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-1" target="iO9kJRo08QqhtwGdoEuc-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-15" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-1" target="iO9kJRo08QqhtwGdoEuc-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-33" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;jumpStyle=arc;jumpSize=10;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-1" target="iO9kJRo08QqhtwGdoEuc-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-1" value="Diseñador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1000" y="900" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-10" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-2" target="iO9kJRo08QqhtwGdoEuc-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-18" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-2" target="iO9kJRo08QqhtwGdoEuc-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-37" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-2" target="iO9kJRo08QqhtwGdoEuc-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-2" value="Cotizador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="929" y="1190" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-9" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-3" target="iO9kJRo08QqhtwGdoEuc-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-29" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-3" target="iO9kJRo08QqhtwGdoEuc-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-30" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-3" target="iO9kJRo08QqhtwGdoEuc-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-3" value="Trabajador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="10" y="670" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-8" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-4" target="iO9kJRo08QqhtwGdoEuc-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-24" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-4" target="iO9kJRo08QqhtwGdoEuc-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-26" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-4" target="iO9kJRo08QqhtwGdoEuc-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-4" value="Adrministrador" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="929" y="650" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-5" value="login" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="430" y="730" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-11" value="crear Presupuesto" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="430" y="830" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-13" value="subir Diseño" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="430" y="1030" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-16" value="cargar cotizacion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="430" y="1230" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-19" value="Revicion de presupuesto" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="70" y="1120" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-34" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;endArrow=none;endFill=0;dashed=1;dashPattern=12 12;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="iO9kJRo08QqhtwGdoEuc-21" target="iO9kJRo08QqhtwGdoEuc-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-35" value="&amp;lt;&amp;lt; exclude&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" connectable="0" parent="iO9kJRo08QqhtwGdoEuc-34">
+          <mxGeometry x="0.3735" y="-3" relative="1" as="geometry">
+            <mxPoint x="-28" y="19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-21" value="Generar Orden de Produccion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="170" y="990" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-23" value="Recibir Orden de Produccion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="560" y="530" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-25" value="Supervisar Asignacion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="560" y="630" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-27" value="Recibir Trabajo" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="230" y="550" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-28" value="Finalizar Trabajo" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="230" y="640" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-31" value="Recibir Peticion de Diseño" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="425" y="930" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="iO9kJRo08QqhtwGdoEuc-36" value="Recibir Peticion de Cotizacion" style="ellipse;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=11;fontColor=default;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="430" y="1130" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
