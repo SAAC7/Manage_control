@@ -22,3 +22,5 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect ('/')
+def tablas(request):
+    return render(request,'Login/table.html')
