@@ -1,0 +1,62 @@
+{% extends 'core.html' %}
+{% block content%}
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-4">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h4 class="card-title">Iniciar sesión</h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form action="/signin/" method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            <label for="user" class="form-label">Nombre de usuario</label>
+
+                            <input type="text" class="form-control" id="user" aria-describedby="usernameHelp" name="user">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label for="password" class="form-label">Contraseña</label>
+
+                            <input type="password" class="form-control" id="password" name="password">
+
+                        </div>
+
+                        {% comment %} <div class="mb-3 form-check">
+
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+
+                            <label class="form-check-label" for="rememberMe">Recordarme</label>
+
+                        </div> {% endcomment %}
+                        <div class="mb-3">
+                            {{error}}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
