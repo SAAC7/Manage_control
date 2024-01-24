@@ -3,8 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
-# Redirige a 'index' si el usuario no está autenticado
-# @login_required(login_url='index')
+
 def index(request):
     return render(request,'Login/home.html')
 def signin(request):
@@ -22,5 +21,7 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect ('/')
+# Redirige a 'index' si el usuario no está autenticado
+@login_required(login_url='index')
 def tablas(request):
     return render(request,'Login/table.html')

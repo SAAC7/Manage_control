@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Login import views as login_views
+from Asesores import views as asesor_views
 
 
 urlpatterns = [
@@ -25,4 +26,5 @@ urlpatterns = [
     path('signin/', login_views.signin , name='signin'),
     path('signout/', login_views.signout , name='signout'),
     path('tablas/', login_views.tablas , name='tablas'),
+    path('CrearPresupuesto/', asesor_views.presupuesto , name='CrearPresupuesto'),
 ]
