@@ -3,5 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 
 # Create your views here.
+@login_required(login_url='index')
 def presupuesto(request):
     return render(request,'Asesor/presupuesto.html')
+@login_required(login_url='index')
+def listadoP(request):
+    return render(request,'Asesor/listado_presupuesto.html')
