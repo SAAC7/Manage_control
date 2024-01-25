@@ -14,4 +14,4 @@ class Diseno(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
     fecha = models.DateTimeField(auto_now_add=True)
-    archivo = models.FileField(null=False, blank=False)    
+    archivo = models.FileField(null=False, blank=False)
