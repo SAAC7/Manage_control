@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
+
 
 # Create your views here.
 
@@ -23,5 +25,8 @@ def signout(request):
     return redirect ('/')
 # Redirige a 'index' si el usuario no está autenticado
 @login_required(login_url='index')
-def tablas(request):
-    return render(request,'Login/table.html')
+def usuarios(request):
+    usuarios = User.objects.all()
+
+    
+    return render(request,'Login/table.html', {'usuarios': usuarios})
