@@ -7,12 +7,12 @@ from Asesores.models import Presupuesto
 class Diseno_CNC(models.Model):
     disenador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     fecha = models.DateTimeField(auto_now_add=True)
-    archivo = models.FileField(null=False, blank=False)
+    archivo = models.FileField(upload_to='disenoCNC/', null=False, blank=False)
     
 class Orden_trabajo(models.Model):
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
     diseno_CNC = models.ForeignKey(Diseno_CNC, on_delete=models.PROTECT, null=False, blank=False)
-    contrato = models.FileField(null=False, blank=False)
+    contrato = models.FileField(upload_to='contratos/' ,null=False, blank=False)
     
 class Trabajo(models.Model):
     trabajador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
