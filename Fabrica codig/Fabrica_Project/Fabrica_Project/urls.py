@@ -25,7 +25,9 @@ urlpatterns = [
     path('', login_views.index , name='index'),
     path('signin/', login_views.signin , name='signin'),
     path('signout/', login_views.signout , name='signout'),
-    path('tablas/', login_views.usuarios , name='tablas'),
+    path('Usuarios/', login_views.usuarios , name='usuarios'),
+    path('Usuarios/Crear/', login_views.crear_usuario , name='usuarios_crear'),
+    path('Usuarios/Desabilitar/<user_id>', login_views.usurario_desabilitar , name='usuarios_crear'),
     path('Presupuesto/Crear/', asesor_views.presupuesto , name='CrearPresupuesto'),
     path('Presupuesto/', asesor_views.listadoP , name='Presupuesto'),
     
