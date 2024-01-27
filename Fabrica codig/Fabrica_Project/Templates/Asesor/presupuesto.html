@@ -19,7 +19,8 @@
       <div class="text-center">
         <h1>Presupuesto</h1>
       </div>
-      <form>
+      <form method="post">
+        {% csrf_token %}
         <div class="row">
           <div class="col-6">
             <div class="form-group">
@@ -27,12 +28,12 @@
               <input type="text" id="nombreCliente" class="form-control form-control-user" name="nombreCliente" required>
             </div>
             <div class="form-group px-md-3">
-              <input type="checkbox" id="solDesign" name="solDesign" value="True" class="form-check-input cursor-pointer" required>
+              <input type="checkbox" id="solDesign" name="solDesign" value="True" class="form-check-input cursor-pointer">
               <label for="solDesign" class="form-check-label"> Mandar a Diseñar</label>
             </div>
             <div class="custom-file">
               <label for="miArchivo" class="custom-file-label cursor-pointer">Selecciona un archivo (PDF, RAR, JPG, PNG):</label>
-              <input type="file" class="custom-file-input cursor-pointer" id="miArchivo" name="miArchivo" onchange="updateFileName()" required>
+              <input type="file" class="custom-file-input cursor-pointer" id="miArchivo" name="miArchivo1" onchange="updateFileName()" required>
               <small id="fileError" class="text-danger"></small>
               <br><br>
             </div>
