@@ -9,70 +9,50 @@
 {% load static %}
 
 
-{% block head %} 
+{% block head %}
 <th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
 <th>Cliente</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
+<th>Estado</th>
 <th>Opciones</th>
 {% endblock %}
 
 {% block tbody %}
+{% for p in pres %}
 <tr>
-    <td>System Architect</td>
-    <td>Edinburgh</td>
-    <td>61</td>
-    <td>2011-04-25</td>
-    <td>$320,800</td>
+    <td>{{ p.id }}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ p.asesor.first_name}} {{ p.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ p.cliente }}</td>
+    <td>{{ p.descripcion }}</td>
+    <td>{{ p.fecha_inicio }}</td>
+    <td>{{ p.estado }}</td>
+    <td>
+        <div>
+            <a class="btn btn-info btn-sm btn-block" href="#">Info</a>
+            {% comment %} <a class="btn btn-success btn-sm btn-block" href="#">Generar Orden</a> {% endcomment %}
+            <a class="btn btn-danger btn-sm btn-block" href="/Presupuesto/Rechazar/{{p.id }}">Rechazar</a>
+        </div>
+    </td>
 </tr>
-<tr>
-    <td>Accountant</td>
-    <td>Tokyo</td>
-    <td>63</td>
-    <td>2011-07-25</td>
-    <td>$170,750</td>
-</tr>
-<tr>
-    <td>Junior Technical Author</td>
-    <td>San Francisco</td>
-    <td>66</td>
-    <td>2009-01-12</td>
-    <td>$86,000</td>
-</tr>
-<tr>
-    <td>Senior Javascript Developer</td>
-    <td>Edinburgh</td>
-    <td>22</td>
-    <td>2012-03-29</td>
-    <td>$433,060</td>
-</tr>
-<tr>
-    <td>Accountant</td>
-    <td>Tokyo</td>
-    <td>33</td>
-    <td>2008-11-28</td>
-    <td>$162,700</td>
-</tr>
-<tr>
-    <td>Integration Specialist</td>
-    <td>New York</td>
-    <td>61</td>
-    <td>2012-12-02</td>
-    <td>$372,000</td>
-</tr>
-<tr>
-    <td>Sales Assistant</td>
-    <td>San Francisco</td>
-    <td>59</td>
-    <td>2012-08-06</td>
-    <td>$137,500</td>
-</tr>
- {% endblock %}
+{% endfor %}
 
- {% block footer %} 
- <th>ID</th>
- <th>Cliente</th>
- <th>Descripcion</th>
- <th>Fecha de Inicio</th>
- <th>Opciones</th>
- {% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha de Inicio</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}

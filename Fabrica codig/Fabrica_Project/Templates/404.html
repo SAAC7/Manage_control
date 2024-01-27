@@ -1,0 +1,11 @@
+{% extends 'core.html' %}
+{% block content%}
+<div class="container d-flex align-items-center justify-content-center vh-100 text-center text-white">
+    {%load static%}
+    <div>
+        <img src="{% static 'img/Logo DeseretOriginal.png' %}" alt="Descripción de la imagen" height="150">
+        <h1 class="display-4 font-weight-bold">Deseret</h1>
+        <p class="lead font-weight-bold" >{{error}}</p>
+    </div>
+</div>
+{% endblock %}

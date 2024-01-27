@@ -48,19 +48,29 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                         </li> -->
+                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Trabajos/{{ user.first_name }}">Trabajos</a>
+                            <a class="nav-link active" aria-current="page" href="/Trabajos/">Trabajos</a>
                         </li>
+                        {% endif %}
+                        {% if user.is_superuser or user.groups.all.0.name == "Designer" or user.groups.all.0.name == "Administrador" %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/Designs/">Diseños</a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_superuser or user.groups.all.0.name == "Asesor" %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Presupuesto</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'CrearPresupuesto' %}">Crear</a></li>
                                 <li><a class="dropdown-item" href="{% url 'Presupuesto' %}">En Curso</a></li>
-                                <li><a class="dropdown-item" href="#">Finalizados</a></li>
+                                <li><a class="dropdown-item" href="{% url 'PresupuestoFin' %}">Finalizados</a></li>
                             </ul>
                         </li>
+                        {% endif %}
 
+                        {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Produccion</a>
@@ -72,6 +82,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'usuarios' %}">Usuarios</a>
                         </li>
+                        {% endif %}
                         {% endif %}
                     </ul>
                     <div>
