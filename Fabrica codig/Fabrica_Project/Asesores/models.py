@@ -8,10 +8,12 @@ class Presupuesto(models.Model):
     fecha_inicio = models.DateTimeField(null=False, auto_now_add=True, blank=False)
     cliente = models.CharField(max_length=100, null=False, blank=False)
     descripcion = models.TextField(null=False, blank=False)
+    estado=models.TextField(null=True, blank=True)
     fecha_fin = models.DateTimeField(null=True, blank=True)    
     
 class Diseno(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
+    necesita_diseño = models.BooleanField(default=False)
     fecha = models.DateTimeField(auto_now_add=True)
     archivo = models.FileField( upload_to='disenosPresupuestos/',null=False, blank=False)

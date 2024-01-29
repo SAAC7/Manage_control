@@ -1,0 +1,59 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <h1>Presupuestos</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %} 
+<th>ID</th>
+{% if user.is_superuser or  user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha de Inicio</th>
+<th>Fecha de Finalizacion</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}
+
+{% block tbody %}
+{% for p in pres %}
+<tr>
+    <td>{{ p.id }}</td>
+    {% if user.is_superuser or  user.groups.all.0.name == "Administrador" %}
+        <td>{{ p.asesor }}</td>
+    {% endif %}
+    <td>{{ p.cliente }}</td>
+    <td>{{ p.descripcion }}</td>
+    <td>{{ p.fecha_inicio }}</td>
+    <td>{{ p.fecha_fin }}</td>
+    <td>{{ p.estado }}</td>
+    <td>
+        <div>
+            <a class="btn btn btn-info btn-lg btn-block" href="#">Ver</a>
+        </div>
+    </td>
+</tr>
+{% endfor %}
+
+
+ {% endblock %}
+
+ {% block footer %} 
+ <th>ID</th>
+ {% if user.is_superuser or  user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+ <th>Cliente</th>
+ <th>Descripcion</th>
+ <th>Fecha de Inicio</th>
+ <th>Fecha de Finalizacion</th>
+ <th>Estado</th>
+ <th>Opciones</th>
+ {% endblock %}

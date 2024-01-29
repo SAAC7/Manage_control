@@ -1,0 +1,59 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <h1>Usuarios</h1>
+</div>
+<div class="pb-3">
+    <a class="btn btn-primary btn-lg" href="{% url 'usuarios_crear' %}">Crear Usuario</a>
+</div>
+
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th style="display: none;">ID</th>
+<th>Usario</th>
+<th>Nombre</th>
+<th>Apellido</th>
+<th>Correo</th>
+<th>Activo</th>
+<th>Opciones</th>
+{% endblock %}
+
+{% block tbody %}
+{% for usuario in usuarios %}
+<tr>
+    <td style="display: none;">{{usuario.id}}</td>
+    <td>{{usuario.username}}</td>
+    <td>{{usuario.first_name}}</td>
+    <td>{{usuario.last_name}}</td>
+    <td>{{usuario.email}}</td>
+    <td>
+        {% if usuario.is_active %} <!-- Verifica si el campo está marcado en el modelo -->
+        <input type="checkbox" name="mi_campo" value="{{ form.mi_campo.value }}" checked disabled>
+        <!-- Checkbox desactivado y marcado -->
+        {% else %}
+        <input type="checkbox" name="mi_campo" value="{{ form.mi_campo.value }}" disabled>
+        <!-- Checkbox desactivado y desmarcado -->
+        {% endif %}
+    </td>
+
+    <td>
+        <a class="btn btn-danger btn-sm btn-block" href="/Usuarios/Desabilitar/{{usuario.id}}">Disable</a>
+    </td>
+</tr>
+{% endfor %}
+{% endblock %}
+
+{% block footer %}
+<th style="display: none;">ID</th>
+<th>Usario</th>
+<th>Nombre</th>
+<th>Apellido</th>
+<th>Correo</th>
+<th>Activo</th>
+<th>Opciones</th>
+{% endblock %}

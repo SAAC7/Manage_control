@@ -1,5 +1,5 @@
 {% extends 'core.html' %}
-{% block content%}
+{% block content %}
 
 <style>
   /* Cambiar el cursor al pasar el mouse sobre el checkbox */
@@ -19,31 +19,32 @@
       <div class="text-center">
         <h1>Presupuesto</h1>
       </div>
-      <form>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="row">
           <div class="col-6">
             <div class="form-group">
-              <label for="nombreCliente">Nombre del Cliente:</label>
-              <input type="text" id="nombreCliente" class="form-control form-control-user" name="nombreCliente" required>
+              {{ form.nombre_cliente.label_tag }}
+              {{ form.nombre_cliente }}
             </div>
             <div class="form-group px-md-3">
-              <input type="checkbox" id="solDesign" name="solDesign" value="True" class="form-check-input cursor-pointer" required>
-              <label for="solDesign" class="form-check-label"> Mandar a Diseñar</label>
+              {{ form.sol_design }}
+              {{ form.sol_design.label }}
             </div>
             <div class="custom-file">
-              <label for="miArchivo" class="custom-file-label cursor-pointer">Selecciona un archivo (PDF, RAR, JPG, PNG):</label>
-              <input type="file" class="custom-file-input cursor-pointer" id="miArchivo" name="miArchivo" onchange="updateFileName()" required>
+              {{ form.archivo.label_tag }}
+              {{ form.archivo }}
               <small id="fileError" class="text-danger"></small>
               <br><br>
             </div>
             <div class="form-group">
-            <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio" disabled>
+              <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
             </div>
           </div>
           <div class="col-6">
             <div class="form-group">
-              <label for="descripcion">Descripción:</label>
-              <textarea id="descripcion" name="descripcion" class="form-control form-control-user" rows="7" required></textarea>
+              {{ form.descripcion.label_tag }}
+              {{ form.descripcion }}
             </div>
           </div>
         </div>
@@ -54,7 +55,7 @@
 
 <script>
   function updateFileName() {
-    var inputFile = document.getElementById('miArchivo');
+    var inputFile = document.getElementById('id_archivo');
     var fileName = inputFile.files[0].name; // Obtener solo el nombre del archivo
     var label = document.querySelector('.custom-file-label');
     var fileError = document.getElementById('fileError');
@@ -75,4 +76,5 @@
     }
   }
 </script>
+
 {% endblock %}

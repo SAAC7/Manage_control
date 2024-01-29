@@ -1,0 +1,74 @@
+{% extends 'core.html' %}
+{% block content%}
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="card o-hidden border-0 shadow-lg">
+            <div class="text-center">
+                <h1>Crear Usuario</h1>
+            </div>
+            <form method="post" id="userForm">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="id_first_name">Nombre:</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_last_name">Apellidos:</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Correo:</label>
+                            {{ form.email }}
+                        </div>
+                        <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Crear Usuario" name="botonEnvio">
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="id_username">Usuario:</label>
+                            {{ form.username }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Password:</label>
+                            {{ form.password }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Verificar Password:</label>
+                            <input type="password" name="password" id="password" class="form-control form-control-user">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_group">Grupo:</label>
+                            {{ form.group }}
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var passwordField1 = document.getElementById('id_password');
+    var passwordField2 = document.getElementById('password');
+
+    passwordField1.addEventListener('input', verificarContra);
+    passwordField2.addEventListener('input', verificarContra);
+
+    function verificarContra() {
+        var password1 = passwordField1.value;
+        var password2 = passwordField2.value;
+
+        if (password1 !== password2) {
+            passwordField1.classList.add('is-invalid');
+            passwordField2.classList.add('is-invalid');
+        } else {
+            passwordField1.classList.remove('is-invalid');
+            passwordField2.classList.remove('is-invalid');
+        }
+    }
+});
+</script>
+
+{% endblock %}

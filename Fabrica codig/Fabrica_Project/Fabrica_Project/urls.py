@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from Login import views as login_views
 from Asesores import views as asesor_views
+from Produccion import views as produccion_views
+
 
 
 urlpatterns = [
@@ -25,8 +27,13 @@ urlpatterns = [
     path('', login_views.index , name='index'),
     path('signin/', login_views.signin , name='signin'),
     path('signout/', login_views.signout , name='signout'),
-    path('tablas/', login_views.usuarios , name='tablas'),
-    path('Presupuesto/Crear/', asesor_views.presupuesto , name='CrearPresupuesto'),
+    path('Usuarios/', login_views.usuarios , name='usuarios'),
+    path('Usuarios/Crear/', login_views.crear_usuario , name='usuarios_crear'),
+    path('Usuarios/Desabilitar/<user_id>', login_views.usurario_desabilitar , name='usuarios_crear'),
     path('Presupuesto/', asesor_views.listadoP , name='Presupuesto'),
+    path('Presupuesto/Finalizados/', asesor_views.listadoPF , name='PresupuestoFin'),
+    path('Presupuesto/Crear/', asesor_views.presupuesto , name='CrearPresupuesto'),
+    path('Presupuesto/Rechazar/<pre_id>', asesor_views.presupuesto_rechazar , name='RechazarPresupuesto'),
+    path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
     
 ]
