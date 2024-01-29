@@ -5,19 +5,18 @@ from Asesores.models import Presupuesto, Diseno
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from .forms import DisenoForm
-from django.http import HttpResponse
 import datetime
 
 # Create your views here.
 @login_required(login_url='index')
 def listadoP(request):
     user = request.user
-    if user.groups.filter(name='Asesor').exists():
+    if user.groups.filter(name='Designer').exists():
         pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user, estado='Diseñando') 
-        return render(request, 'Diseñador/listado_disenos_pendientes.html', {'pres': pres})
+        return render(request, 'Designer/listado_disenos_pendientes.html', {'pres': pres})
     elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
         pres = Presupuesto.objects.filter(fecha_fin=None, estado='Diseñando') 
-        return render(request, 'Diseñador/listado_disenos_pendientes.html', {'pres': pres})
+        return render(request, 'Designer/listado_disenos_pendientes.html', {'pres': pres})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -31,7 +30,7 @@ def nuevo_diseno(request, pre_id):
         #return render(request, 'Diseñador/diseno.html', {'form': form})     
         # Obtener el presupuesto con el ID proporcionado
         presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
-        return redirect('Designs/SubirArchivo', presupuesto)
+        return render(request,'Designer/diseno.html', {'presupuesto':presupuesto})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})

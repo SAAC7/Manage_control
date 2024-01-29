@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from Login import views as login_views
 from Asesores import views as asesor_views
-from Diseñadores import views as disenador_views
+from Disenadores import views as disenador_views
 from Produccion import views as produccion_views
 
 
@@ -35,8 +35,8 @@ urlpatterns = [
     path('Presupuesto/Finalizados/', asesor_views.listadoPF , name='PresupuestoFin'),
     path('Presupuesto/Crear/', asesor_views.presupuesto , name='CrearPresupuesto'),
     path('Presupuesto/Rechazar/<pre_id>', asesor_views.presupuesto_rechazar , name='RechazarPresupuesto'),
-    path('Designs/', disenador_views.listadoP , name='Diseños'),
-    path('Designs/SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='Diseños'),
+    path('Designs/', disenador_views.listadoP , name='Designs'),
+    path('Designs/SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='Designs_upload'),
     path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
     path("__debug__/", include("debug_toolbar.urls")),
 ]

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'Cotizadores',
     'Asesores',
-    'Diseñadores',
+    'Disenadores',
     'Produccion',
     'Login',
 ]
