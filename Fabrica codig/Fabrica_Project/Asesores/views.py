@@ -11,7 +11,16 @@ import datetime
 # Create your views here.
 @login_required(login_url='index')
 def listadoP(request):
-    return render(request,'Asesor/listado_presupuesto.html')
+    user = request.user
+    if user.groups.filter(name='Asesor').exists():
+        pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user) 
+        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
+    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
+        pres = Presupuesto.objects.filter(fecha_fin=None) 
+        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
 
 def presupuesto_list(request):
     #select_related es para hacer el JOIN y obtener los usuarios relacionados
@@ -42,7 +51,7 @@ def disenos_list(request):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
-    
+
 def listadoPF(request):
     user = request.user
     if user.groups.filter(name='Asesor').exists():
@@ -55,7 +64,6 @@ def listadoPF(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
-
 @login_required(login_url='index')
 def listadoD(request):
     user = request.user
@@ -63,6 +71,7 @@ def listadoD(request):
         fordesign = Diseno.objects.filter(necesita_diseño=False) 
         return render(request,'Asesor/listado_presupuesto.html',{'fordesign':fordesign})
 
+#Crear presupuesto
 @login_required(login_url='index')
 def presupuesto(request):
     user = request.user
@@ -86,7 +95,7 @@ def presupuesto(request):
 
                 # Guardar el Diseño
                 archivo = form.cleaned_data['archivo']
-                nuevo_diseno = Diseno.objects.create(usuario=request.user, presupuesto=nuevo_presupuesto, archivo=archivo, necesita_diseño=solicitud)
+                nuevo_diseno = Diseno.objects.create(usuario=request.user, presupuesto=nuevo_presupuesto, archivo=archivo)
                 return redirect('/Presupuesto/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
         else:
             form = PresupuestoForm()
@@ -96,6 +105,8 @@ def presupuesto(request):
         return render(request, '404.html', {'error': error})
     
     # Cambia 'nombre_del_template.html' por el nombre de tu template donde está el formulario
+
+#Rechazar presupuesto
 @login_required(login_url='index')
 def presupuesto_rechazar(request, pre_id):
     # Obtener el presupuesto con el ID proporcionado

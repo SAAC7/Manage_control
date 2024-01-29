@@ -14,6 +14,6 @@ class Presupuesto(models.Model):
 class Diseno(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
-    necesita_diseño = models.BooleanField(default=False)
     fecha = models.DateTimeField(auto_now_add=True)
+    estado=models.TextField(null=True, blank=True, default='Esperando aprobación')
     archivo = models.FileField( upload_to='disenosPresupuestos/',null=False, blank=False)
