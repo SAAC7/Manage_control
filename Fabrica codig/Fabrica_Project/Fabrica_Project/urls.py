@@ -20,6 +20,7 @@ from Login import views as login_views
 from Asesores import views as asesor_views
 from Disenadores import views as disenador_views
 from Produccion import views as produccion_views
+from Cotizadores import views as cotizador_views
 
 
 
@@ -38,5 +39,12 @@ urlpatterns = [
     path('Diseno/', disenador_views.listadoP , name='Diseno'),
     path('Diseno/SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='subir_Diseno'),
     path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
+    path('Trabajos/Finalizados/', produccion_views.trabajofin , name='Trabajos_finalizados'),
+    
+    
+    path('Cotizaciones/', cotizador_views.cotDisponibles , name='Cotizaciones'),
+    path('Cotizaciones/Reservadas/', cotizador_views.cotReservadas , name='Cotizaciones_Reservadas'),
+    path('Cotizaciones/Finalizados/', cotizador_views.cotFin , name='Cotizaciones_Finalizadas'),
+    
     path("__debug__/", include("debug_toolbar.urls")),
 ]
