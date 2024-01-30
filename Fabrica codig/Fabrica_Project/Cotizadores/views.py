@@ -20,7 +20,11 @@ def cotDisponibles(request):
         for presupuesto in presupuestos_cotizacion:
             # Obtener el diseño asociado al presupuesto que no esté en estado de reserva
             diseño = Diseno.objects.filter(presupuesto=presupuesto, estado__exact='Cotizando').first()
-        
+            
+            # Verificar si hay reservaciones asociadas a este diseño
+            # if diseño and not Reservacion.objects.filter(diseño=diseño).exists():
+            #     # Si no hay reservaciones, agregar el presupuesto y el diseño a la lista
+            presupuestos_con_diseños.append({'presupuesto': presupuesto, 'diseño': diseño})
 
         return render(request, 'Cotizador/listado.html', {'pres': presupuestos_con_diseños})
     else:

@@ -59,3 +59,26 @@ def descargar_archivo(request, id):
     response['Content-Disposition'] = f'attachment; filename="{diseno.archivo.name}"'
     
     return response
+
+def aprovado_set(request,di_id):
+    diseno = get_object_or_404(Diseno, pk=di_id)
+    presupuesto  = get_object_or_404(Presupuesto, pk=diseno.presupuesto.id)
+    # Deshabilitar al usuario
+    if diseno.estado=='Esperando aprobación':
+        diseno.estado = 'Cotizando'
+    else:
+        diseno.estado = 'Esperando aprobación'
+        
+    diseno.save()
+    
+    otros_disenos_cotizando = Diseno.objects.filter(presupuesto=presupuesto, estado='Cotizando').exists()
+    
+    # Actualizar el estado del presupuesto
+    if otros_disenos_cotizando:
+        presupuesto.estado = 'Cotizando'
+    else:
+        presupuesto.estado = 'Diseñando'
+        
+    presupuesto.save()
+    
+    return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))

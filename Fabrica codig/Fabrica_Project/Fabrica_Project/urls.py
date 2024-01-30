@@ -38,6 +38,7 @@ urlpatterns = [
     path('Presupuesto/Rechazar/<pre_id>', asesor_views.presupuesto_rechazar , name='RechazarPresupuesto'),
     path('Diseno/', disenador_views.listadoP , name='Diseno'),
     path('Diseno/SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='subir_Diseno'),
+    path('Diseno/Aprobar/<di_id>', disenador_views.aprovado_set , name='subir_Diseno'),
     path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
     path('Trabajos/Finalizados/', produccion_views.trabajofin , name='Trabajos_finalizados'),
     

@@ -48,7 +48,7 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                         </li> -->
-                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" %}
+                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" and not user.groups.all.0.name == "Cotizador" %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Trabajos</a>
@@ -69,7 +69,7 @@
                                 aria-expanded="false">Cotizaciones</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/Cotizaciones/">Disponibles</a></li>
-                                <li><a class="dropdown-item" href="/Cotizaciones/Reservadas/">Reservadas</a></li>
+                                {% comment %} <li><a class="dropdown-item" href="/Cotizaciones/Reservadas/">Reservadas</a></li> {% endcomment %}
                                 <li><a class="dropdown-item" href="/Cotizaciones/Finalizados/">Finalizados</a></li>
                             </ul>
                         </li>
