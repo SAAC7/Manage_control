@@ -20,7 +20,7 @@ from Login import views as login_views
 from Asesores import views as asesor_views
 from Disenadores import views as disenador_views
 from Produccion import views as produccion_views
-
+from Disenadores.views import descargar_archivo
 
 
 urlpatterns = [
@@ -38,5 +38,6 @@ urlpatterns = [
     path('Diseno/', disenador_views.listadoP , name='Diseno'),
     path('Diseno/SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='subir_Diseno'),
     path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
+    path('descargar/<int:id>/', descargar_archivo, name='descargar_archivo'),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
