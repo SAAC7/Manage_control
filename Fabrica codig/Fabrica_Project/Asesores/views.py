@@ -128,7 +128,7 @@ def disenos_presupuesto(request, pre_id):
         #Lista de diseños del presupuesto
         pres = Diseno.objects.filter(presupuesto_id=presupuesto)
         
-        return render(request,'Designer/diseno.html', {'presupuesto':presupuesto, 'pres': pres})
+        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
