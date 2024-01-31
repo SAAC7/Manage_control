@@ -24,23 +24,13 @@ def listadoP(request):
 def nuevo_diseno(request, pre_id):
     user = request.user
     if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
-        form = DisenoForm()
         # Obtener el presupuesto con el ID proporcionado
         presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
         
         #Lista de diseños del presupuesto
         pres = Diseno.objects.filter(presupuesto_id=presupuesto)
         
-        if request.method == 'POST':
-            form = DisenoForm(request.POST, request.FILES)
-            if form.is_valid():
-                # Guardar el Diseño
-                archivo = form.cleaned_data['archivo']
-                pres_id = form.cleaned_data['presupuesto_num']
-                Diseno.objects.create(usuario=request.user, presupuesto=presupuesto, archivo=archivo, estado='Esperando aprobación')
-                return redirect(request.path)  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
-
-        return render(request,'Designer/diseno.html', {'presupuesto':presupuesto, 'form':form, 'pres': pres})
+        return render(request,'Designer/diseno.html', {'presupuesto':presupuesto, 'pres': pres})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -84,3 +74,26 @@ def aprovado_set(request,di_id):
     presupuesto.save()
     
     return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))
+def form_nuevo_diseno(request,id_p,id_d):
+    user = request.user
+    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        if request.method == 'POST':
+            form = DisenoForm(request.POST, request.FILES)
+            if form.is_valid():
+                # Guardar el Diseño
+                archivo = form.cleaned_data['archivo']
+                presupuesto = get_object_or_404(Presupuesto, pk=id_p)  
+                Diseno.objects.create(usuario=request.user, presupuesto=presupuesto, archivo=archivo, estado='Esperando aprobación')
+                
+                
+                diseno_antiguo = get_object_or_404(Diseno, pk=id_d)  
+                diseno_antiguo.estado="Rechazado"
+                diseno_antiguo.save()
+                 
+                
+                return redirect('/Diseno/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+        else:
+            form = DisenoForm()
+            presupuesto = get_object_or_404(Presupuesto, pk=id_p)
+            
+            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto,'pres':id_d})

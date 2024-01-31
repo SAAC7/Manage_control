@@ -4,5 +4,6 @@ from . import views as disenador_views
 urlpatterns = [
     path('', disenador_views.listadoP , name='Diseno'),
     path('SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='subir_Diseno'),
+    path('SubirArchivo/nuevo_diseno/<int:id_p>/<int:id_d>/', disenador_views.form_nuevo_diseno , name='subir_Diseno_nuevo'),
     path('Aprobar/<di_id>', disenador_views.aprovado_set , name='subir_Diseno'),
 ]

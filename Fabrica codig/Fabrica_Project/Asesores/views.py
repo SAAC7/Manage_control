@@ -85,8 +85,11 @@ def presupuesto(request):
                 #asignando estado segun el checkbox
                 if solicitud:
                     estados = "Diseñando"
+                    estado_di="Diseñando"
+                    
                 else:
                     estados="Cotizando"
+                    estado_di="Aprobado"
                     
                 # Guardar el Presupuesto
                 nombre_cliente = form.cleaned_data['nombre_cliente']
@@ -95,7 +98,7 @@ def presupuesto(request):
 
                 # Guardar el Diseño
                 archivo = form.cleaned_data['archivo']
-                nuevo_diseno = Diseno.objects.create(usuario=request.user, presupuesto=nuevo_presupuesto, archivo=archivo)
+                nuevo_diseno = Diseno.objects.create(usuario=request.user, presupuesto=nuevo_presupuesto, archivo=archivo,estado=estado_di)
                 return redirect('/Presupuesto/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
         else:
             form = PresupuestoForm()
