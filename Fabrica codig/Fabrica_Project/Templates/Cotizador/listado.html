@@ -1,0 +1,58 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <h1>Cotizaciones</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha de Inicio</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}
+
+{% block tbody %}
+{% for p in pres %}
+<tr>
+    <td>{{ p.presupuesto.id }}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ p.presupuesto.asesor.first_name}} {{ p.presupuesto.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ p.presupuesto.cliente }}</td>
+    <td>{{ p.presupuesto.descripcion }}</td>
+    <td>{{ p.fecha_inicio }}</td>
+    <td>{{ p.estado }}</td>
+    <td>
+        <div>
+            <a class="btn btn-info btn-sm btn-block" href="#">Info</a>
+            {% comment %} <a class="btn btn-success btn-sm btn-block" href="#">Generar Orden</a> {% endcomment %}
+            <a class="btn btn-danger btn-sm btn-block" href="/Presupuesto/Rechazar/{{p.id }}">Rechazar</a>
+        </div>
+    </td>
+</tr>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha de Inicio</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}

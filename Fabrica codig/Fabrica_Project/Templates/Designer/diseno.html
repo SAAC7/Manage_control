@@ -54,6 +54,9 @@
     <td>{{ diseno.estado }}</td>
     <td>
         <div>
+            <a class="btn btn-success btn-sm btn-block" href="/Diseno/Aprobar/{{diseno.id}}">
+                Aprobar
+            </a>
             <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
                 Descargar
             </a>

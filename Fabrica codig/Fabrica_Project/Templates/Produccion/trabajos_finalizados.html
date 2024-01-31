@@ -13,6 +13,7 @@
 <th>ID</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
+<th>Fecha de Finalizado</th>
 <th>Opciones</th>
 {% endblock %}
 
@@ -22,10 +23,10 @@
     <td>{{trabajo.id}}</td>
     <td>{{trabajo.descripcion}}</td>
     <td>{{trabajo.fecha_inicio}}</td>
+    <td>{{trabajo.fecha_fin}}</td>
     <td>
         <div>
             <a class="btn btn-info btn-sm btn-block" href="#">Info</a>
-            <a class="btn btn-danger btn-sm btn-block" href="#">Finalizar</a>
         </div>
     </td>
 </tr>
@@ -36,5 +37,6 @@
  <th>ID</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
+<th>Fecha de Finalizado</th>
 <th>Opciones</th>
  {% endblock %}
