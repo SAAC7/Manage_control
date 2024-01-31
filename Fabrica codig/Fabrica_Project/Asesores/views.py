@@ -117,3 +117,19 @@ def presupuesto_rechazar(request, pre_id):
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
 
+#Mostrar diseños de presupuesto especificado
+@login_required(login_url='index')
+def disenos_presupuesto(request, pre_id):
+    user = request.user
+    if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        # Obtener el presupuesto con el ID proporcionado
+        presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
+        
+        #Lista de diseños del presupuesto
+        pres = Diseno.objects.filter(presupuesto_id=presupuesto)
+        
+        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
+    

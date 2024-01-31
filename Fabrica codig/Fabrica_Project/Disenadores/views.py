@@ -52,6 +52,7 @@ def obtener_presupuesto_id(request, pre_id):
     presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
     return redirect('/SubirArchivo/', presupuesto)
 
+#Descargar archivo del registro especificado
 def descargar_archivo(request, id):
     diseno = get_object_or_404(Diseno, id=id)
     
@@ -60,6 +61,7 @@ def descargar_archivo(request, id):
     
     return response
 
+#Aprobar diseño
 def aprovado_set(request,di_id):
     diseno = get_object_or_404(Diseno, pk=di_id)
     presupuesto  = get_object_or_404(Presupuesto, pk=diseno.presupuesto.id)

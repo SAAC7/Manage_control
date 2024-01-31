@@ -16,35 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Login import views as login_views
-from Asesores import views as asesor_views
-from Disenadores import views as disenador_views
 from Produccion import views as produccion_views
-from Cotizadores import views as cotizador_views
 from Disenadores.views import descargar_archivo
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', login_views.index , name='index'),
-    path('signin/', login_views.signin , name='signin'),
-    path('signout/', login_views.signout , name='signout'),
-    path('Usuarios/', login_views.usuarios , name='usuarios'),
-    path('Usuarios/Crear/', login_views.crear_usuario , name='usuarios_crear'),
-    path('Usuarios/Desabilitar/<user_id>', login_views.usurario_desabilitar , name='usuarios_crear'),
-    path('Presupuesto/', asesor_views.listadoP , name='Presupuesto'),
-    path('Presupuesto/Finalizados/', asesor_views.listadoPF , name='PresupuestoFin'),
-    path('Presupuesto/Crear/', asesor_views.presupuesto , name='CrearPresupuesto'),
-    path('Presupuesto/Rechazar/<pre_id>', asesor_views.presupuesto_rechazar , name='RechazarPresupuesto'),
-    path('Diseno/', disenador_views.listadoP , name='Diseno'),
-    path('Diseno/SubirArchivo/<pre_id>', disenador_views.nuevo_diseno , name='subir_Diseno'),
-    path('Diseno/Aprobar/<di_id>', disenador_views.aprovado_set , name='subir_Diseno'),
-    path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
-    path('Trabajos/Finalizados/', produccion_views.trabajofin , name='Trabajos_finalizados'),
-    
-    path('Cotizaciones/', cotizador_views.cotDisponibles , name='Cotizaciones'),
-    path('Cotizaciones/Reservadas/', cotizador_views.cotReservadas , name='Cotizaciones_Reservadas'),
-    path('Cotizaciones/Finalizados/', cotizador_views.cotFin , name='Cotizaciones_Finalizadas'),
+    path('admin/', admin.site.urls),   
+     
+    path('', include('Login.urls')),
+    path('Trabajos/', include('Produccion.urls')),
+    path('Cotizaciones/', include('Cotizadores.urls')),
+    path('Presupuesto/', include('Asesores.urls')),
+    path('Diseno/', include('Disenadores.urls')),
     
     path('descargar/<int:id>/', descargar_archivo, name='descargar_archivo'),
     path("__debug__/", include("debug_toolbar.urls")),

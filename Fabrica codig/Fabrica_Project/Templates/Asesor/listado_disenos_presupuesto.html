@@ -1,0 +1,60 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <h1>Diseños</h1>
+</div>
+<br>
+<div class="row">
+    <div class="col-6">
+        <label for="presupuesto_desc">Descripción:</label>
+        <textarea style="resize: none; width:inherit;" disabled name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
+    </div>
+</div>
+
+<div style="justify-content: space-between;">
+    <h4>Diseños</h4>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Fecha</th>
+<th>Estado</th>
+<th>Descargar</th>
+{% endblock %}
+
+{% block tbody %}
+{% for diseno in pres %}
+<tr>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ diseno.usuario.first_name}} {{ diseno.usuario.last_name}}</td>
+    {% endif %}
+    <td>{{ diseno.fecha }}</td>
+    <td>{{ diseno.estado }}</td>
+    <td>
+        <div>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
+                Descargar
+            </a>
+        </div>
+    </td>
+</tr>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block footer %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Fecha</th>
+<th>Estado</th>
+<th>Descargar</th>
+{% endblock %}
