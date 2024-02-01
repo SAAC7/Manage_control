@@ -53,7 +53,8 @@ def descargar_archivo(request, id):
 
     
     return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))
-def form_nuevo_diseno(request,id_p,id_d):
+
+def form_nuevo_diseno(request,id_p):
     user = request.user
     if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
         if request.method == 'POST':
@@ -66,11 +67,10 @@ def form_nuevo_diseno(request,id_p,id_d):
                 presupuesto.save()
                 
                 Diseno.objects.create(usuario=request.user, presupuesto=presupuesto, archivo=archivo, estado='Esperando aprobación')
-                
-                
-                diseno_antiguo = get_object_or_404(Diseno, pk=id_d)  
+                  
+                '''diseno_antiguo = get_object_or_404(Diseno, pk=id_d)  
                 diseno_antiguo.estado="Rechazado"
-                diseno_antiguo.save()
+                diseno_antiguo.save()'''
                  
                 
                 return redirect('/Diseno/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
@@ -78,4 +78,4 @@ def form_nuevo_diseno(request,id_p,id_d):
             form = DisenoForm()
             presupuesto = get_object_or_404(Presupuesto, pk=id_p)
             
-            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto,'pres':id_d})
+            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})

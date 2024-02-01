@@ -1,0 +1,72 @@
+{% extends 'core.html' %}
+{% block content %}
+
+<style>
+  /* Cambiar el cursor al pasar el mouse sobre el checkbox */
+  .form-check-input:hover {
+    cursor: pointer;
+  }
+
+  /* Cambiar el cursor al pasar el mouse sobre el input de archivo */
+  .custom-file-input:hover {
+    cursor: pointer;
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="card o-hidden border-0 shadow-lg">
+      <div class="text-center">
+        <h1>Diseño</h1>
+      </div>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-6">
+            <div class="custom-file">
+              {{ form.archivo.label_tag }}
+              {{ form.archivo }}
+              <small id="fileError" class="text-danger"></small>
+              <br><br>
+            </div>
+            <div class="form-group">
+              <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              {{ form.presupuesto_num.label_tag }}
+              {{ form.presupuesto_num }}
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateFileName() {
+    var inputFile = document.getElementById('id_archivo');
+    var fileName = inputFile.files[0].name; // Obtener solo el nombre del archivo
+    var label = document.querySelector('.custom-file-label');
+    var fileError = document.getElementById('fileError');
+    var miBoton = document.getElementById("botonEnvio");
+    
+    // Verificar la extensión del archivo
+    var allowedExtensions = /(\.pdf|\.rar|\.jpg|\.png)$/i;
+    if (!allowedExtensions.exec(fileName)) {
+      fileError.innerText = 'Solo se permiten archivos PDF, Imagenes o RAR.';
+      label.innerText = 'Selecciona un archivo (PDF, RAR, JPG, PNG):';
+      inputFile.value = ''; // Limpiar el valor del input para evitar la carga del archivo no permitido
+      miBoton.disabled = true;
+    } else {
+      fileError.innerText = '';
+      label.innerText = 'Archivo seleccionado: ' + fileName;
+      
+      miBoton.disabled = false;
+    }
+  }
+</script>
+
+{% endblock %}

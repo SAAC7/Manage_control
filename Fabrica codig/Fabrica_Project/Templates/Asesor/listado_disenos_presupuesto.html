@@ -2,6 +2,7 @@
 
 {% block botones%}
 <div class="text-center">
+    <br>
     <h1>Diseños</h1>
 </div>
 <br>
@@ -39,6 +40,10 @@
     <td>{{ diseno.estado }}</td>
     <td>
         <div>
+            {% if diseno.estado == 'Esperando aprobación' %}
+                <a class="btn btn-success btn-sm btn-block" href="/Presupuesto/Diseno/Aprobar/{{presupuesto.id }}/{{diseno.id }}">Aprobar</a>
+                <a class="btn btn-danger btn-sm btn-block" href="/Presupuesto/Diseno/Rechazar/{{presupuesto.id }}/{{diseno.id }}">Rechazar</a>
+            {% endif %}
             <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
                 Descargar
             </a>

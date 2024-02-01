@@ -5,6 +5,7 @@ import datetime
 from .models import *
 from Asesores.models import Presupuesto, Diseno
 # Create your views here.
+#Cotizaciones disponibles
 @login_required(login_url='index')
 def cotDisponibles(request):
     user = request.user
@@ -38,3 +39,27 @@ def cotReservadas(request):
 @login_required(login_url='index')
 def cotFin(request):
     return render(request, 'Cotizador/listado.html')
+
+@login_required(login_url='index')
+def info_cot(request):
+    user = request.user
+    if user.groups.filter(name='Asesor').exists():
+        pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user) 
+        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
+    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
+        pres = Presupuesto.objects.filter(fecha_fin=None) 
+        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
+    
+#Rechazar cotización
+@login_required(login_url='index')
+def presupuesto_rechazar(request, pre_id):
+    # Obtener el presupuesto con el ID proporcionado
+    presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
+    # Actualizar el estado del presupuesto y la fecha de finalización
+    presupuesto.estado = "Rechazado"
+    presupuesto.fecha_fin = datetime.datetime.now()
+    presupuesto.save()  # Guardar los cambios en la base de datos
+    return redirect('/Presupuesto/')

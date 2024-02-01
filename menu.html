@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Menú</title>
+  <meta charset="utf-8" />
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Menú</h1>
+
+  <table id="trabajos-table">
+    <thead>
+      <tr>
+        <th>Orden de Trabajo</th>
+        <th>Nombre de Proyecto</th>
+        <!-- Agrega más encabezados según tus necesidades -->
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
+  <script async defer src="js/datos.js"></script>
+  <script>
+    window.onload = async function () {
+      // Inicializar la API con el token guardado
+      gapi.load("client", () => {
+        gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+          // Setear el token guardado
+          token: localStorage.getItem('access_token'),
+        }).then(() => {
+          // Cargar y mostrar los trabajos
+          cargarYMostrarTrabajos();
+        });
+      });
+    };
+
+    async function cargarYMostrarTrabajos() {
+      // Obtener trabajos desde el almacenamiento local
+      const trabajos = JSON.parse(localStorage.getItem('trabajos')) || [];
+
+      // Mostrar los trabajos en la tabla
+      const trabajosTable = document.getElementById('trabajos-table');
+      const tbody = trabajosTable.querySelector('tbody');
+
+      trabajos.forEach(trabajo => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${trabajo.ordenTrabajo}</td>
+          <td>${trabajo.nombreProyecto}</td>
+          <!-- Agrega más celdas según tus necesidades -->
+        `;
+        tbody.appendChild(row);
+      });
+    }
+  </script>
+</body>
+
+</html>

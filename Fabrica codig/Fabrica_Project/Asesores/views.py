@@ -85,8 +85,7 @@ def presupuesto(request):
                 #asignando estado segun el checkbox
                 if solicitud:
                     estados = "Diseñando"
-                    estado_di="Diseñando"
-                    
+                    estado_di="Diseño guía"
                 else:
                     estados="Cotizando"
                     estado_di="Aprobado"
@@ -120,6 +119,38 @@ def presupuesto_rechazar(request, pre_id):
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
 
+#Rechazar diseño de presupuesto
+@login_required(login_url='index')
+def diseno_rechazar(request, pres_id, dis_id):
+    # Obtener el diseño con el ID proporcionado
+    diseno = get_object_or_404(Diseno, pk=dis_id)
+    # Actualizar el estado del diseño
+    diseno.estado = "Rechazado"
+    diseno.save()  # Guardar los cambios en la base de datos
+    
+     # Obtener el presupuesto con el ID proporcionado
+    presupuesto = get_object_or_404(Presupuesto, pk=pres_id)
+     # Actualizar el estado del diseño
+    presupuesto.estado = "Diseñando"
+    presupuesto.save()  # Guardar los cambios en la base de datos
+    return redirect('/Presupuesto/')
+
+#Aprobar diseño de presupuesto
+@login_required(login_url='index')
+def diseno_aprobar(request, pres_id, dis_id):
+    # Obtener el diseño con el ID proporcionado
+    diseno = get_object_or_404(Diseno, pk=dis_id)
+    # Actualizar el estado del diseño
+    diseno.estado = "Aprobado"
+    diseno.save()  # Guardar los cambios en la base de datos
+    
+     # Obtener el presupuesto con el ID proporcionado
+    presupuesto = get_object_or_404(Presupuesto, pk=pres_id)
+     # Actualizar el estado del diseño
+    presupuesto.estado = "Cotizando"
+    presupuesto.save()  # Guardar los cambios en la base de datos
+    return redirect('/Presupuesto/')
+
 #Mostrar diseños de presupuesto especificado
 @login_required(login_url='index')
 def disenos_presupuesto(request, pre_id):
@@ -136,10 +167,5 @@ def disenos_presupuesto(request, pre_id):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
-@login_required(login_url='index')
-def Aprobar_diseno(request,pre_id,di_id,estado):
-    presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
-    diseno = get_object_or_404(Diseno, pk=Diseno)
-    
       
     

@@ -2,6 +2,7 @@
 
 {% block botones%}
 <div class="text-center">
+    <br>
     <h1>Cotizaciones</h1>
 </div>
 {% endblock %}
@@ -30,8 +31,8 @@
     {% endif %}
     <td>{{ p.presupuesto.cliente }}</td>
     <td>{{ p.presupuesto.descripcion }}</td>
-    <td>{{ p.fecha_inicio }}</td>
-    <td>{{ p.estado }}</td>
+    <td>{{ p.presupuesto.fecha_inicio }}</td>
+    <td>{{ p.presupuesto.estado }}</td>
     <td>
         <div>
             <a class="btn btn-info btn-sm btn-block" href="#">Info</a>

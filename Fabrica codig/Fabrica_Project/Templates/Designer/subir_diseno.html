@@ -2,24 +2,25 @@
 {% block content%}
 <div class="container">
     <div class="row justify-content-center align-items-center">
-      <div class="card o-hidden border-0 shadow-lg">
-    <div class="col-6">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="custom-file">
-                {{ form.archivo.label_tag }}
-                {{ form.archivo }}
-                <small id="fileError" class="text-danger"></small>
-                <br>
+        <div class="card o-hidden border-0 shadow-lg">
+            <br><br>
+            <div class="col-6">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="custom-file">
+                        {{ form.archivo.label_tag }}
+                        {{ form.archivo }}
+                        <small id="fileError" class="text-danger"></small>
+                        <br>
+                    </div>
+                    <div class="form-group">
+                        <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
+                    </div>
+                    <input name="presupuesto_num" type="hidden" value={{presupuesto.id}}>
+                    <input name="diseno_antiguo"  type="hidden" value={{pres}}>
+                </form>
             </div>
-            <div class="form-group">
-                <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
-            </div>
-            <input name="presupuesto_num" type="hidden" value={{presupuesto.id}}>
-            <input name="diseno_antiguo"  type="hidden" value={{pres}}>
-        </form>
+        </div>
     </div>
-</div>
-</div>
 </div>
 {% endblock %}

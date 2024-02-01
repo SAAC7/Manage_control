@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produccion</title>
+  <!-- scripts necesarios de ley  -->
+  <script src="js/credenciales.js"></script>
+  <script src="js/produccion.js"></script>
+
+
+  <script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" id="gis"></script>
+
+  <script async defer src="js/sheetsget.js"></script>
+  <script async defer src="js/sheetspost.js"></script>
+  <script>
+    async function tabladd() {
+    insertarDatosEnTabla((getTrabajosarea_local("trazo")), 'tableTrazo_id');
+    insertarDatosEnTabla((getTrabajosarea_local("cnccorte")), 'tableCncccorte_id');
+    insertarDatosEnTabla((getTrabajosarea_local("postformado")), 'tablePostFormado_id');
+    insertarDatosEnTabla((getTrabajosarea_local("armado")), 'tableArmado_id');
+    };
+    window.onload=tabladd;
+  </script>
+
+  <style>
+    .escondido {
+      display: none;
+    }
+
+    .centrado-vertical {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fijo-vertical {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <!-- Llama a la función de inicialización al cargar la página -->
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Deseret S.A.</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
+        aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample07">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a id="linkproduccion" class="nav-link" href="produccion.html">Produccion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Reportes1</a>
+          </li>
+          <li id="linkreportes" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">Reportes</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Area</a>
+              <a class="dropdown-item" href="#">Trabajador</a>
+            </div>
+          </li>
+        </ul>
+        <a href="formularioingreso.html" class="btn btn-primary my-2 my-sm-0" style="margin: 10px;" >Agregar</a>
+        <button class="btn btn-secondary my-2 my-sm-0" id="authorize_button"
+          onclick="handleAuthClick()">Authorize</button>
+        <button class="btn btn-primary my-2 my-sm-0" style="margin: 10px;" id="signout_button"
+          onclick="handleSignoutClick()">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+  <script>
+    $(document).ready(function () {
+      $('#tableTrazo_id').DataTable();
+      $('#tableCncccorte_id').DataTable();
+      $('#tablePostFormado_id').DataTable();
+      $('#tableArmado_id').DataTable();
+    });
+  </script>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <div class="container">
+          <div class="card border-primary mb-3">
+            <div class="card-header">
+              TRAZO
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="tableTrazo_id" class="display table table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr">
+                      <td>Orden</td>
+                      <td>DESCRIPCION PRODUCTO</td>
+                      <td>COLABORADOR</td>
+                      <td>AREA</td>
+                      <td>ID A PRODUCIR</td>
+                      <td>CANTIDAD A PRODUCIR</td>
+                      <td>FECHA DE INICIO</td>
+                      <td>HORA DE INICIO</td>
+                      <td style="flex-direction: row;">
+                        <button class="btn btn-danger btn-icon-split btn-sm">Eliminar</button>
+                        <button class="btn btn-primary btn-icon-split btn-sm">Editar</button>
+
+                      </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <script>
+    $(document).ready(function () {
+      $('#tableCncccorte_id').DataTable();
+    });
+  </script> -->
+        <div class="container">
+          <div class="card border-primary mb-3">
+            <div class="card-header">
+              CNC-CORTE
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="tableCncccorte_id" class="display table table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr">
+                      <td>Orden</td>
+                      <td>DESCRIPCION PRODUCTO</td>
+                      <td>COLABORADOR</td>
+                      <td>AREA</td>
+                      <td>ID A PRODUCIR</td>
+                      <td>CANTIDAD A PRODUCIR</td>
+                      <td>FECHA DE INICIO</td>
+                      <td>HORA DE INICIO</td>
+                      <td style="flex-direction: row;">
+                        <button class="btn btn-danger btn-icon-split btn-sm">Eliminar</button>
+                        <button class="btn btn-primary btn-icon-split btn-sm">Editar</button>
+
+                      </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <script>
+    $(document).ready(function () {
+      $('#tablePostFormado_id').DataTable();
+    });
+  </script> -->
+        <div class="container">
+          <div class="card border-primary mb-3">
+            <div class="card-header">
+              POST-FORMADO
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="tablePostFormado_id" class="display table table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr">
+                      <td>Orden</td>
+                      <td>DESCRIPCION PRODUCTO</td>
+                      <td>COLABORADOR</td>
+                      <td>AREA</td>
+                      <td>ID A PRODUCIR</td>
+                      <td>CANTIDAD A PRODUCIR</td>
+                      <td>FECHA DE INICIO</td>
+                      <td>HORA DE INICIO</td>
+                      <td style="flex-direction: row;">
+                        <button class="btn btn-danger btn-icon-split btn-sm">Eliminar</button>
+                        <button class="btn btn-primary btn-icon-split btn-sm">Editar</button>
+
+                      </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <script>
+    $(document).ready(function () {
+      $('#tableArmado_id').DataTable();
+    });
+  </script> -->
+        <div class="container">
+          <div class="card border-primary mb-3">
+            <div class="card-header">
+              ARMADO
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="tableArmado_id" class="display table table-bordered" style="width:100%">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr">
+                      <td>Orden</td>
+                      <td>DESCRIPCION PRODUCTO</td>
+                      <td>COLABORADOR</td>
+                      <td>AREA</td>
+                      <td>ID A PRODUCIR</td>
+                      <td>CANTIDAD A PRODUCIR</td>
+                      <td>FECHA DE INICIO</td>
+                      <td>HORA DE INICIO</td>
+                      <td style="flex-direction: row;">
+                        <button class="btn btn-danger btn-icon-split btn-sm">Eliminar</button>
+                        <button class="btn btn-primary btn-icon-split btn-sm">Editar</button>
+
+                      </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>ID</th>
+                      <th>Orden</th>
+                      <th>DESCRIPCION PRODUCTO</th>
+                      <th>COLABORADOR</th>
+                      <th>ID A PRODUCIR</th>
+                      <th>CANTIDAD A PRODUCIR</th>
+                      <th>FECHA DE INICIO</th>
+                      <th>HORA DE INICIO</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-2 escondido">
+        <div class="contenedor center">
+          <div class="contenedores-internos">
+            <div class="dato">
+              <p>Orden: <span id="ordenedit"></span></p>
+            </div>
+            <div class="dato">
+              <p>Descripcion: <span id="descripcionedit"></span></p>
+            </div>
+          </div>
+          <div class="contenedores-internos">
+            <div class="dato">
+              <label for="area">Area de Trabajo:</label>
+              <select name="area" id="area" onchange="cargarOperarios(this.value)">
+                <option value="trazo">TRAZO</option>
+                <option value="cnc-corte">CNC-CORTE</option>
+                <option value="post-formado">POST-FORMADO</option>
+                <option value="armado">ARMADO</option>
+              </select>
+            </div>
+            <div class="dato">
+              <label for="operarios">Operarios:</label>
+              <select name="operarios" id="operarios">
+                <option value=""></option>
+              </select>
+            </div>
+
+            <div class="dato">
+              <label for="fechaFinProyecto">Fecha de Finalizacion del Trabajo:</label>
+              <input type="datetime-local" id="fechaFinProyecto" name="fechaFinProyecto" required>
+            </div>
+          </div>
+        </div>
+        <div class="contenedor top">
+          <div class="contenedores-internos">
+            <div class="dato">
+              <p>Id Mueble: <span id="idmuebleedit"></span></p>
+              <p>Cantidad: <span id="cantidadedit"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="contenedor center">
+          <input id="finalizaredit" class="buttons" type="submit" value="Finalizar">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- scripts necesarios de ley  -->
+
+  <script src="js/autenticacion.js"></script>
+</body>
+
+</html>
