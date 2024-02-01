@@ -51,27 +51,6 @@ def descargar_archivo(request, id):
     
     return response
 
-#Aprobar diseño
-def aprovado_set(request,di_id):
-    diseno = get_object_or_404(Diseno, pk=di_id)
-    presupuesto  = get_object_or_404(Presupuesto, pk=diseno.presupuesto.id)
-    # Deshabilitar al usuario
-    if diseno.estado=='Esperando aprobación':
-        diseno.estado = 'Cotizando'
-    else:
-        diseno.estado = 'Esperando aprobación'
-        
-    diseno.save()
-    
-    otros_disenos_cotizando = Diseno.objects.filter(presupuesto=presupuesto, estado='Cotizando').exists()
-    
-    # Actualizar el estado del presupuesto
-    if otros_disenos_cotizando:
-        presupuesto.estado = 'Cotizando'
-    else:
-        presupuesto.estado = 'Diseñando'
-        
-    presupuesto.save()
     
     return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))
 def form_nuevo_diseno(request,id_p,id_d):
@@ -83,6 +62,9 @@ def form_nuevo_diseno(request,id_p,id_d):
                 # Guardar el Diseño
                 archivo = form.cleaned_data['archivo']
                 presupuesto = get_object_or_404(Presupuesto, pk=id_p)  
+                presupuesto.estado="Aprobando Diseño"
+                presupuesto.save()
+                
                 Diseno.objects.create(usuario=request.user, presupuesto=presupuesto, archivo=archivo, estado='Esperando aprobación')
                 
                 

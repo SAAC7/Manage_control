@@ -135,4 +135,11 @@ def disenos_presupuesto(request, pre_id):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
+
+@login_required(login_url='index')
+def Aprobar_diseno(request,pre_id,di_id,estado):
+    presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
+    diseno = get_object_or_404(Diseno, pk=Diseno)
+    
+      
     
