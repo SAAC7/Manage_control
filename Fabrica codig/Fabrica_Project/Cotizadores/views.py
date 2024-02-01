@@ -32,23 +32,27 @@ def cotDisponibles(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
    
-@login_required(login_url='index')
-def cotReservadas(request):
-    return render(request, 'Cotizador/listado.html')
 
 @login_required(login_url='index')
 def cotFin(request):
     return render(request, 'Cotizador/listado.html')
 
 @login_required(login_url='index')
-def info_cot(request):
+def info_cot(request,pre_id):
     user = request.user
-    if user.groups.filter(name='Asesor').exists():
-        pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user) 
-        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
-    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
-        pres = Presupuesto.objects.filter(fecha_fin=None) 
-        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
+    if (user.groups.filter(name='Cotizador').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        # Obtener el presupuesto con el ID proporcionado
+        presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
+        
+        #Lista de diseños del presupuesto
+        pres = Diseno.objects.filter(presupuesto_id=presupuesto)
+        
+        cotizaciones_por_diseno = {}
+        for diseno in pres:
+            cotizaciones = Cotizacion.objects.filter(diseno=diseno)
+            cotizaciones_por_diseno[diseno.id] = cotizaciones
+        
+        return render(request,'Cotizador/Cotizador_info.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones_por_diseno': cotizaciones_por_diseno})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})

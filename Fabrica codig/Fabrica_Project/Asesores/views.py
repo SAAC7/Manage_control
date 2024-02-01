@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from .models import Presupuesto, Diseno
+from Cotizadores.models import Cotizacion
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from .forms import PresupuestoForm
@@ -162,7 +163,12 @@ def disenos_presupuesto(request, pre_id):
         #Lista de diseños del presupuesto
         pres = Diseno.objects.filter(presupuesto_id=presupuesto)
         
-        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres})
+        cotizaciones_por_diseno = {}
+        for diseno in pres:
+            cotizaciones = Cotizacion.objects.filter(diseno=diseno)
+            cotizaciones_por_diseno[diseno.id] = cotizaciones
+        
+        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones_por_diseno': cotizaciones_por_diseno})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
