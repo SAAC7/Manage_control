@@ -39,21 +39,19 @@ def cotFin(request):
     return render(request, 'Cotizador/listado.html')
 
 @login_required(login_url='index')
-def info_cot(request,pre_id):
+def info_cot(request, pre_id):
     user = request.user
     if (user.groups.filter(name='Cotizador').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
         # Obtener el presupuesto con el ID proporcionado
         presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
         
-        #Lista de diseños del presupuesto
-        pres = Diseno.objects.filter(presupuesto_id=presupuesto)
+        # Lista de diseños del presupuesto
+        disenos = Diseno.objects.filter(presupuesto_id=presupuesto)
         
-        cotizaciones_por_diseno = {}
-        for diseno in pres:
-            cotizaciones = Cotizacion.objects.filter(diseno=diseno)
-            cotizaciones_por_diseno[diseno.id] = cotizaciones
+        # Obtener las cotizaciones del presupuesto
+        cotizaciones = Cotizacion.objects.filter(diseno__presupuesto=presupuesto)
         
-        return render(request,'Cotizador/Cotizador_info.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones_por_diseno': cotizaciones_por_diseno})
+        return render(request, 'Cotizador/Cotizador_info.html', {'presupuesto': presupuesto, 'disenos': disenos, 'cotizaciones': cotizaciones})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -96,3 +94,14 @@ def subir_cot(request,id_p):
             presupuesto = get_object_or_404(Presupuesto, pk=id_p)
             
             return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})
+        
+def descargar_archivo(request, id):
+    diseno = get_object_or_404(Diseno, id=id)
+    
+    response = HttpResponse(diseno.archivo.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{diseno.archivo.name}"'
+    
+    return response
+
+    
+    return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))

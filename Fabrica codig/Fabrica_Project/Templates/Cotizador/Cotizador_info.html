@@ -11,18 +11,22 @@
     <div class="row">
         <div class="col-md-6">
             <label for="cliente">Descripción:</label>
-            <input type="text" class="form-control form-control-user" name="cliente" id="cliente" readonly value="{{presupuesto.cliente}}">
+            <input type="text" class="form-control form-control-user" name="cliente" id="cliente" readonly
+                value="{{presupuesto.cliente}}">
         </div>
         <div class="col-md-6">
             <label for="presupuesto_desc">Descripción:</label>
-            <textarea class="form-control form-control-user" readonly name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
+            <textarea class="form-control form-control-user" readonly
+                name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
         </div>
     </div>
     <br>
     <div class="row justify-content-end">
         <div class="col-md-12 col-lg-6 text-right">
-            <a class="btn btn-success btn-lg" href="/Cotizaciones/SubirArchivo/Nueva_Cotizacion/{{presupuesto.id}}">Subir Cotizacion</a>
-            {% comment %} <a class="btn btn-success btn-lg" href="{% url 'subir_Cotizacion_nuevo' id_p=presupuesto.id %}">Subir Cotizacion</a> {% endcomment %}
+            <a class="btn btn-success btn-lg"
+                href="/Cotizaciones/SubirArchivo/Nueva_Cotizacion/{{presupuesto.id}}">Subir Cotizacion</a>
+            {% comment %} <a class="btn btn-success btn-lg"
+                href="{% url 'subir_Cotizacion_nuevo' id_p=presupuesto.id %}">Subir Cotizacion</a> {% endcomment %}
         </div>
     </div>
     <br>
@@ -50,7 +54,7 @@
 {% endblock %}
 
 {% block tbody %}
-{% for diseno in pres %}
+{% for diseno in disenos %}
 <tr>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
     <td>{{ diseno.usuario.first_name}} {{ diseno.usuario.last_name}}</td>
@@ -60,19 +64,21 @@
     <td>{{ diseno.estado }}</td>
     <td>
         <div>
-            {% if diseno.estado == 'Esperando aprobación' %}
-            <a class="btn btn-success btn-sm btn-block" href="/Presupuesto/Diseno/Aprobar/{{presupuesto.id }}/{{diseno.id }}">Aprobar</a>
-            <a class="btn btn-danger btn-sm btn-block" href="/Presupuesto/Diseno/Rechazar/{{presupuesto.id }}/{{diseno.id }}">Rechazar</a>
-            {% endif %}
             <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
                 Descargar
             </a>
         </div>
     </td>
     <td>
-        {% for cotizacion in cotizaciones_por_diseno.diseno.id %}
-        <p>Cotización {{ cotizacion.id }}: {{ cotizacion.archivo.url }}</p>
-    {% endfor %}
+        <div>
+            {% for cotizacion in cotizaciones  %}
+            {% if cotizacion.diseno.id == diseno.id%}
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
+                Descargar
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
     </td>
 </tr>
 {% endfor %}
