@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 import datetime
 from .models import *
 from Asesores.models import Presupuesto, Diseno
+from .forms import CotForm
 # Create your views here.
 #Cotizaciones disponibles
 @login_required(login_url='index')
@@ -67,3 +68,31 @@ def presupuesto_rechazar(request, pre_id):
     presupuesto.fecha_fin = datetime.datetime.now()
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
+
+
+
+@login_required(login_url='index')
+def subir_cot(request,id_p):
+    user = request.user
+    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Cotizador').exists()):
+        if request.method == 'POST':
+            form = CotForm(request.POST, request.FILES)
+            presupuesto = get_object_or_404(Presupuesto, pk=id_p)  
+            disenos = Diseno.objects.filter(presupuesto_id=presupuesto, estado="Aprobado")
+            if disenos.exists():
+                if form.is_valid():
+                    # Guardar el Diseño
+                    archivo = form.cleaned_data['archivo']
+                    presupuesto.estado="Aprobando Cotización"
+                    presupuesto.save()
+                    diseno = disenos.first()  # O cualquier otra lógica para seleccionar un diseno de la lista
+                    Cotizacion.objects.create(cotizador=user, diseno=diseno, archivo=archivo, estado='Esperando aprobación')
+                    return redirect('/Cotizaciones/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+                else:
+                    error = "No se puede adjuntar Cotizacion"
+                    return render(request, '404.html', {'error': error})
+        else:
+            form = CotForm()
+            presupuesto = get_object_or_404(Presupuesto, pk=id_p)
+            
+            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})

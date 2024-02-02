@@ -5,4 +5,5 @@ urlpatterns = [
     path('', cotizador_views.cotDisponibles , name='Cotizaciones'),
     path('Finalizados/', cotizador_views.cotFin , name='Cotizaciones_Finalizadas'),
     path('info/<pre_id>/', cotizador_views.info_cot , name='Cotizaciones_info'),
+    path('SubirArchivo/Nueva_Cotizacion/<int:id_p>/', cotizador_views.subir_cot , name='subir_Cotizacion_nuevo'),
 ]
