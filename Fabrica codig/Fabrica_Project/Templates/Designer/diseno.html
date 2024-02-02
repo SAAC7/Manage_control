@@ -1,34 +1,37 @@
 {% extends 'tables.html' %}
 
 {% block botones%}
-<div class="text-center">
+<div class="container-fluid">
+    <div class="text-center">
+        <br>
+        <h1>Presupuesto {{presupuesto.id}}</h1>
+        <h4>{{presupuesto.estado}}</h4>
+    </div>
     <br>
-    <h1>Diseños</h1>
-</div>
-<br>
-<div class="row">
-    <div class="col-6">
-        <label for="cliente">Descripción:</label>
-        <input type="text" class="form-control form-control-user" name="cliente" id="cliente" readonly value="{{presupuesto.cliente}}">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="cliente">Descripción:</label>
+            <input type="text" class="form-control form-control-user" name="cliente" id="cliente" readonly value="{{presupuesto.cliente}}">
+        </div>
+        <div class="col-md-6">
+            <label for="presupuesto_desc">Descripción:</label>
+            <textarea class="form-control form-control-user" readonly name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
+        </div>
     </div>
-    <div class="col-6">
-        <label for="presupuesto_desc">Descripción:</label>
-        <textarea class="form-control form-control-user" readonly
-            name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
+    <br>
+    <div class="row justify-content-end">
+        <div class="col-md-12 col-lg-6 text-right">
+            <a class="btn btn-success btn-lg" href="{% url 'subir_Diseno_nuevo' id_p=presupuesto.id %}">Subir Diseño</a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <h4>Diseños previos</h4>
+        </div>
     </div>
 </div>
-<br>
-<div class="row">
-    <div class="col-6">
-        <a class="btn btn-success btn-sm btn-block" style="width: 30%;" href="{% url 'subir_Diseno_nuevo' id_p=presupuesto.id %}">                
-            Subir Diseño
-        </a>
-    </div>
-</div>
-<br>
-<div style="justify-content: space-between;">
-    <h4>Diseños previos</h4>
-</div>
+
 {% endblock %}
 
 {% load static %}
