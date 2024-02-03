@@ -4,6 +4,7 @@ from django.core.files.storage import FileSystemStorage
 import datetime
 from .models import *
 from Asesores.models import Presupuesto, Diseno
+from django.http import HttpResponse
 from .forms import CotForm
 # Create your views here.
 #Cotizaciones disponibles
@@ -96,12 +97,20 @@ def subir_cot(request,id_p):
             return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})
         
 def descargar_archivo(request, id):
-    diseno = get_object_or_404(Diseno, id=id)
+    cotizacion = get_object_or_404(Cotizacion, id=id)
     
-    response = HttpResponse(diseno.archivo.read(), content_type='application/octet-stream')
-    response['Content-Disposition'] = f'attachment; filename="{diseno.archivo.name}"'
+    # Obtener el archivo de la cotización
+    archivo = cotizacion.archivo
+    
+    # Leer el contenido del archivo
+    with archivo.open('rb') as f:
+        contenido = f.read()
+    
+    # Crear la respuesta HTTP con el contenido del archivo
+    response = HttpResponse(contenido, content_type='application/octet-stream')
+    
+    # Establecer el encabezado para la descarga del archivo
+    response['Content-Disposition'] = f'attachment; filename="{archivo.name}"'
     
     return response
-
     
-    return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))

@@ -24,7 +24,7 @@
     <div class="row justify-content-end">
         <div class="col-md-12 col-lg-6 text-right">
             <a class="btn btn-success btn-lg"
-                href="/Cotizaciones/SubirArchivo/Nueva_Cotizacion/{{presupuesto.id}}">Subir Cotizacion</a>
+                href="/Cotizaciones/SubirArchivo/Nueva_Cotizacion/{{presupuesto.id}}"><i class="bi bi-upload"></i> Subir Cotizacion</a>
             {% comment %} <a class="btn btn-success btn-lg"
                 href="{% url 'subir_Cotizacion_nuevo' id_p=presupuesto.id %}">Subir Cotizacion</a> {% endcomment %}
         </div>
@@ -65,21 +65,26 @@
     <td>
         <div>
             <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
-                Descargar
+                <i class="bi bi-cloud-download"></i>
             </a>
         </div>
     </td>
     <td>
-        <div>
-            {% for cotizacion in cotizaciones  %}
-            {% if cotizacion.diseno.id == diseno.id%}
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
-                Descargar
-            </a>
-            {% endif %}
-            {% endfor %}
+        {% for cotizacion in cotizaciones  %}
+        {% if cotizacion.diseno.id == diseno.id%}
+        <div class="row">
+            <div class="col-md-8">
+                {{ cotizacion.estado }}
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=cotizacion.id %}" download>
+                    <i class="bi bi-cloud-download"></i>
+                </a>
+            </div>
         </div>
-    </td>
+        {% endif %}
+        {% endfor %}
+    </td> 
 </tr>
 {% endfor %}
 

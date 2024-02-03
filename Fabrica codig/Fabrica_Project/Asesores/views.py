@@ -163,12 +163,9 @@ def disenos_presupuesto(request, pre_id):
         #Lista de diseños del presupuesto
         pres = Diseno.objects.filter(presupuesto_id=presupuesto)
         
-        cotizaciones_por_diseno = {}
-        for diseno in pres:
-            cotizaciones = Cotizacion.objects.filter(diseno=diseno)
-            cotizaciones_por_diseno[diseno.id] = cotizaciones
+        cotizaciones = Cotizacion.objects.filter(diseno__presupuesto=presupuesto)
         
-        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones_por_diseno': cotizaciones_por_diseno})
+        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones': cotizaciones})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
