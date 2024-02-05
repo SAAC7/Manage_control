@@ -49,22 +49,45 @@
     <td>
         <div>
             {% if diseno.estado == 'Esperando aprobación' %}
-            <a class="btn btn-success btn-sm btn-block" href="/Presupuesto/Diseno/Aprobar/{{presupuesto.id }}/{{diseno.id }}">Aprobar</a>
-            <a class="btn btn-danger btn-sm btn-block" href="/Presupuesto/Diseno/Rechazar/{{presupuesto.id }}/{{diseno.id }}">Rechazar</a>
+            <div class="text-center">
+                <a class="btn btn-success btn-md" href="/Presupuesto/Diseno/Aprobar/{{presupuesto.id }}/{{diseno.id }}"><i class="bi bi-check-circle"></i></a>
+                <a class="btn btn-danger btn-md" href="/Presupuesto/Diseno/Rechazar/{{presupuesto.id }}/{{diseno.id }}"><i class="bi bi-x-octagon"></i></a>
+            </div>
             {% endif %}
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
-                Descargar
-            </a>
+            <div class="text-center">
+                <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
+                    <i class="bi bi-cloud-download"></i>
+                </a>
+            </div>
         </div>
     </td>
+    
     <td>
-        <!--<a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
-            Descargar
-        </a>-->
-        {% for cotizacion in cotizaciones_por_diseno.diseno.id %}
-        <p>Cotización {{ cotizacion.id }}: {{ cotizacion.archivo.url }}</p>
-        {% endfor %}
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    {% for cotizacion in cotizaciones %}
+                        {% if cotizacion.diseno.id == diseno.id %}
+                            <div class="row">
+                                <div class="col">
+                                    <div>{{ cotizacion.estado }}</div>
+                                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=cotizacion.id %}" download>
+                                        <i class="bi bi-cloud-download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-4 d-flex align-items-stretch">
+                    <a class="btn btn-success btn-md btn-block my-auto" href="#"><i class="bi bi-check-circle"></i></a>
+                </div>
+            </div>
+        </div>
     </td>
+    
+    
+    
 </tr>
 {% endfor %}
 

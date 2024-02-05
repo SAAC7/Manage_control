@@ -28,7 +28,5 @@ urlpatterns = [
     path('Cotizaciones/', include('Cotizadores.urls')),
     path('Presupuesto/', include('Asesores.urls')),
     path('Diseno/', include('Disenadores.urls')),
-    
-    path('descargar/<int:id>/', descargar_archivo, name='descargar_archivo'),
     path("__debug__/", include("debug_toolbar.urls")),
 ]

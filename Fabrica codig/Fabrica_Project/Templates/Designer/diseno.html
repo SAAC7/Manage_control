@@ -21,7 +21,7 @@
     <br>
     <div class="row justify-content-end">
         <div class="col-md-12 col-lg-6 text-right">
-            <a class="btn btn-success btn-lg" href="{% url 'subir_Diseno_nuevo' id_p=presupuesto.id %}">Subir Diseño</a>
+            <a class="btn btn-success btn-lg" href="{% url 'subir_Diseno_nuevo' id_p=presupuesto.id %}"><i class="bi bi-upload"></i> Subir Diseño</a>
         </div>
     </div>
     <br>
@@ -59,7 +59,7 @@
             
             {% endif %}
             <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
-                Descargar
+                <i class="bi bi-cloud-download"></i> Descargar
             </a>
         </div>
     </td>
