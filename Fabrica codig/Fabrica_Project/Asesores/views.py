@@ -28,7 +28,7 @@ def presupuesto_list(request):
     presupuestos = Presupuesto.objects.select_related('asesor').all()
     return render(request, )
 
-def disenos_list(request):
+'''def disenos_list(request):
     #select_related es para hacer el JOIN y obtener algunos datos del presupuesto
     disenos = Diseno.objects.select_related('usuario, presupuesto').all()
     
@@ -51,7 +51,7 @@ def disenos_list(request):
         return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
     else:
         error = "No tienes permiso para acceder a esta página."
-        return render(request, '404.html', {'error': error})
+        return render(request, '404.html', {'error': error})'''
 
 def listadoPF(request):
     user = request.user
@@ -136,6 +136,22 @@ def diseno_rechazar(request, pres_id, dis_id):
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
 
+#Rechazar cotizacion de diseño
+@login_required(login_url='index')
+def cotizacion_rechazar(request, pres_id, coti_id):
+    # Obtener la cotizacion con el ID proporcionado
+    cotizacion = get_object_or_404(Cotizacion, pk=coti_id)
+    # Actualizar el estado de la cotizacion
+    cotizacion.estado = "Rechazado"
+    cotizacion.save()  # Guardar los cambios en la base de datos
+    
+    # Obtener el presupuesto con el ID proporcionado
+    presupuesto = get_object_or_404(Presupuesto, pk=pres_id)
+     # Actualizar el estado del diseño
+    presupuesto.estado = "Cotizando"
+    presupuesto.save()  # Guardar los cambios en la base de datos
+    return redirect('/Presupuesto/')
+
 #Aprobar diseño de presupuesto
 @login_required(login_url='index')
 def diseno_aprobar(request, pres_id, dis_id):
@@ -149,6 +165,22 @@ def diseno_aprobar(request, pres_id, dis_id):
     presupuesto = get_object_or_404(Presupuesto, pk=pres_id)
      # Actualizar el estado del diseño
     presupuesto.estado = "Cotizando"
+    presupuesto.save()  # Guardar los cambios en la base de datos
+    return redirect('/Presupuesto/')
+
+#Aprobar cotizacion de diseño
+@login_required(login_url='index')
+def cotizacion_aprobar(request, pres_id, coti_id):
+    # Obtener la cotizacion con el ID proporcionado
+    cotizacion = get_object_or_404(Cotizacion, pk=coti_id)
+    # Actualizar el estado de la cotización
+    cotizacion.estado = "Aprobado"
+    cotizacion.save()  # Guardar los cambios en la base de datos
+    
+     # Obtener el presupuesto con el ID proporcionado
+    presupuesto = get_object_or_404(Presupuesto, pk=pres_id)
+     # Actualizar el estado del diseño
+    presupuesto.estado = "En produccion"
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
 
