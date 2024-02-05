@@ -58,9 +58,12 @@
         </div>
     </td>
     <td>
+        <!--<a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
+            Descargar
+        </a>-->
         {% for cotizacion in cotizaciones_por_diseno.diseno.id %}
         <p>Cotización {{ cotizacion.id }}: {{ cotizacion.archivo.url }}</p>
-    {% endfor %}
+        {% endfor %}
     </td>
 </tr>
 {% endfor %}

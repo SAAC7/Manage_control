@@ -33,7 +33,6 @@ def cotDisponibles(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
    
-
 @login_required(login_url='index')
 def cotFin(request):
     return render(request, 'Cotizador/listado.html')
@@ -68,8 +67,6 @@ def presupuesto_rechazar(request, pre_id):
     presupuesto.fecha_fin = datetime.datetime.now()
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
-
-
 
 @login_required(login_url='index')
 def subir_cot(request,id_p):

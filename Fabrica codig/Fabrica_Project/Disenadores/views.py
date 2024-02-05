@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from Asesores.models import Presupuesto, Diseno
+from Cotizadores.models import Cotizacion
 from .forms import DisenoForm
 from django.http import HttpResponse
 
@@ -50,9 +51,17 @@ def descargar_archivo(request, id):
     response['Content-Disposition'] = f'attachment; filename="{diseno.archivo.name}"'
     
     return response
-
     
-    return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))
+    #return redirect('/Diseno/SubirArchivo/'+ str(diseno.presupuesto.id))
+    
+#Descargar archivo del registro especificado
+def descargar_coti(request, id):
+    cotizacion = get_object_or_404(Cotizacion, id=id)
+    
+    response = HttpResponse(cotizacion.archivo.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{cotizacion.archivo.name}"'
+    
+    return response
 
 def form_nuevo_diseno(request,id_p):
     user = request.user
