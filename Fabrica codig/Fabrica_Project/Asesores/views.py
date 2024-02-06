@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate
-from .models import Presupuesto, Diseno
-from Cotizadores.models import Cotizacion
-from django.contrib import messages
-from django.core.files.storage import FileSystemStorage
-from .forms import PresupuestoForm
 from django.http import HttpResponse
 import datetime
+#Modelos
+from .models import Presupuesto, Diseno
+from Cotizadores.models import Cotizacion
+from Produccion.models import Orden_trabajo
+#Formularios
+from .forms import PresupuestoForm
+from .forms import ContratoForm
+
 
 # Create your views here.
 @login_required(login_url='index')
@@ -28,31 +30,7 @@ def presupuesto_list(request):
     presupuestos = Presupuesto.objects.select_related('asesor').all()
     return render(request, )
 
-'''def disenos_list(request):
-    #select_related es para hacer el JOIN y obtener algunos datos del presupuesto
-    disenos = Diseno.objects.select_related('usuario, presupuesto').all()
-    
-    #Iterando para obtener toda la informacion
-    for diseno in disenos:
-        print("Presupuesto ID:", presupuesto.id)
-        print("Asesor Username:", presupuesto.asesor.username)
-        print("Fecha Inicio:", presupuesto.fecha_inicio)
-        print("Cliente:", presupuesto.cliente)
-        print("Descripcion:", presupuesto.descripcion)
-        print("Fecha Fin:", presupuesto.fecha_fin)
-        print("\n")
-        
-    user = request.user
-    if user.groups.filter(name='Asesor').exists():
-        pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user) 
-        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
-    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
-        pres = Presupuesto.objects.filter(fecha_fin=None) 
-        return render(request, 'Asesor/listado_presupuesto.html', {'pres': pres})
-    else:
-        error = "No tienes permiso para acceder a esta página."
-        return render(request, '404.html', {'error': error})'''
-
+#Listado de presupuestos finalizados
 def listadoPF(request):
     user = request.user
     if user.groups.filter(name='Asesor').exists():
@@ -65,6 +43,7 @@ def listadoPF(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
+#Listado de presupuestos que necesitan diseño
 @login_required(login_url='index')
 def listadoD(request):
     user = request.user
@@ -109,6 +88,33 @@ def presupuesto(request):
     
     # Cambia 'nombre_del_template.html' por el nombre de tu template donde está el formulario
 
+#Subir contrato
+@login_required(login_url='index')
+def subir_contrato(request,id_p):
+    user = request.user
+    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Cotizador').exists()):
+        if request.method == 'POST':
+            form = ContratoForm(request.POST, request.FILES)
+            presupuesto_obtenido = get_object_or_404(Presupuesto, pk=id_p)  
+            validar_presupuesto = Presupuesto.objects.filter(id=id_p, estado="Pendiente de contrato")
+            if validar_presupuesto.exists():
+                if form.is_valid():
+                    # Guardar el Diseño
+                    archivo = form.cleaned_data['archivo']
+                    presupuesto_obtenido.estado="Enviado a producción"
+                    presupuesto_obtenido.save()
+                    pres = validar_presupuesto.first()  # O cualquier otra lógica para seleccionar un diseno de la lista
+                    Orden_trabajo.objects.create(presupuesto=presupuesto_obtenido, contrato=archivo)
+                    return redirect('/Presupuesto/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+                else:
+                    error = "No se puede adjuntar contrato"
+                    return render(request, '404.html', {'error': error})
+        else:
+            form = ContratoForm()
+            presupuesto = get_object_or_404(Presupuesto, pk=id_p)
+            
+            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})
+        
 #Rechazar presupuesto
 @login_required(login_url='index')
 def presupuesto_rechazar(request, pre_id):
@@ -180,7 +186,7 @@ def cotizacion_aprobar(request, pres_id, coti_id):
      # Obtener el presupuesto con el ID proporcionado
     presupuesto = get_object_or_404(Presupuesto, pk=pres_id)
      # Actualizar el estado del diseño
-    presupuesto.estado = "En produccion"
+    presupuesto.estado = "Pendiente de contrato"
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
 
@@ -202,5 +208,13 @@ def disenos_presupuesto(request, pre_id):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
+#Descargar archivo del contrato
+def descargar_contrato(request, id):
+    contrato = get_object_or_404(Orden_trabajo, presupuesto_id=id)
+    
+    response = HttpResponse(contrato.contrato.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{contrato.contrato.name}"'
+    
+    return response
       
     

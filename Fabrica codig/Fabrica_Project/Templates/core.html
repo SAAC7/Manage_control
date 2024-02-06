@@ -44,19 +44,14 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                        </li> -->
-                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" and not user.groups.all.0.name == "Cotizador" %}
+                        {% if user.is_superuser or user.groups.all.0.name == "Asesor" or user.groups.all.0.name == "Administrador"%}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Trabajos</a>
+                                aria-expanded="false">Presupuesto</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/Trabajos/">En Curso</a></li>
-                                <li><a class="dropdown-item" href="/Trabajos/Finalizados/">Finalizados</a></li>
+                                <li><a class="dropdown-item" href="{% url 'CrearPresupuesto' %}">Crear</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Presupuesto' %}">En Curso</a></li>
+                                <li><a class="dropdown-item" href="{% url 'PresupuestoFin' %}">Finalizados</a></li>
                             </ul>
                         </li>
                         {% endif %}
@@ -76,22 +71,22 @@
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or user.groups.all.0.name == "Asesor" or user.groups.all.0.name == "Administrador"%}
+                        {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/Produccion/">Ordenes de Trabajo</a>
+                        </li>
+                        {% endif %}
+                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" and not user.groups.all.0.name == "Cotizador" %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Presupuesto</a>
+                                aria-expanded="false">Trabajos</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'CrearPresupuesto' %}">Crear</a></li>
-                                <li><a class="dropdown-item" href="{% url 'Presupuesto' %}">En Curso</a></li>
-                                <li><a class="dropdown-item" href="{% url 'PresupuestoFin' %}">Finalizados</a></li>
+                                <li><a class="dropdown-item" href="/Trabajos/">En Curso</a></li>
+                                <li><a class="dropdown-item" href="/Trabajos/Finalizados/">Finalizados</a></li>
                             </ul>
                         </li>
                         {% endif %}
-
                         {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Ordenes de Trabajo</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'usuarios' %}">Usuarios</a>
                         </li>

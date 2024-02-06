@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from Produccion import views as produccion_views
 from Disenadores.views import descargar_archivo
 
 
@@ -28,5 +27,6 @@ urlpatterns = [
     path('Cotizaciones/', include('Cotizadores.urls')),
     path('Presupuesto/', include('Asesores.urls')),
     path('Diseno/', include('Disenadores.urls')),
+    path('Produccion/', include('Produccion.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
 ]

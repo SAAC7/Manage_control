@@ -1,0 +1,61 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <br>
+    <h1>Ordenes de Trabajo</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Diseño</th>
+<th>Cotizacion</th>
+<th>Contrato</th>
+<th>Estado</th>
+{% endblock %}
+
+{% block tbody %}
+{% for p in presupuesto_diseno %}
+{% for c in cotizaciones %}
+<tr>
+    <td>{{ p.id }}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ p.asesor.first_name}} {{ p.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ p.cliente }}</td>
+    <td>
+        <div class="text-center">
+            <a class="btn btn-info btn-sm btn-block" href="#" download>
+                <i class="bi bi-cloud-download"></i>
+            </a>
+        </div>
+    </td>
+    <td>{{ c.id }}</td>
+    <td></td>
+    <td></td>
+</tr>
+{% endfor %}
+{% endfor %}
+
+
+{% endblock %}
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Diseño</th>
+<th>Cotizacion</th>
+<th>Contrato</th>
+<th>Estado</th>
+{% endblock %}

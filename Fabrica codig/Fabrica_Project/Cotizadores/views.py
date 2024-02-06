@@ -6,6 +6,7 @@ from .models import *
 from Asesores.models import Presupuesto, Diseno
 from django.http import HttpResponse
 from .forms import CotForm
+
 # Create your views here.
 #Cotizaciones disponibles
 @login_required(login_url='index')

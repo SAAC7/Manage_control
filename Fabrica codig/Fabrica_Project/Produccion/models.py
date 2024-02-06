@@ -11,7 +11,7 @@ class Diseno_CNC(models.Model):
     
 class Orden_trabajo(models.Model):
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
-    diseno_CNC = models.ForeignKey(Diseno_CNC, on_delete=models.PROTECT, null=False, blank=False)
+    diseno_CNC = models.ForeignKey(Diseno_CNC, on_delete=models.PROTECT, null=True)
     contrato = models.FileField(upload_to='contratos/' ,null=False, blank=False)
     
 class Trabajo(models.Model):

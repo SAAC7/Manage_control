@@ -2,7 +2,7 @@
 
 {% block botones%}
 <div class="text-center">
-    <h1>Presupuesto {{presupuesto.id}}</h1>
+    <h1>Presupuesto - {{presupuesto.id}}</h1>
     <h3>{{presupuesto.estado}}</h3>
 
 </div>
@@ -11,13 +11,29 @@
     <div class="col-md-6">
         <label for="presupuesto_desc">Cliente:</label>
         <input type="text" class="form-control form-control-user" readonly name="presupuesto_desc" value="{{ presupuesto.cliente }}">
+        <br>
+        {% if presupuesto.estado == "Enviado a producción" %}
+            <div>
+                <label for="desc_contrato">Contrato</label>
+                <a name="desc_contrato" style="width: 40%;" class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=presupuesto.id %}" download>
+                    <i class="bi bi-cloud-download"></i>
+                </a>
+            </div>
+        {% endif %}
     </div>
     <div class="col-md-6">
         <label for="presupuesto_desc">Descripción:</label>
         <textarea class="form-control form-control-user" readonly name="presupuesto_desc" linenumbers="4">{{ presupuesto.descripcion }}</textarea>
     </div>
 </div>
-
+<br>
+{% if presupuesto.estado == "Pendiente de contrato" %}
+<div class="row justify-content-end">
+    <div class="col-md-12 col-lg-6 text-right">
+        <a class="btn btn-success btn-lg" href="{% url 'subir_Contrato' id_p=presupuesto.id %}"><i class="bi bi-upload"></i> Subir Contrato</a>
+    </div>
+</div>
+{% endif %}
 <div style="justify-content: space-between;">
     <h4>Diseños</h4>
 </div>

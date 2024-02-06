@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views as asesor_views
+from Disenadores import views as disenador_views
 
 urlpatterns = [
     path('', asesor_views.listadoP , name='Presupuesto'),
@@ -11,4 +12,8 @@ urlpatterns = [
     path('Cotizacion/Rechazado/<pres_id>/<coti_id>', asesor_views.cotizacion_rechazar , name='RechazarCotizacion'),
     path('Cotizacion/Aprobado/<pres_id>/<coti_id>', asesor_views.cotizacion_aprobar , name='AprobarCotizacion'),
     path('Informacion/<pre_id>', asesor_views.disenos_presupuesto , name='verInformacion'),
+    path('Contrato/<int:id_p>/', asesor_views.subir_contrato , name='subir_Contrato'),
+    path('Contrato/Archivo/<int:id>/', asesor_views.descargar_contrato, name='descargar_contrato'),
+
+
 ]
