@@ -11,25 +11,34 @@ from .models import Orden_trabajo
 def ordenes_listado(request):
     user = request.user
     if user.groups.filter(name='Asesor').exists():
-        #pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user).select_related('')
-        #diseno = Diseno.objects.filter(presupuesto__in=pres, estado="Aprobado")
-        #cotizacion = Cotizacion.objects.filter(diseno_id=diseno)
-        #contrato = Orden_trabajo.objects.filter(presupuesto_id=pres)
-        
-        presupuesto_diseno = Presupuesto.objects.filter(fecha_fin=None, asesor=user,diseno__estado="Aprobado")
-        ids_disenos = Presupuesto.objects.filter(fecha_fin=None, asesor=user, diseno__estado="Aprobado").values_list('diseno__id', flat=True)
-        cotizacion = Cotizacion.objects.filter(diseno_id__in=ids_disenos).select_related('diseno')
-        return render(request, 'Produccion/Ordenes_trabajo.html', {'presupuesto_diseno': presupuesto_diseno,'cotizaciones':cotizacion})
+        presupuestos_aprobados = Presupuesto.objects.filter(
+            asesor=user,
+            diseno__estado="Aprobado",
+            diseno__cotizacion__estado="Aprobada",
+            orden_trabajo__isnull=False            
+        ).distinct()
+
+        return render(
+            request,
+            'Produccion/Ordenes_trabajo.html',
+            {'presupuesto_diseno_cotizacion': presupuestos_aprobados}
+        )
     elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
-        presupuesto_diseno = Presupuesto.objects.filter(fecha_fin=None, asesor=user,diseno__estado="Aprobado")
-        ids_disenos = Presupuesto.objects.filter(fecha_fin=None, asesor=user, diseno__estado="Aprobado").values_list('diseno__id', flat=True)
-        cotizacion = Cotizacion.objects.filter(diseno_id__in=ids_disenos).select_related('diseno')
-        #cotizacion = Cotizacion.objects.filter(diseno_id=diseno)
-        #contrato = Orden_trabajo.objects.filter(presupuesto_id=pres)
-        return render(request, 'Produccion/Ordenes_trabajo.html', {'presupuesto_diseno': presupuesto_diseno, 'cotizaciones':cotizacion})
+        presupuestos_aprobados = Presupuesto.objects.filter(
+            diseno__estado="Aprobado",
+            diseno__cotizacion__estado="Aprobado",
+            orden_trabajo__isnull=False 
+        ).distinct()
+
+        return render(
+            request,
+            'Produccion/Ordenes_trabajo.html',
+            {'presupuesto_diseno_cotizacion': presupuestos_aprobados}
+            )
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
+        
 
 def trabajo(request):
     usuario_autenticado = request.user
