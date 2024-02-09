@@ -1,10 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
+from django.http import HttpResponse
+
+#Modelos
 from .models import Orden_trabajo,Trabajo,Diseno_CNC,Trabajos_Orden
 from Asesores.models import Presupuesto, Diseno
 from Cotizadores.models import Cotizacion
 from .models import Orden_trabajo
+
 
 #Lista de ordenes de trabajo disponibles
 @login_required(login_url='index')
@@ -14,7 +18,7 @@ def ordenes_listado(request):
         presupuestos_aprobados = Presupuesto.objects.filter(
             asesor=user,
             diseno__estado="Aprobado",
-            diseno__cotizacion__estado="Aprobada",
+            diseno__cotizacion__estado="Aprobado",
             orden_trabajo__isnull=False            
         ).distinct()
 
@@ -65,5 +69,3 @@ def trabajofin(request):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
-    
-

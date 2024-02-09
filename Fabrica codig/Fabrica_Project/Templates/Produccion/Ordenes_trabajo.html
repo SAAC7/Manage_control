@@ -23,47 +23,52 @@
 {% endblock %}
 
 {% block tbody %}
-{% for p in presupuesto_diseno_cotizacion %}
+    {% for p in presupuesto_diseno_cotizacion %}
+        {% for o in p.orden_trabajo_set.all %}
+            <td>{{p.id}}</td>
+        {% endfor %}
 
+        {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+            <td>{{ p.asesor.first_name}} {{ p.asesor.last_name}}</td>
+        {% endif %}
 
-{% for o in p.orden_trabajo_set.all %}
-<td>{{p.id}}</td>
-{% endfor %}
+        <td>{{p.cliente}}</td>
 
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<td>{{ p.asesor.first_name}} {{ p.asesor.last_name}}</td>
-{% endif %}
+        {% for d in p.diseno_set.all %}
+            {% if d.estado == "Aprobado" %}
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=d.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+                {{break}}
+            {% endif %}
+        {% endfor %}
 
-<td>{{p.cliente}}</td>
+        {% for d in p.diseno_set.all %}
+            {% for c in d.cotizacion_set.all %}
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=c.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+            {% endfor %}
+        {% endfor %}
 
-{% for d in p.diseno_set.all %}
-<td>
-    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=d.id %}" download>
-        <i class="bi bi-cloud-download"></i>
-    </a>
-</td>
-{% endfor %}
+        {% for o in p.orden_trabajo_set.all %}
+            <td>
+                <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=p.id %}" download>
+                    <i class="bi bi-cloud-download"></i>
+                </a>
+            </td>
+        {% endfor %}
 
-{% for c in p.cotizacion_set.all %}
-<td>
-    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=c.id %}" download>
-        <i class="bi bi-cloud-download"></i>
-    </a>
-</td>
-{% endfor %}
-{% for o in p.orden_trabajo_set.all %}
-<td>
-    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=o.id %}" download>
-        <i class="bi bi-cloud-download"></i>
-    </a>
-</td>
-{% endfor %}
-    <td></td>
-</tr>
-{% endfor %}
-
-
+        <td></td>
+        </tr>
+    {% endfor %}
 {% endblock %}
+
+
 
 {% block footer %}
 <th>ID</th>

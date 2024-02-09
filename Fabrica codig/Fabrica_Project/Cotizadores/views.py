@@ -93,7 +93,8 @@ def subir_cot(request,id_p):
             presupuesto = get_object_or_404(Presupuesto, pk=id_p)
             
             return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})
-        
+
+#Descargar cotizacion        
 def descargar_archivo(request, id):
     cotizacion = get_object_or_404(Cotizacion, id=id)
     
