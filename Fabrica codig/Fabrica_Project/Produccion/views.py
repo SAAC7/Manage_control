@@ -43,7 +43,6 @@ def ordenes_listado(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
         
-
 def trabajo(request):
     usuario_autenticado = request.user
     
@@ -56,7 +55,6 @@ def trabajo(request):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
-    
     
 def trabajofin(request):
     usuario_autenticado = request.user
