@@ -32,11 +32,9 @@
     {% endif %}
     <td>{{ p.cliente }}</td>
     <td>
-        <div class="text-center">
-            <a class="btn btn-info btn-sm btn-block" href="#" download>
-                <i class="bi bi-cloud-download"></i>
-            </a>
-        </div>
+        <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
+            <i class="bi bi-cloud-download"></i> Descargar
+        </a>
     </td>
     <td>{{ c.id }}</td>
     <td></td>
