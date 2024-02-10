@@ -1,0 +1,44 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <br>
+    <h1>Ordenes de Trabajo</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Diseño</th>
+<th>Cotizacion</th>
+<th>Contrato</th>
+<th>Estado</th>
+{% endblock %}
+
+
+
+{% block tbody %}
+
+{% endblock %}
+
+
+
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Diseño</th>
+<th>Cotizacion</th>
+<th>Contrato</th>
+<th>Estado</th>
+{% endblock %}
