@@ -210,7 +210,7 @@ def disenos_presupuesto(request, pre_id):
 
 #Descargar archivo del contrato
 def descargar_contrato(request, id):
-    contrato = get_object_or_404(Orden_trabajo, presupuesto_id=id)
+    contrato = get_object_or_404(Orden_trabajo, pk=id)
     
     response = HttpResponse(contrato.contrato.read(), content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{contrato.contrato.name}"'

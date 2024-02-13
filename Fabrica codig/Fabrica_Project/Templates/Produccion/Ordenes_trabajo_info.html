@@ -1,10 +1,67 @@
 {% extends 'tables.html' %}
 
 {% block botones%}
-<div class="text-center">
-    <br>
-    <h1>Ordenes de Trabajo</h1>
+<div class="container">
+
+    <div class="text-center row ">
+        <h1>Ordenes de Trabajo</h1>
+        {% if datos.orden.diseno_CNC %}
+        <div class="col-md-2 mt-3 mb-3">
+        {% else %}
+        <div class="col-md-3 mt-3 mb-3">
+        {% endif %}
+            <a class="btn btn-success btn-block" href="{% url 'descargar_archivo' id=datos.diseno_aprobado.id %}" download>
+                Diseño
+            </a>
+        </div>
+        {% if datos.orden.diseno_CNC %}
+        <div class="col-md-2 mt-3 mb-3">
+        {% else %}
+        <div class="col-md-3 mt-3 mb-3">
+        {% endif %}
+            <a class="btn btn-info btn-block" href="{% url 'descargar_archivo_Cotizacion' id=datos.cotizacion_aprobada.id %}" download>
+                Cotizacion
+            </a>
+        </div>
+        {% if datos.orden.diseno_CNC %}
+        <div class="col-md-2 mt-3 mb-3">
+        {% else %}
+        <div class="col-md-3 mt-3 mb-3">
+        {% endif %}
+            <a class="btn btn-success btn-block" href="{% url 'descargar_contrato' id=datos.orden.id %}" download>
+                Contrato
+            </a>
+        </div>
+        {% if datos.orden.diseno_CNC %}
+        <div class="col-md-2 mt-3 mb-3">
+            <a class="btn btn-secondary btn-block" href="#" download>
+                CNC
+            </a>
+        </div>
+        {% endif %}
+        {% if datos.orden.diseno_CNC %}
+        <div class="col-md-2 mt-3 mb-3">
+        {% else %}
+        <div class="col-md-3 mt-3 mb-3">
+        {% endif %}
+            <a id="btn-asignar" class="btn btn-danger btn-block" href="{% url 'TrabajosCrear' id_orden=datos.orden.id %}">
+                Asignar
+            </a>
+        </div>
+    </div>
+
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var btnAsignar = document.getElementById("btn-asignar");
+      var trabajosSinFechaFin = {{ trabajos_con_fecha_fin|yesno:"true,false" }};
+      
+      if (trabajosSinFechaFin) {
+        btnAsignar.classList.add("disabled");
+        btnAsignar.removeAttribute("href");
+      }
+    });
+    </script>
 {% endblock %}
 
 {% load static %}
@@ -12,19 +69,33 @@
 
 {% block head %}
 <th>ID</th>
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+{% if user.is_superuser %}
+<th>Administrador</th>
 {% endif %}
-<th>Cliente</th>
-<th>Diseño</th>
-<th>Cotizacion</th>
-<th>Contrato</th>
-<th>Estado</th>
+<th>Orden</th>
+<th>Inicio</th>
+<th>Finalizado</th>
+<th>Descripcion</th>
 {% endblock %}
 
 
 
 {% block tbody %}
+
+{% for trabajoq in Trabajos %}
+<td>{{trabajoq.id}}</td>
+{% if user.is_superuser%}
+<td>{{trabajoq.administrador.first_name}} {{trabajo.administrador.last_name}}</td>
+{% endif %}
+<td>{{trabajoq.orden.id}}</td>
+<td>{{trabajoq.trabajo.fecha_inicio}}</td>
+{% if trabajoq.trabajo.fecha_fin %}
+<td>{{trabajoq.trabajo.fecha_fin}}</td>
+{% else %}
+<td></td>
+{% endif %}
+<td>{{trabajoq.trabajo.descripcion}}</td>
+{% endfor %}
 
 {% endblock %}
 
@@ -33,12 +104,11 @@
 
 {% block footer %}
 <th>ID</th>
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+{% if user.is_superuser %}
+<th>Administrador</th>
 {% endif %}
-<th>Cliente</th>
-<th>Diseño</th>
-<th>Cotizacion</th>
-<th>Contrato</th>
-<th>Estado</th>
+<th>Orden</th>
+<th>Inicio</th>
+<th>Finalizado</th>
+<th>Descripcion</th>
 {% endblock %}

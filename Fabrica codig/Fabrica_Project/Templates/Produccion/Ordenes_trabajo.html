@@ -43,12 +43,12 @@
             </a>
         </td>
         <td>
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=o.orden.presupuesto.id %}" download>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=o.orden.id %}" download>
                 <i class="bi bi-cloud-download"></i>
             </a>
         </td>
         <td>
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'Ordenesinfo' or_id=o.orden.id %}"><i class="bi bi-info-circle"></i> Info</a>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=o.orden.id %}"><i class="bi bi-info-circle"></i> Info</a>
         </td>
     </tr>
     {% endfor %}

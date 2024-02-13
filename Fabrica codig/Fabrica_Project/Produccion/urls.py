@@ -3,7 +3,8 @@ from . import views as produccion_views
 
 urlpatterns = [
     path('Ordenes-de-Trabajo/', produccion_views.ordenes_listado , name='OrdenesDeTrabajo'),
-    path('Ordenesinfo/', produccion_views.ordenes_info , name='Ordenesinfo'),
+    path('Ordenesinfo/<int:id_o>/', produccion_views.ordenes_info , name='ordenes_trabajo_info'),
     path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
+    path('Trabajos/Crear/<int:id_orden>', produccion_views.Asignar , name='TrabajosCrear'),
     path('Trabajos/Finalizados/', produccion_views.trabajofin , name='Trabajos_finalizados'),
 ]

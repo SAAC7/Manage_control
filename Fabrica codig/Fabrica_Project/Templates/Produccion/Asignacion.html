@@ -1,0 +1,94 @@
+{% extends 'core.html' %}
+
+{% block content %}
+
+
+
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="card o-hidden border-0 shadow-lg">
+      <div class="text-center">
+        <br>
+        <h1>Asignar Trabajos</h1>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="cliente">Cliente:</label>
+              <input type="text" id="cliente" class="form-control form-control-user" value="{{presupueto.cliente}}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="Descriptcion">Descripcion:</label>
+              <textarea class="form-control form-control-user" id="Descriptcion" rows="6" readonly>{{presupueto.descripcion}}</textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="grupo-select">Grupo:</label>
+              <select name="grupo" id="grupo-select" class="custom-select">
+                <option value="">Selecciona un grupo</option>
+                {% for id, name in grupos_user %}
+                  <option value="{{id}}">{{name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="integrante-select">Integrante:</label>
+              <select name="integrante" id="integrante-select" class="custom-select">
+                <option value="">Selecciona un integrante</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="comment">Comentario:</label>
+              <textarea name="comment" id="comment" class="form-control form-control-user" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex justify-content-center  mt-3 mb-3">
+              <input id="botonEnvio" class="btn btn-primary btn-block" type="submit" value="Asignar" name="botonEnvio">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var grupoSelect = document.getElementById("grupo-select");
+    var integranteSelect = document.getElementById("integrante-select");
+  
+    grupoSelect.addEventListener("change", function() {
+      var grupoId = this.value;
+      integranteSelect.innerHTML = ""; // Limpiar opciones anteriores
+  
+      // Decodificar el JSON de usuarios
+      var usuarios = JSON.parse('{{ usuarios|safe }}');
+  
+      // Filtrar usuarios por el grupo seleccionado
+      var usuariosGrupo = usuarios.filter(function(usuario) {
+        // Verificar si el grupoId está en la lista de grupos del usuario
+        return usuario.fields.groups.includes(parseInt(grupoId));
+      });
+  
+      // Agregar opciones de usuarios al select
+      usuariosGrupo.forEach(function(usuario) {
+        var option = document.createElement("option");
+        option.text = usuario.fields.first_name +" "+ usuario.fields.last_name; // Ajusta este campo según la estructura de tu modelo Usuario
+        option.value = usuario.pk;
+        integranteSelect.appendChild(option);
+      });
+    });
+  
+    // Al cargar la página, cargar los integrantes para el grupo seleccionado (si hay uno seleccionado)
+    if (grupoSelect.value) {
+      grupoSelect.dispatchEvent(new Event('change'));
+    }
+  });
+  </script>
+  
+
+{% endblock %}
