@@ -162,4 +162,3 @@ def Asignar(request,id_orden):
     else:
         error = "No se puede adjuntar contrato"
         return render(request, '404.html', {'error': error})
-
