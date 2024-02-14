@@ -34,7 +34,7 @@
         </div>
         {% if datos.orden.diseno_CNC %}
         <div class="col-md-2 mt-3 mb-3">
-            <a class="btn btn-secondary btn-block" href="#" download>
+            <a class="btn btn-secondary btn-block" href="{% url 'descargar_cnc' id_o=datos.orden.id %}" download>
                 CNC
             </a>
         </div>
@@ -44,9 +44,11 @@
         {% else %}
         <div class="col-md-3 mt-3 mb-3">
         {% endif %}
+            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
             <a id="btn-asignar" class="btn btn-danger btn-block" href="{% url 'TrabajosCrear' id_orden=datos.orden.id %}">
                 Asignar
             </a>
+            {% endif %}
         </div>
     </div>
 
@@ -68,47 +70,45 @@
 
 
 {% block head %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>ID</th>
-{% if user.is_superuser %}
 <th>Administrador</th>
-{% endif %}
-<th>Orden</th>
 <th>Inicio</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
+{% endif %} 
 {% endblock %}
 
 
 
 {% block tbody %}
-
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 {% for trabajoq in Trabajos %}
-<td>{{trabajoq.id}}</td>
-{% if user.is_superuser%}
-<td>{{trabajoq.administrador.first_name}} {{trabajo.administrador.last_name}}</td>
+<tr>
+    <td>{{trabajoq.id}}</td>
+    <td>{{trabajoq.administrador.first_name}} {{trabajoq.administrador.last_name}}</td>
+    
+    <td>{{trabajoq.trabajo.fecha_inicio}}</td>
+    {% if trabajoq.trabajo.fecha_fin %}
+    <td>{{trabajoq.trabajo.fecha_fin}}</td>
+    {% else %}
+    <td></td>
+    {% endif %}
+    <td>{{trabajoq.trabajo.descripcion}}</td>
+</tr>
+    {% endfor %}
 {% endif %}
-<td>{{trabajoq.orden.id}}</td>
-<td>{{trabajoq.trabajo.fecha_inicio}}</td>
-{% if trabajoq.trabajo.fecha_fin %}
-<td>{{trabajoq.trabajo.fecha_fin}}</td>
-{% else %}
-<td></td>
-{% endif %}
-<td>{{trabajoq.trabajo.descripcion}}</td>
-{% endfor %}
-
 {% endblock %}
 
 
 
 
 {% block footer %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>ID</th>
-{% if user.is_superuser %}
 <th>Administrador</th>
-{% endif %}
-<th>Orden</th>
 <th>Inicio</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
+{% endif %}
 {% endblock %}

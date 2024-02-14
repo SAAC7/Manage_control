@@ -11,6 +11,10 @@
 
 {% block head %} 
 <th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Encargado</th>
+{% endif %}
+<th>Grupo</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
 <th>Opciones</th>
@@ -20,12 +24,22 @@
 {% for trabajo in trabajos %}
 <tr>
     <td>{{trabajo.id}}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{trabajo.trabajador.first_name}} {{trabajo.trabajador.last_name}}</td>
+    {% endif %}
+    <td>{{trabajo.grup.name}}</td>
     <td>{{trabajo.descripcion}}</td>
     <td>{{trabajo.fecha_inicio}}</td>
     <td>
         <div>
-            <a class="btn btn-info btn-sm btn-block" href="#">Info</a>
-            <a class="btn btn-danger btn-sm btn-block" href="#">Finalizar</a>
+            {% for trabajos_orden in trabajo.trabajos_orden_set.all %}
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=trabajos_orden.orden.id %}">Info</a>
+            {% if trabajo.grup.name == "Designer_CNC"%}
+            <a class="btn btn-success btn-sm btn-block" href="{% url 'diseno_cnc' id_o=trabajos_orden.orden.id %}">Subir Diseño</a>
+            {% else %}
+            <a class="btn btn-danger btn-sm btn-block" href="{% url 'finalizar_trabajo' id_t=trabajo.id %}">Finalizar</a>
+            {% endif %}
+            {% endfor %}
         </div>
     </td>
 </tr>
@@ -34,7 +48,11 @@
 
  {% block footer %} 
  <th>ID</th>
-<th>Descripcion</th>
-<th>Fecha de Inicio</th>
-<th>Opciones</th>
+ {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+ <th>Encargado</th>
+ {% endif %}
+ <th>Grupo</th>
+ <th>Descripcion</th>
+ <th>Fecha de Inicio</th>
+ <th>Opciones</th>
  {% endblock %}
