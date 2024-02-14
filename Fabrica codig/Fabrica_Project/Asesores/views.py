@@ -202,8 +202,8 @@ def disenos_presupuesto(request, pre_id):
         pres = Diseno.objects.filter(presupuesto_id=presupuesto)
         
         cotizaciones = Cotizacion.objects.filter(diseno__presupuesto=presupuesto)
-        
-        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones': cotizaciones})
+        contratos = Orden_trabajo.objects.filter(presupuesto_id=presupuesto)
+        return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones': cotizaciones, 'contratos':contratos})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
