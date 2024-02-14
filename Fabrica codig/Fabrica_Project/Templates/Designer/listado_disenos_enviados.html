@@ -13,7 +13,7 @@
 {% block head %}
 <th>ID</th>
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+<th>Diseñador</th>
 {% endif %}
 <th>Cliente</th>
 <th>Descripcion</th>
@@ -27,7 +27,7 @@
 <tr>
     <td>{{ d.id }}</td>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-    <td>{{ d.presupuesto.asesor.first_name}} {{ d.presupuesto.asesor.last_name}}</td>
+    <td>{{ d.usuario.first_name}} {{ d.usuario.last_name}}</td>
     {% endif %}
     <td>{{ d.presupuesto.cliente }}</td>
     <td>{{ d.presupuesto.descripcion }}</td>
@@ -47,7 +47,7 @@
 {% block footer %}
 <th>ID</th>
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+<th>Diseñador</th>
 {% endif %}
 <th>Cliente</th>
 <th>Descripcion</th>
