@@ -1,0 +1,57 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <br>
+    <h1>Diseños Enviados</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha subido</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}
+
+{% block tbody %}
+{% for d in disenos %}
+<tr>
+    <td>{{ d.id }}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ d.presupuesto.asesor.first_name}} {{ d.presupuesto.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ d.presupuesto.cliente }}</td>
+    <td>{{ d.presupuesto.descripcion }}</td>
+    <td>{{ d.fecha }}</td>
+    <td>{{ d.estado }}</td>
+    <td>
+        <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=d.id %}" download>
+            <i class="bi bi-cloud-download"></i>
+        </a>
+    </td>
+</tr>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha de Inicio</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}

@@ -6,7 +6,7 @@ from .forms import DisenoForm
 from django.http import HttpResponse
 
 
-# Create your views here.
+#Listado de presupuestos con diseño pendiente de asignar
 @login_required(login_url='index')
 def listadoP(request):
     user = request.user
@@ -23,6 +23,23 @@ def listadoP(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
+#Listado de presupuestos a los que ya se les asigno diseño
+@login_required(login_url='index')
+def listadoPEnviados(request):
+    user = request.user
+    if user.groups.filter(name='Designer').exists():
+        disenos = Diseno.objects.select_related('presupuesto').filter(user=user).exclude(estado="Diseño guía")
+        return render(request, 'Designer/listado_disenos_enviados.html', {'disenos': disenos})
+    elif (user.groups.filter(name='Administrador').exists()):
+        disenos = Diseno.objects.select_related('presupuesto').filter(asesor=user).exclude(estado="Diseño guía")
+        return render(request, 'Designer/listado_disenos_enviados.html', {'disenos': disenos})
+    elif (user.is_superuser):
+        disenos = Diseno.objects.select_related('presupuesto').exclude(estado="Diseño guía")
+        return render(request, 'Designer/listado_disenos_enviados.html', {'disenos': disenos})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
+    
 #Crear Diseño
 @login_required(login_url='index')
 def nuevo_diseno(request, pre_id):
@@ -66,6 +83,7 @@ def descargar_coti(request, id):
     
     return response
 
+#Form para subir nuevo diseño
 def form_nuevo_diseno(request,id_p):
     user = request.user
     if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
@@ -79,11 +97,6 @@ def form_nuevo_diseno(request,id_p):
                 presupuesto.save()
                 
                 Diseno.objects.create(usuario=request.user, presupuesto=presupuesto, archivo=archivo, estado='Esperando aprobación')
-                  
-                '''diseno_antiguo = get_object_or_404(Diseno, pk=id_d)  
-                diseno_antiguo.estado="Rechazado"
-                diseno_antiguo.save()'''
-                 
                 
                 return redirect('/Diseno/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
         else:
