@@ -72,7 +72,8 @@
 {% block head %}
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>ID</th>
-<th>Administrador</th>
+<th>Trabajador</th>
+<th>Grupo</th>
 <th>Inicio</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
@@ -86,8 +87,8 @@
 {% for trabajoq in Trabajos %}
 <tr>
     <td>{{trabajoq.id}}</td>
-    <td>{{trabajoq.administrador.first_name}} {{trabajoq.administrador.last_name}}</td>
-    
+    <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
+    <td>{{trabajoq.trabajo.grup}}</td>
     <td>{{trabajoq.trabajo.fecha_inicio}}</td>
     {% if trabajoq.trabajo.fecha_fin %}
     <td>{{trabajoq.trabajo.fecha_fin}}</td>
@@ -106,7 +107,8 @@
 {% block footer %}
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>ID</th>
-<th>Administrador</th>
+<th>Trabajador</th>
+<th>Grupo</th>
 <th>Inicio</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
