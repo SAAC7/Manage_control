@@ -105,9 +105,9 @@
                     </ul>
                     <div>
                         {% if user.is_authenticated %}
-                        <a class="btn btn-primary btn-lg" href="{% url 'signout' %}">Singout</a>
+                        <a class="btn btn-primary btn-lg" href="{% url 'signout' %}">Cerrar Sesión</a>
                         {% else %}
-                        <a class="btn btn-primary btn-lg" href="{% url 'signin' %}">Login</a>
+                        <a class="btn btn-primary btn-lg" href="{% url 'signin' %}">Iniciar Sesión</a>
                         {% endif %}
                     </div>
                 </div>
