@@ -49,6 +49,7 @@
 <th>Trabajador</th>
 <th>Grupo</th>
 <th>Inicio</th>
+<th>Progamado</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
 {% endif %} 
@@ -64,6 +65,11 @@
     <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
     <td>{{trabajoq.trabajo.grup}}</td>
     <td>{{trabajoq.trabajo.fecha_inicio}}</td>
+    {% if trabajoq.trabajo.fecha_programada %}
+    <td>{{trabajoq.trabajo.fecha_programada}}</td>
+    {% else %}
+    <td></td>
+    {% endif %}
     {% if trabajoq.trabajo.fecha_fin %}
     <td>{{trabajoq.trabajo.fecha_fin}}</td>
     {% else %}
@@ -84,6 +90,7 @@
 <th>Trabajador</th>
 <th>Grupo</th>
 <th>Inicio</th>
+<th>Progamado</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
 {% endif %}

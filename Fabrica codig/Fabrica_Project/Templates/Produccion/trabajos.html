@@ -33,7 +33,7 @@
     <td>
         <div>
             {% for trabajos_orden in trabajo.trabajos_orden_set.all %}
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=trabajos_orden.orden.id %}">Info</a>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=trabajos_orden.orden.id fin=0 %}">Info</a>
             {% if trabajo.grup.name == "Designer_CNC"%}
             <a class="btn btn-success btn-sm btn-block" href="{% url 'diseno_cnc' id_o=trabajos_orden.orden.id %}">Subir Diseño</a>
             {% else %}

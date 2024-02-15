@@ -26,7 +26,7 @@
             <a id="btn-asignar" class="btn btn-danger btn-lg " href="{% url 'TrabajosCrear' id_orden=datos.orden.id %}">
                 Asignar
             </a>
-            <a id="btn-asignar" class="btn btn-warning btn-lg text-dark fw-bold" href="{% url 'ordenes_trabajo_fin' id_o=datos.orden.id %}">
+            <a id="btn-finalizar" class="btn btn-warning btn-lg text-dark fw-bold" href="{% url 'ordenes_trabajo_fin' id_o=datos.orden.id %}">
                 Finalizar
             </a>
             {% endif %}
@@ -38,11 +38,14 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
       var btnAsignar = document.getElementById("btn-asignar");
+      var btnFinalizar = document.getElementById("btn-finalizar");
       var trabajosSinFechaFin = {{ trabajos_con_fecha_fin|yesno:"true,false" }};
       
       if (trabajosSinFechaFin) {
         btnAsignar.classList.add("disabled");
         btnAsignar.removeAttribute("href");
+        btnFinalizar.classList.add("disabled");
+        btnFinalizar.removeAttribute("href");
       }
     });
     </script>
@@ -57,6 +60,7 @@
 <th>Trabajador</th>
 <th>Grupo</th>
 <th>Inicio</th>
+<th>Progamado</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
 {% endif %} 
@@ -72,6 +76,11 @@
     <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
     <td>{{trabajoq.trabajo.grup}}</td>
     <td>{{trabajoq.trabajo.fecha_inicio}}</td>
+    {% if trabajoq.trabajo.fecha_programada %}
+    <td>{{trabajoq.trabajo.fecha_programada}}</td>
+    {% else %}
+    <td></td>
+    {% endif %}
     {% if trabajoq.trabajo.fecha_fin %}
     <td>{{trabajoq.trabajo.fecha_fin}}</td>
     {% else %}
@@ -92,6 +101,7 @@
 <th>Trabajador</th>
 <th>Grupo</th>
 <th>Inicio</th>
+<th>Progamado</th>
 <th>Finalizado</th>
 <th>Descripcion</th>
 {% endif %}

@@ -124,15 +124,16 @@ def Asignar(request,id_orden):
             grupo_form = request.POST.get('grupo')
             trabajador_form = request.POST.get('integrante')
             commentario_form = request.POST.get('comment')
+            fecha_programada_form = request.POST.get('fecha_program')
             
             trabajador_verificado=get_object_or_404(User,id=trabajador_form)
             grupo_verificado=get_object_or_404(Group,id=grupo_form)
             orden_verificado = get_object_or_404(Orden_trabajo, id=id_orden)
             
             
-            new_trabajo = Trabajo.objects.create(trabajador=trabajador_verificado,grup=grupo_verificado,descripcion=commentario_form)
+            new_trabajo = Trabajo.objects.create(trabajador=trabajador_verificado,grup=grupo_verificado,descripcion=commentario_form,fecha_programada=fecha_programada_form)
             new_trabajo_Orden = Trabajos_Orden.objects.create(administrador=user,trabajo=new_trabajo,orden=orden_verificado)
-            return redirect('/Produccion/Ordenesinfo/{}'.format(id_orden))
+            return redirect('/Produccion/Ordenesinfo/{}'.format(id_orden)+'/0')
             
             
         else:
@@ -144,7 +145,7 @@ def Asignar(request,id_orden):
             # opciones_grupo = list(Group.objects.values_list('id', 'name'))
             opciones_grupo = list(grupos.values_list('id', 'name'))
             # Obtener el ID del grupo seleccionado, si hay uno
-            usuarios  = User.objects.all()
+            usuarios  = User.objects.filter(is_active=True)
             usuarios_serializados = serialize('json', usuarios)
             # Pasar las opciones del grupo y los integrantes al contexto del template
             

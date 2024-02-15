@@ -21,6 +21,7 @@ class Trabajo(models.Model):
     trabajador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     grup = models.ForeignKey(Group, on_delete=models.PROTECT, null=True, blank=True)
     fecha_inicio = models.DateTimeField(auto_now_add=True)
+    fecha_programada=models.DateTimeField(null=True, blank=True)
     fecha_fin = models.DateTimeField(null=True, blank=True)
     descripcion = models.CharField(max_length=100, null=False, blank=False)
     

@@ -117,11 +117,14 @@ def subir_contrato(request,id_p):
         
 #Rechazar presupuesto
 @login_required(login_url='index')
-def presupuesto_rechazar(request, pre_id):
+def presupuesto_rechazar(request, pre_id,fin):
     # Obtener el presupuesto con el ID proporcionado
     presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
-    # Actualizar el estado del presupuesto y la fecha de finalización
-    presupuesto.estado = "Rechazado"
+    if (fin==1):
+        presupuesto.estado = "Rechazado"
+    else:
+        presupuesto.estado = "Entregado"
+        
     presupuesto.fecha_fin = datetime.datetime.now()
     presupuesto.save()  # Guardar los cambios en la base de datos
     return redirect('/Presupuesto/')
@@ -204,6 +207,24 @@ def disenos_presupuesto(request, pre_id):
         cotizaciones = Cotizacion.objects.filter(diseno__presupuesto=presupuesto)
         contratos = Orden_trabajo.objects.filter(presupuesto_id=presupuesto)
         return render(request,'Asesor/listado_disenos_presupuesto.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones': cotizaciones, 'contratos':contratos})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
+
+
+@login_required(login_url='index')
+def disenos_presupuesto_fin(request, pre_id):
+    user = request.user
+    if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        # Obtener el presupuesto con el ID proporcionado
+        presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
+        
+        #Lista de diseños del presupuesto
+        pres = Diseno.objects.filter(presupuesto_id=presupuesto)
+        
+        cotizaciones = Cotizacion.objects.filter(diseno__presupuesto=presupuesto)
+        contratos = Orden_trabajo.objects.filter(presupuesto_id=presupuesto)
+        return render(request,'Asesor/listado_disenos_presupuesto_fin.html', {'presupuesto':presupuesto, 'pres': pres, 'cotizaciones': cotizaciones, 'contratos':contratos})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
