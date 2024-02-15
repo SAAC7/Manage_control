@@ -2,8 +2,9 @@ from django.urls import path
 from . import views as produccion_views
 
 urlpatterns = [
-    path('Ordenes-de-Trabajo/', produccion_views.ordenes_listado , name='OrdenesDeTrabajo'),
-    path('Ordenesinfo/<int:id_o>/', produccion_views.ordenes_info , name='ordenes_trabajo_info'),
+    path('Ordenes-de-Trabajo/<int:fin>/', produccion_views.ordenes_listado , name='OrdenesDeTrabajo'),
+    path('Ordenesinfo/<int:id_o>/<int:fin>/', produccion_views.ordenes_info , name='ordenes_trabajo_info'),
+    path('Ordenesinfo/Finalizar/<int:id_o>/', produccion_views.finalizar_orden , name='ordenes_trabajo_fin'),
     path('Ordenesinfo/Descargar/<int:id_o>/', produccion_views.descargar_diseno , name='descargar_cnc'),
     path('Trabajos/', produccion_views.trabajo , name='Trabajos'),
     path('Trabajos/Crear/<int:id_orden>', produccion_views.Asignar , name='TrabajosCrear'),

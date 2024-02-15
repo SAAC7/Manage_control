@@ -16,11 +16,14 @@ from django.contrib.auth.models import Group, User
 
 #Lista de ordenes de trabajo disponibles
 @login_required(login_url='index')
-def ordenes_listado(request):
+def ordenes_listado(request,fin):
     user = request.user
     if (user.groups.filter(name='Administrador').exists() or user.is_superuser):
         lista_Ordenes=[]
-        ordenes = Orden_trabajo.objects.all()
+        if (fin==1):
+            ordenes = Orden_trabajo.objects.filter(fecha_Entregado__isnull=False)
+        else:
+            ordenes = Orden_trabajo.objects.filter(fecha_Entregado__isnull=True)
         for orden in ordenes:
         # Obtiene el diseño aprobado relacionado con la orden de trabajo, si existe
             diseno_aprobado = Diseno.objects.filter(presupuesto=orden.presupuesto, estado='Aprobado').first()       # Obtiene la cotización aprobada relacionada con el diseño, si existe
@@ -38,7 +41,7 @@ def ordenes_listado(request):
         return render(
         request,
         'Produccion/Ordenes_trabajo.html',
-        {'lista_Ordenes': lista_Ordenes}
+        {'lista_Ordenes': lista_Ordenes, 'finalizados':fin}
         )
     
         
@@ -65,12 +68,16 @@ def trabajo(request):
 @login_required(login_url='index')    
 def trabajofin(request):
     usuario_autenticado = request.user
-    if not usuario_autenticado.groups.filter(name__in=['Administrador', 'Designer', 'Asesor', 'Cotizador']).exists() or not user.is_superuser:
-        trabajos_listado = Trabajo.objects.filter(trabajador=usuario_autenticado,fecha_fin__isnull=False)
-        return render(request, 'Produccion/trabajos_finalizados.html', {'trabajos': trabajos})
-    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
-        trabajos = Trabajo.objects.filter(fecha_fin__isnull=False)
-        return render(request, 'Produccion/trabajos_finalizados.html', {'trabajos': trabajos})
+    if not (usuario_autenticado.groups.filter(name__in=['Administrador', 'Designer', 'Asesor', 'Cotizador']).exists() or usuario_autenticado.is_superuser):
+        # trabajos_listado = Trabajo.objects.filter(trabajador=usuario_autenticado,fecha_fin__isnull=False)
+        trabajos_listado = Trabajos_Orden.objects.filter(trabajo__trabajador=usuario_autenticado,trabajo__fecha_fin__isnull=False)
+        print("1")
+        return render(request, 'Produccion/trabajos_finalizados.html', {'trabajos': trabajos_listado})
+    elif (usuario_autenticado.groups.filter(name='Administrador').exists() or usuario_autenticado.is_superuser):
+        # trabajos_listado = Trabajo.objects.filter(fecha_fin__isnull=False)
+        trabajos_listado = Trabajos_Orden.objects.filter(trabajo__fecha_fin__isnull=False)
+        print("2")
+        return render(request, 'Produccion/trabajos_finalizados.html', {'trabajos': trabajos_listado})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -78,7 +85,7 @@ def trabajofin(request):
     
     
 @login_required(login_url='index')    
-def ordenes_info(request, id_o):
+def ordenes_info(request, id_o,fin):
     user = request.user
     if user :
         orden = get_object_or_404(Orden_trabajo, id=id_o)
@@ -98,7 +105,11 @@ def ordenes_info(request, id_o):
         trabajos_con_fecha_fin = Trabajos_en_Orden.filter(trabajo__fecha_fin__isnull=True).exists()
         
         # Pasa la cotización al contexto del template para que pueda ser renderizada
-        return render(request, 'Produccion/Ordenes_trabajo_info.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin})
+        if (fin==1):
+            return render(request, 'Produccion/Ordenes_trabajo_info_fin.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin})
+        else:
+            return render(request, 'Produccion/Ordenes_trabajo_info.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin})
+            
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -215,3 +226,10 @@ def descargar_diseno(request, id_o):
     response = FileResponse(archivo)
     
     return response
+
+@login_required(login_url='index')
+def finalizar_orden(request,id_o):
+    orden = get_object_or_404(Orden_trabajo,id=id_o)
+    orden.fecha_Entregado=timezone.now()
+    orden.save()
+    return redirect('/Produccion/Ordenes-de-Trabajo/0/')

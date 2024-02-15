@@ -30,10 +30,7 @@ def listadoPEnviados(request):
     if user.groups.filter(name='Designer').exists():
         disenos = Diseno.objects.select_related('presupuesto').filter(usuario=user.id).exclude(estado="Diseño guía")
         return render(request, 'Designer/listado_disenos_enviados.html', {'disenos': disenos})
-    elif (user.groups.filter(name='Administrador').exists()):
-        disenos = Diseno.objects.select_related('presupuesto').filter(asesor=user).exclude(estado="Diseño guía")
-        return render(request, 'Designer/listado_disenos_enviados.html', {'disenos': disenos})
-    elif (user.is_superuser):
+    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
         disenos = Diseno.objects.select_related('presupuesto').exclude(estado="Diseño guía")
         return render(request, 'Designer/listado_disenos_enviados.html', {'disenos': disenos})
     else:

@@ -22,14 +22,6 @@
                     CNC
                 </a>
             {% endif %}
-            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-            <a id="btn-asignar" class="btn btn-danger btn-lg " href="{% url 'TrabajosCrear' id_orden=datos.orden.id %}">
-                Asignar
-            </a>
-            <a id="btn-asignar" class="btn btn-warning btn-lg text-dark fw-bold" href="{% url 'ordenes_trabajo_fin' id_o=datos.orden.id %}">
-                Finalizar
-            </a>
-            {% endif %}
         </div>
 
     </div>

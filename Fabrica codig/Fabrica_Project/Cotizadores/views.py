@@ -37,7 +37,16 @@ def cotDisponibles(request):
    
 @login_required(login_url='index')
 def cotFin(request):
-    return render(request, 'Cotizador/listado.html')
+    user = request.user
+    if (user.groups.filter(name='Cotizador').exists()):
+        cotizaciones=Cotizacion.objects.filter(cotizador=user)
+        return render(request, 'Cotizador/listado_finalizados.html',{'cotizaciones':cotizaciones})    
+    elif (user.groups.filter(name='Administrador').exists() or user.is_superuser):
+        cotizaciones=Cotizacion.objects.all()
+        return render(request, 'Cotizador/listado_finalizados.html',{'cotizaciones':cotizaciones})    
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
 
 @login_required(login_url='index')
 def info_cot(request, pre_id):

@@ -1,0 +1,58 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <br>
+    <h1>Cotizaciones</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Cotizador</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha ubido</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}
+
+{% block tbody %}
+{% for c in cotizaciones %}
+<tr>
+    <td>{{ c.id }}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ c.diseno.presupuesto.asesor.first_name}} {{ c.diseno.presupuesto.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ c.diseno.presupuesto.cliente }}</td>
+    <td>{{ c.diseno.presupuesto.descripcion }}</td>
+    <td>{{ c.fecha }}</td>
+    <td>{{ c.estado }}</td>
+    <td>
+        <div>
+            <a class="btn btn-info btn-sm btn-block" href="/Cotizaciones/descargar/{{c.id}}/"><i class="bi bi-cloud-download"></i></a>
+            {% comment %} <a class="btn btn-success btn-sm btn-block" href="#">Generar Orden</a> {% endcomment %}
+        </div>
+    </td>
+</tr>
+{% endfor %}
+
+
+{% endblock %}
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Descripcion</th>
+<th>Fecha Subido</th>
+<th>Estado</th>
+<th>Opciones</th>
+{% endblock %}
