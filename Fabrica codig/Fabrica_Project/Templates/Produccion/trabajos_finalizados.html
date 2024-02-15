@@ -11,23 +11,33 @@
 
 {% block head %} 
 <th>ID</th>
+<th>Orden</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Trabajador</th>
+{% endif %}
+<th>Categoria</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
 <th>Fecha de Finalizado</th>
-<th>Opciones</th>
+<th>Diseño CNC</th>
 {% endblock %}
 
 {% block tbody %}
 {% for trabajo in trabajos %}
 <tr>
     <td>{{trabajo.id}}</td>
-    <td>{{trabajo.descripcion}}</td>
-    <td>{{trabajo.fecha_inicio}}</td>
-    <td>{{trabajo.fecha_fin}}</td>
+    <td>{{trabajo.orden.id}}</td>
+    <td>{{trabajo.trabajo.trabajador}}</td>
+    <td>{{trabajo.trabajo.grup}}</td>
+    <td>{{trabajo.trabajo.descripcion}}</td>
+    <td>{{trabajo.trabajo.fecha_inicio}}</td>
+    <td>{{trabajo.trabajo.fecha_fin}}</td>
     <td>
-        <div>
-            <a class="btn btn-info btn-sm btn-block" href="#">Info</a>
-        </div>
+    {% if trabajo.trabajo.grup.name == 'Designer_CNC' %}
+    <div>
+        <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_cnc' id_o=trabajo.orden.id %}" download><i class="bi bi-cloud-download"></i></a>
+    </div>
+    {% endif %}
     </td>
 </tr>
 {% endfor %}
@@ -35,6 +45,11 @@
 
  {% block footer %} 
  <th>ID</th>
+<th>Orden</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Trabajador</th>
+{% endif %}
+<th>Categoria</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
 <th>Fecha de Finalizado</th>
