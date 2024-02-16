@@ -9,5 +9,6 @@ class Cotizacion(models.Model):
     diseno = models.ForeignKey(Diseno, on_delete=models.PROTECT, null=True, blank=False)
     fecha = models.DateTimeField(auto_now_add=True)
     estado=models.TextField(null=True, blank=True, default='Esperando aprobación')
+    comentario=models.TextField(null=True, blank=True)
     archivo = models.FileField(upload_to='cotizaciones/', null=False, blank=False)
 

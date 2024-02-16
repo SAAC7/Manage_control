@@ -16,4 +16,5 @@ class Diseno(models.Model):
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
     fecha = models.DateTimeField(auto_now_add=True)
     estado=models.TextField(null=True, blank=True, default='Diseñando')
+    comentario=models.TextField(null=True, blank=True)
     archivo = models.FileField( upload_to='disenosPresupuestos/',null=False, blank=False)

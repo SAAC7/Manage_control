@@ -8,18 +8,20 @@
     </div>
     <div class="mb-3 ">
         <div class="justify-content-between  d-flex">
+            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
             <a class="btn btn-info btn-lg " href="{% url 'descargar_archivo_Cotizacion' id=datos.cotizacion_aprobada.id %}" download>
                 Cotizacion
-            </a>
-            <a class="btn btn-success btn-lg " href="{% url 'descargar_archivo' id=datos.diseno_aprobado.id %}" download>
-                    Diseno
             </a>
             <a class="btn btn-success btn-lg " href="{% url 'descargar_contrato' id=datos.orden.id %}" download>
                 Contrato
             </a>
+            {% endif %}
+            <a class="btn btn-success btn-lg " href="{% url 'descargar_archivo' id=datos.diseno_aprobado.id %}" download>
+                    Diseno
+            </a>
             {% if datos.orden.diseno_CNC %}
                 <a class="btn btn-secondary btn-lg " href="{% url 'descargar_cnc' id_o=datos.orden.id %}" download>
-                    CNC
+                    Corte Optimizado
                 </a>
             {% endif %}
             {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
@@ -42,8 +44,8 @@
       var trabajosSinFechaFin = {{ trabajos_con_fecha_fin|yesno:"true,false" }};
       
       if (trabajosSinFechaFin) {
-        btnAsignar.classList.add("disabled");
-        btnAsignar.removeAttribute("href");
+        {% comment %} btnAsignar.classList.add("disabled");
+        btnAsignar.removeAttribute("href"); {% endcomment %}
         btnFinalizar.classList.add("disabled");
         btnFinalizar.removeAttribute("href");
       }
