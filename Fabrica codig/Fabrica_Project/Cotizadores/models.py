@@ -10,5 +10,5 @@ class Cotizacion(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     estado=models.TextField(null=True, blank=True, default='Esperando aprobación')
     comentario=models.TextField(null=True, blank=True)
-    archivo = models.FileField(upload_to='cotizaciones/', null=False, blank=False)
+    archivo = models.FileField(upload_to='media/cotizaciones/', null=False, blank=False)
 
