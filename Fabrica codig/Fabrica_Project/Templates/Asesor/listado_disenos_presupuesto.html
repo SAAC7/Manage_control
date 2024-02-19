@@ -18,13 +18,13 @@
        
     </div>
     {% for contrato in contratos %}
-    {% if contrato.contrato %}
     <div class="col-md-6 col-lg-6 mt-3">
         <a name="desc_contrato" class="btn btn-info btn-block" href="{% url 'descargar_contrato' id=contrato.id %}" download>
             <i class="bi bi-cloud-download"></i>
             Contrato
         </a>
     </div>
+    {% if contrato.contrato %}
     <div class="col-md-6 col-lg-6 mt-3 row">
         <div class="col-md-6 col-lg-6">
             <a name="rechazo" class="btn btn-danger btn-block" href="/Presupuesto/Rechazar/{{presupuesto.id}}/1">
