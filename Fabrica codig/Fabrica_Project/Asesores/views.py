@@ -2,18 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import datetime
+from .forms import DisenoUpdateForm
 #Modelos
 from .models import Presupuesto, Diseno
 from Cotizadores.models import Cotizacion
 from Produccion.models import *
 #Formularios
-from .forms import PresupuestoForm
-from .forms import ContratoForm
-from django.forms import modelformset_factory
-# from .forms import HojaProduccionForm
-
-
-
+from .forms import PresupuestoForm, ContratoForm
 
 
 # Create your views here.
@@ -151,6 +146,7 @@ def diseno_rechazar(request, pres_id, dis_id):
     diseno = get_object_or_404(Diseno, pk=dis_id)
     # Actualizar el estado del diseño
     diseno.estado = "Rechazado"
+    diseno.comentario = request.GET.get('comentario')
     diseno.save()  # Guardar los cambios en la base de datos
     
      # Obtener el presupuesto con el ID proporcionado
@@ -167,6 +163,7 @@ def cotizacion_rechazar(request, pres_id, coti_id):
     cotizacion = get_object_or_404(Cotizacion, pk=coti_id)
     # Actualizar el estado de la cotizacion
     cotizacion.estado = "Rechazado"
+    cotizacion.comentario = request.GET.get('comentario')
     cotizacion.save()  # Guardar los cambios en la base de datos
     
     # Obtener el presupuesto con el ID proporcionado
