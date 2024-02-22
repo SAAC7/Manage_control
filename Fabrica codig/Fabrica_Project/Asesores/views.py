@@ -113,7 +113,7 @@ def subir_contrato(request,id_p):
             form = ContratoForm()
             presupuesto = get_object_or_404(Presupuesto, pk=id_p)
             
-            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':presupuesto})
+            return render(request,'Asesor/subir_documentos_finales.html',{'form':form,'presupuesto':presupuesto})
         
 #Rechazar presupuesto
 @login_required(login_url='index')
