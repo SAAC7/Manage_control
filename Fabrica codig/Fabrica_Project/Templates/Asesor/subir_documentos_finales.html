@@ -2,40 +2,64 @@
 {% block content%}
 <div class="container">
     <div class="row justify-content-center align-items-center">
-        <div class="card o-hidden border-0 shadow-lg">
-            <br><br>
-            <div class="col-6">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="custom-file">
-                        <h4>Contrato</h4>
-                        {{ form.archivo.label_tag }}
-                        {{ form.archivo }}
-                        <small id="fileError" class="text-danger"></small>
-                        <br>
-                    </div>
-                    <div class="custom-file">
-                        <h4>Carta</h4>
-                        {{ form.archivo.label_tag }}
-                        {{ form.archivo }}
-                        <small id="fileError" class="text-danger"></small>
-                        <br>
-                    </div>
-                    <div class="custom-file">
-                        <h4>Hoja de Produccion</h4>
-                        {{ form.archivo.label_tag }}
-                        {{ form.archivo }}
-                        <small id="fileError" class="text-danger"></small>
-                        <br>
-                    </div>
-                    <div class="form-group">
-                        <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
-                    </div>
-                    <input name="presupuesto_num" type="hidden" value={{presupuesto.id}}>
-                    <input name="diseno_antiguo"  type="hidden" value={{pres}}>
-                </form>
+        <div class="card o-hidden border-0 shadow-lg " >
+            <div class="row mb-3 mt-3">
+                <div class="col-6">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="custom-file">
+                            <h4>Contrato</h4>
+                            {{ form.contrato.label_tag }}
+                            {{ form.contrato }}
+                            <small id="fileError" class="text-danger"></small>
+                            <br>
+                        </div>
+                        <div class="custom-file">
+                            <h4>Carta</h4>
+                            {{ form.carta.label_tag }}
+                            {{ form.carta }}
+                            <small id="fileError" class="text-danger"></small>
+                            <br>
+                        </div>
+                        <div class="custom-file">
+                            <h4>Hoja de Produccion</h4>
+                            <label for="archivos">Seleccione los archivos:</label>
+                            <input type="file" id="archivos" name="archivos" class="form-control cursor-pointer" multiple>
+                            
+                        </div>
+                        <div class="form-group mt-3">
+                            <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
+                        </div>
+                        <input name="presupuesto_num" type="hidden" value={{presupuesto.id}}>
+                        <input name="diseno_antiguo"  type="hidden" value={{pres}}>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <div id="archivos-seleccionados"></div>
+                </div>
+                
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputArchivos = document.getElementById('archivos');
+        const archivosSeleccionados = document.getElementById('archivos-seleccionados');
+    
+        inputArchivos.addEventListener('change', function() {
+            archivosSeleccionados.innerHTML = ''; // Limpiar cualquier contenido anterior
+    
+            // Iterar sobre los archivos seleccionados y mostrar sus nombres
+            for (let i = 0; i < this.files.length; i++) {
+                const nombreArchivo = this.files[i].name;
+                const parrafo = document.createElement('p');
+                parrafo.textContent = nombreArchivo;
+                archivosSeleccionados.appendChild(parrafo);
+            }
+        });
+    });
+</script>
+
 {% endblock %}

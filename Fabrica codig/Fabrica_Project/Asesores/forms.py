@@ -1,4 +1,5 @@
 from django import forms
+# from Produccion.models import Hoja_de_Produccion
 
 class PresupuestoForm(forms.Form):
     nombre_cliente = forms.CharField(label='Nombre del Cliente', widget=forms.TextInput(attrs={'class': 'form-control form-control-user'}), required=True)
@@ -8,4 +9,5 @@ class PresupuestoForm(forms.Form):
 
 class ContratoForm(forms.Form):
     presupuesto_num = forms.IntegerField(label='Numero de presupuesto', widget=forms.TextInput(attrs={'class': 'form-control form-control-user'}), required=True)
-    archivo = forms.FileField(label='Selecciona un archivo (PDF, RAR, JPG, PNG)', widget=forms.FileInput(attrs={'class': 'form-control cursor-pointer'}))
+    contrato = forms.FileField(label='Selecciona un archivo (PDF, JPG, PNG)', widget=forms.FileInput(attrs={'class': 'form-control cursor-pointer'}))
+    carta = forms.FileField(label='Selecciona un archivo (PDF, JPG, PNG)', widget=forms.FileInput(attrs={'class': 'form-control cursor-pointer'}))

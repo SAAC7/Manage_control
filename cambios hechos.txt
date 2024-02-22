@@ -1,8 +1,12 @@
+carta de produccion //
+quitar cotizacion u contrato de trabajo //
+quitar script del boton asignar //
+
 comentarios de porque rechazo en diseño y cotizaciones
 hoja de produccion .... N
-carta de produccion 
-quitar cotizacion u contrato de trabajo //
 añadir hoja de desgloce es un excel
 a diseñador cnc habilitar para subir el desgloce de excel
-quitar script del boton asignar //
+
+
+
 fechas de o tiempo total

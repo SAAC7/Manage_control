@@ -7,7 +7,7 @@ from Cotizadores import forms as coti_form
 from django.utils import timezone
 
 #Modelos
-from .models import Orden_trabajo,Trabajo,Diseno_CNC,Trabajos_Orden
+from .models import *
 from Asesores.models import Presupuesto, Diseno
 from Cotizadores.models import Cotizacion
 from django.contrib.auth.models import Group, User
@@ -234,3 +234,19 @@ def finalizar_orden(request,id_o):
     orden.fecha_Entregado=timezone.now()
     orden.save()
     return redirect('/Produccion/Ordenes-de-Trabajo/0/')
+
+@login_required(login_url='index')
+def descargar_hoja_produccion(request, id,tipo):
+    hoja_produccion = get_object_or_404(Hoja_de_Produccion, pk=id)
+        
+    if tipo == 1 and hoja_de_produccion.diseno_CNC:
+        archivo = hoja_de_produccion.diseno_CNC.archivo
+    elif tipo == 2 and hoja_de_produccion.diseno_produccion:
+        archivo = hoja_de_produccion.diseno_produccion.archivo
+    else:
+        archivo = hoja_de_produccion.archivo
+    
+    with open(archivo.path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + archivo.name
+        return response

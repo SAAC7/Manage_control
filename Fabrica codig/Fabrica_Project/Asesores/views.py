@@ -5,10 +5,15 @@ import datetime
 #Modelos
 from .models import Presupuesto, Diseno
 from Cotizadores.models import Cotizacion
-from Produccion.models import Orden_trabajo
+from Produccion.models import *
 #Formularios
 from .forms import PresupuestoForm
 from .forms import ContratoForm
+from django.forms import modelformset_factory
+# from .forms import HojaProduccionForm
+
+
+
 
 
 # Create your views here.
@@ -100,11 +105,21 @@ def subir_contrato(request,id_p):
             if validar_presupuesto.exists():
                 if form.is_valid():
                     # Guardar el Diseño
-                    archivo = form.cleaned_data['archivo']
+                    contratos = form.cleaned_data['contrato']
+                    cartas = form.cleaned_data['carta']
+                    hojasform=request.FILES.getlist('archivos')
+                    
+                    
+                    
                     presupuesto_obtenido.estado="Enviado a producción"
                     presupuesto_obtenido.save()
                     pres = validar_presupuesto.first()  # O cualquier otra lógica para seleccionar un diseno de la lista
-                    Orden_trabajo.objects.create(presupuesto=presupuesto_obtenido, contrato=archivo)
+                    orden_trabajo =Orden_trabajo.objects.create(presupuesto=presupuesto_obtenido, contrato=contratos, carta=cartas)
+                    for hoja_form in hojasform:
+                        hoja_produccion = Hoja_de_Produccion.objects.create(disenador=user,archivo=hoja_form)
+                        orden_trabajo.hojaproduccion.add(hoja_produccion)
+                    orden_trabajo.save()
+                    
                     return redirect('/Presupuesto/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
                 else:
                     error = "No se puede adjuntar contrato"
@@ -237,5 +252,26 @@ def descargar_contrato(request, id):
     response['Content-Disposition'] = f'attachment; filename="{contrato.contrato.name}"'
     
     return response
-      
+
+def descargar_carta(request, id):
+    contrato = get_object_or_404(Orden_trabajo, pk=id)
     
+    response = HttpResponse(contrato.carta.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{contrato.carta.name}"'
+    
+    return response     
+
+def descargar_hoja_produccion(request, id,tipo):
+    hoja_produccion = get_object_or_404(Hoja_de_Produccion, pk=id)
+        
+    if tipo == 1 and hoja_de_produccion.diseno_CNC:
+        archivo = hoja_de_produccion.diseno_CNC.archivo
+    elif tipo == 2 and hoja_de_produccion.diseno_produccion:
+        archivo = hoja_de_produccion.diseno_produccion.archivo
+    else:
+        archivo = hoja_de_produccion.archivo
+    
+    with open(archivo.path, 'rb') as f:
+        response = HttpResponse(f.read(), content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=' + archivo.name
+        return response

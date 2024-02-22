@@ -80,6 +80,8 @@ def descargar_coti(request, id):
     
     return response
 
+
+
 #Form para subir nuevo diseño
 def form_nuevo_diseno(request,id_p):
     user = request.user
