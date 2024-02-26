@@ -1,0 +1,115 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <h1>Diseño - {{diseno.id}}</h1>
+    <h3>{{diseno.estado}}</h3>
+
+</div>
+<br>
+<div style="justify-content: space-between;" class="mt-3">
+    <h4>Cotizaciones</h4>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Archivo</th>
+<th>Estado</th>
+<th>Comentario</th>
+{% endblock %}
+
+{% block tbody %}
+{% for coti in cotizacion %}
+<tr>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ coti.asesor.first_name}} {{ coti.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ coti.id }}</td>
+    <td>{{ coti.fecha }}</td>
+    <td>
+        <div>
+            <div class="text-center">
+                <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=coti.id %}" download>
+                    <i class="bi bi-cloud-download"></i>
+                </a>
+            </div>
+        </div>
+    </td>
+    <td>{{ coti.estado }}</td> 
+    <td>
+        <div style="text-align: center; align-items: center; ">
+            {% if coti.estado == 'Esperando aprobación' %}
+                <div class="text-center">
+                    <a style="margin-bottom: 5px; width: 100%;" class="btn btn-success btn-md" href="/Presupuesto/Cotizacion/Aprobado/{{coti.diseno.presupuesto.id}}/{{coti.id}}"><i class="bi bi-check-circle"></i></a>
+                    <button style="margin-bottom: 5px; width: 100%;" class="btn btn-danger btn-md" type="button" data-bs-toggle="modal" data-bs-target="#editCotizacionModal">
+                        <i class="bi bi-x-octagon"></i>
+                    </button>
+                </div>
+
+                <!-- Script para mandar el valor del comentario -->
+                <script>
+                    function rechazarCotizacion() {
+                        var comentarioValue = $('#comentario').val();
+                        var cotizacionId = $('#id').val();
+                        var disenoId = $('#disenoId').val(); // assuming you have a hidden input with the presupuestoId
+                        var url = '/Presupuesto/Cotizacion/Rechazado/' + disenoId + '/' + cotizacionId + '/?comentario=' + encodeURIComponent(comentarioValue);
+                        window.location.href = url;
+                    }
+                </script>
+
+                <!-- Modal -->
+                <div class="modal fade" id="editCotizacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editCotizacionModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editCotizacionModalLabel">Rechazar cotizacion</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div>
+                                    <input type="hidden" class="form-control" name="id" id="id" value={{coti.id}} >
+                                    <input type="hidden" class="form-control" name="disenoId" id="disenoId" value={{coti.diseno.presupuesto.id}} >
+                                </div>
+                                <div>
+                                    <label for="comentario">Motivo de rechazo:</label>
+                                    <textarea class="form-control" name="comentario" id="comentario" required> </textarea>    
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" onclick="rechazarCotizacion()">Rechazar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% elif coti.estado == 'Rechazado' %}
+                {{ coti.comentario }}
+            {% elif coti.estado == 'Aprobado' %}
+                <i class="bi bi-check-all"></i>
+            {% endif %}
+        </div>
+    </td>
+</tr>
+{% endfor %}
+
+{% endblock %}
+
+{% block footer %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Archivo</th>
+<th>Estado</th>
+<th>Comentario</th>
+{% endblock %}

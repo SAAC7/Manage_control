@@ -63,9 +63,9 @@
         </div>
     </td>
     <td>
-        <div class="row">
-                <div class="col-md-6">
-                    {% for cotizacion in cotizaciones %}
+        <!-- <div class="row">
+            <div class="col-md-6">
+                {% for cotizacion in cotizaciones %}
                     {% if cotizacion.diseno.id == diseno.id %}
                         <div class="text-center">
                             <div>{{ cotizacion.estado }}</div>
@@ -74,10 +74,10 @@
                             </a>
                         </div>
                     {% endif %}
-                    {% endfor %}
-                </div>
-                <div style="display: flex; align-items: center; " class="col-md-6">
-                    {% for cotizacion in cotizaciones %}
+                {% endfor %}
+            </div>
+            <div style="display: flex; align-items: center; " class="col-md-6">
+                {% for cotizacion in cotizaciones %}
                     {% if cotizacion.diseno.id == diseno.id %}
                         {% if cotizacion.estado == 'Esperando aprobación' %}
                             <div class="text-center">
@@ -86,10 +86,9 @@
                             </div>
                         {% endif %}
                     {% endif %}
-                    {% endfor %}
-                </div>
-            
-        </div>
+                {% endfor %}
+            </div>
+        </div> -->
     </td>
 </tr>
 {% endfor %}

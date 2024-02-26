@@ -25,6 +25,20 @@ def listadoP(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
+@login_required(login_url='index')
+def listado_cotizaciones_diseno(request, diseno_id):
+    user = request.user
+    if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        # Obtener el diseño con el ID proporcionado
+        diseno = get_object_or_404(Diseno, pk=diseno_id)
+        
+        #Lista de cotizaciones del presupuesto
+        cotizacion = Cotizacion.objects.filter(diseno_id=diseno)
+        return render(request,'Asesor/listado_cotizaciones_diseno.html', {'diseno':diseno, 'cotizacion': cotizacion})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
+
 def presupuesto_list(request):
     #select_related es para hacer el JOIN y obtener los usuarios relacionados
     presupuestos = Presupuesto.objects.select_related('asesor').all()
@@ -223,7 +237,7 @@ def disenos_presupuesto(request, pre_id):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
-
+#Mostrar diseños de presupuesto finalizados
 @login_required(login_url='index')
 def disenos_presupuesto_fin(request, pre_id):
     user = request.user
