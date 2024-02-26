@@ -63,32 +63,6 @@
         </div>
     </td>
     <td>
-        <!-- <div class="row">
-            <div class="col-md-6">
-                {% for cotizacion in cotizaciones %}
-                    {% if cotizacion.diseno.id == diseno.id %}
-                        <div class="text-center">
-                            <div>{{ cotizacion.estado }}</div>
-                            <a style="margin-bottom: 5px; width: 100%;" class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=cotizacion.id %}" download>
-                                <i class="bi bi-cloud-download"></i>
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-            <div style="display: flex; align-items: center; " class="col-md-6">
-                {% for cotizacion in cotizaciones %}
-                    {% if cotizacion.diseno.id == diseno.id %}
-                        {% if cotizacion.estado == 'Esperando aprobación' %}
-                            <div class="text-center">
-                                <a style="margin-bottom: 5px; width: 50%;" class="btn btn-success btn-md" href="/Presupuesto/Cotizacion/Aprobado/{{presupuesto.id }}/{{cotizacion.id }}"><i class="bi bi-check-circle"></i></a>
-                                <a style="margin-bottom: 5px; width: 50%;" class="btn btn-danger btn-md" href="/Presupuesto/Cotizacion/Rechazado/{{presupuesto.id }}/{{cotizacion.id }}"><i class="bi bi-x-octagon"></i></a>
-                            </div>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </div> -->
     </td>
 </tr>
 {% endfor %}

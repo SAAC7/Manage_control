@@ -19,6 +19,7 @@
 <th>Descripcion</th>
 <th>Fecha subido</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Opciones</th>
 {% endblock %}
 
@@ -33,6 +34,15 @@
     <td>{{ d.presupuesto.descripcion }}</td>
     <td>{{ d.fecha }}</td>
     <td>{{ d.estado }}</td>
+    <td>
+        {% if d.estado == 'Rechazado' %}
+            {{d.comentario}}
+        {% elif d.estado == 'Aprobado' %}
+            <i class="bi bi-check-all"></i>
+        {% else %}
+            <i class="bi bi-hourglass-split"></i>
+        {% endif %}
+    </td>
     <td>
         <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=d.id %}" download>
             <i class="bi bi-cloud-download"></i>
@@ -53,5 +63,6 @@
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Opciones</th>
 {% endblock %}

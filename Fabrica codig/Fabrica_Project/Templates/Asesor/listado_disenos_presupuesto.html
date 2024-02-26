@@ -66,6 +66,7 @@
 <th>ID</th>
 <th>Fecha</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Diseño</th>
 <th>Cotizacion</th>
 {% endblock %}
@@ -80,9 +81,16 @@
     <td>{{ diseno.fecha }}</td>
     <td>
         {{ diseno.estado }} 
-        {% if diseno.comentario != null %}
-            <br> 
+    </td>
+    <td>
+        {% if diseno.estado == 'Rechazado' %}
             {{diseno.comentario}}
+        {% elif diseno.estado == 'Aprobado' %}
+            <i class="bi bi-check-all"></i>
+        {% elif diseno.estado == 'Diseño guía' %}
+            <i class="bi bi-file-earmark-break-fill"></i>
+        {% else %}
+            <i class="bi bi-hourglass-split"></i>
         {% endif %}
     </td>
     <td>
@@ -159,6 +167,7 @@
 <th>ID</th>
 <th>Fecha</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Diseño</th>
 <th>Cotizacion</th>
 
