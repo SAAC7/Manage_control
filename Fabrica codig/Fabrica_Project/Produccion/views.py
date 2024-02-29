@@ -12,8 +12,6 @@ from Asesores.models import Presupuesto, Diseno
 from Cotizadores.models import Cotizacion
 from django.contrib.auth.models import Group, User
 
-
-
 #Lista de ordenes de trabajo disponibles
 @login_required(login_url='index')
 def ordenes_listado(request,fin):
@@ -49,7 +47,6 @@ def ordenes_listado(request,fin):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
     
-    
 @login_required(login_url='index')        
 def trabajo(request):
     usuario_autenticado = request.user
@@ -82,8 +79,6 @@ def trabajofin(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
     
-    
-    
 @login_required(login_url='index')    
 def ordenes_info(request, id_o,fin):
     user = request.user
@@ -113,8 +108,6 @@ def ordenes_info(request, id_o,fin):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
-    
-    
     
 @login_required(login_url='index')  
 def Asignar(request,id_orden):

@@ -15,5 +15,7 @@ urlpatterns = [
     path('Informacion/Finalizado/<pre_id>/', asesor_views.disenos_presupuesto_fin , name='verInformacionfin'),
     path('Contrato/<int:id_p>/', asesor_views.subir_contrato , name='subir_Contrato'),
     path('Contrato/Archivo/<int:id>/', asesor_views.descargar_contrato, name='descargar_contrato'),
+    path('Carta/Archivo/<int:id>/', asesor_views.descargar_carta, name='descargar_carta'),
     path('Informacion/Diseno/<diseno_id>/', asesor_views.listado_cotizaciones_diseno , name='verCotizaciones'),
+    path('Informacion/Documentos-Produccion/<presupuesto_id>/', asesor_views.listado_documentos_produccion , name='verDocumentosProduccion'),
 ]

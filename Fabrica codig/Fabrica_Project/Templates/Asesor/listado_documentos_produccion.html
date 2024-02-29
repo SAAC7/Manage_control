@@ -1,0 +1,57 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <h1>Documentos de produccion</h1>
+</div>
+<br>
+{% endblock %}
+
+{% load static %}
+
+{% block head %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Contrato</th>
+<th>Carta</th>
+{% endblock %}
+
+{% block tbody %}
+{% for orden in orden %}
+<tr>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <td>{{ orden.asesor.first_name}} {{ orden.asesor.last_name}}</td>
+    {% endif %}
+    <td>{{ orden.id }}</td>
+    <td>{{ orden.fecha_inicio }}</td>
+    <td>
+        <div class="text-center">
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=orden.presupuesto_id %}" download>
+                <i class="bi bi-cloud-download"></i>
+            </a>
+        </div>
+    </td>
+    <td>
+        <div class="text-center">
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_carta' id=orden.presupuesto_id %}" download>
+                <i class="bi bi-cloud-download"></i>
+            </a>
+        </div>
+    </td> 
+</tr>
+{% endfor %}
+
+{% endblock %}
+
+{% block footer %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Contrato</th>
+<th>Carta</th>
+{% endblock %}

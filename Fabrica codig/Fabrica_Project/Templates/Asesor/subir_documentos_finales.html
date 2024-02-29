@@ -9,15 +9,15 @@
                         {% csrf_token %}
                         <div class="custom-file">
                             <h4>Contrato</h4>
-                            {{ form.contrato.label_tag }}
-                            {{ form.contrato }}
+                            <label for="contrato">Seleccione el archivo:</label>
+                            <input type="file" id="contrato" name="contrato" class="form-control cursor-pointer">
                             <small id="fileError" class="text-danger"></small>
                             <br>
                         </div>
                         <div class="custom-file">
                             <h4>Carta</h4>
-                            {{ form.carta.label_tag }}
-                            {{ form.carta }}
+                            <label for="carta">Seleccione el archivo:</label>
+                            <input type="file" id="carta" name="carta" class="form-control cursor-pointer">
                             <small id="fileError" class="text-danger"></small>
                             <br>
                         </div>
@@ -36,7 +36,6 @@
                 <div class="col-6">
                     <div id="archivos-seleccionados"></div>
                 </div>
-                
             </div>
         </div>
     </div>

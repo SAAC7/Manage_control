@@ -8,7 +8,7 @@ from .models import Presupuesto, Diseno
 from Cotizadores.models import Cotizacion
 from Produccion.models import *
 #Formularios
-from .forms import PresupuestoForm, ContratoForm
+from .forms import PresupuestoForm, ContratoForm, CartaForm
 
 
 # Create your views here.
@@ -25,6 +25,8 @@ def listadoP(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
+
+#Listado de cotizaciones por diseño
 @login_required(login_url='index')
 def listado_cotizaciones_diseno(request, diseno_id):
     user = request.user
@@ -35,6 +37,21 @@ def listado_cotizaciones_diseno(request, diseno_id):
         #Lista de cotizaciones del presupuesto
         cotizacion = Cotizacion.objects.filter(diseno_id=diseno)
         return render(request,'Asesor/listado_cotizaciones_diseno.html', {'diseno':diseno, 'cotizacion': cotizacion})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
+
+#Listado de contrato, carta y hojas de producción
+@login_required(login_url='index')
+def listado_documentos_produccion(request, presupuesto_id):
+    user = request.user
+    if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        # Obtener el diseño con el ID proporcionado
+        presupuesto = get_object_or_404(Presupuesto, pk=presupuesto_id)
+        
+        #Orden de trabajo del presupuesto
+        orden = Orden_trabajo.objects.filter(presupuesto_id=presupuesto)
+        return render(request,'Asesor/listado_documentos_produccion.html', {'presupuesto':presupuesto, 'orden': orden})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -109,16 +126,15 @@ def subir_contrato(request,id_p):
     if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Cotizador').exists()):
         if request.method == 'POST':
             form = ContratoForm(request.POST, request.FILES)
+            form2 = CartaForm(request.POST, request.FILES)
             presupuesto_obtenido = get_object_or_404(Presupuesto, pk=id_p)  
             validar_presupuesto = Presupuesto.objects.filter(id=id_p, estado="Pendiente de contrato")
             if validar_presupuesto.exists():
-                if form.is_valid():
+                if form.is_valid() and form2.is_valid():
                     # Guardar el Diseño
                     contratos = form.cleaned_data['contrato']
-                    cartas = form.cleaned_data['carta']
+                    cartas = form2.cleaned_data['carta']
                     hojasform=request.FILES.getlist('archivos')
-                    
-                    
                     
                     presupuesto_obtenido.estado="Enviado a producción"
                     presupuesto_obtenido.save()
@@ -144,9 +160,9 @@ def subir_contrato(request,id_p):
 def presupuesto_rechazar(request, pre_id,fin):
     # Obtener el presupuesto con el ID proporcionado
     presupuesto = get_object_or_404(Presupuesto, pk=pre_id)
-    if (fin==1):
+    if (fin=='1'):
         presupuesto.estado = "Rechazado"
-    else:
+    elif (fin=='0'):
         presupuesto.estado = "Entregado"
         
     presupuesto.fecha_fin = datetime.datetime.now()
@@ -257,7 +273,7 @@ def disenos_presupuesto_fin(request, pre_id):
 
 #Descargar archivo del contrato
 def descargar_contrato(request, id):
-    contrato = get_object_or_404(Orden_trabajo, pk=id)
+    contrato = get_object_or_404(Orden_trabajo, presupuesto_id=id)
     
     response = HttpResponse(contrato.contrato.read(), content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{contrato.contrato.name}"'
@@ -265,7 +281,7 @@ def descargar_contrato(request, id):
     return response
 
 def descargar_carta(request, id):
-    contrato = get_object_or_404(Orden_trabajo, pk=id)
+    contrato = get_object_or_404(Orden_trabajo, presupuesto_id=id)
     
     response = HttpResponse(contrato.carta.read(), content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{contrato.carta.name}"'
