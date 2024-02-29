@@ -10,13 +10,11 @@ class Diseno_CNC(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     archivo = models.FileField(upload_to='media/disenoCNC/', null=False, blank=False)
     
-
 class Diseno_Produccion(models.Model):
     disenador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     fecha = models.DateTimeField(auto_now_add=True)
     estado=models.TextField(null=True, blank=True)
     archivo = models.FileField(upload_to='media/disenoProduccion/', null=False, blank=False)
-    
     
 class Orden_trabajo(models.Model):
     presupuesto = models.ForeignKey(Presupuesto, on_delete=models.PROTECT, null=False, blank=False)
@@ -25,7 +23,6 @@ class Orden_trabajo(models.Model):
     contrato = models.FileField(upload_to='media/contratos/')
     carta = models.FileField(upload_to='media/carta/')
     hojaproduccion = models.ManyToManyField('Hoja_de_Produccion', blank=True)
-    
     
 class Hoja_de_Produccion(models.Model):
     disenador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
@@ -40,10 +37,6 @@ class Contrato(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     estado=models.TextField(null=True, blank=True)
     archivo = models.FileField(upload_to='media/contratos/')
-    
-
-    
-
     
 class Trabajo(models.Model):
     trabajador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)

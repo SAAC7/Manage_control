@@ -1,0 +1,70 @@
+{% extends 'tables.html' %}
+
+{% block botones%}
+<div class="text-center">
+    <br>
+    <h1>Ordenes de Trabajo</h1>
+</div>
+{% endblock %}
+
+{% load static %}
+
+
+{% block head %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Diseño</th>
+<th>Cotizacion</th>
+<th>Contrato</th>
+<th>Estado</th>
+{% endblock %}
+
+
+
+{% block tbody %}
+    {% for o in lista_Ordenes %}
+    <tr>
+        <td>{{o.orden.id}}</td>
+        {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <td>{{o.orden.presupuesto.asesor.first_name}} {{o.orden.presupuesto.asesor.last_name}}</td>
+        {% endif %}
+        <td>{{o.orden.presupuesto.cliente}}</td>
+        <td>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=o.diseno_aprobado.id %}" download>
+                <i class="bi bi-cloud-download"></i>
+            </a>
+        </td>
+        <td>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=o.cotizacion_aprobada.id %}" download>
+                <i class="bi bi-cloud-download"></i>
+            </a>
+        </td>
+        <td>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=o.orden.id %}" download>
+                <i class="bi bi-cloud-download"></i>
+            </a>
+        </td>
+        <td>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=o.orden.id fin=finalizados %}"><i class="bi bi-info-circle"></i> Info</a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+
+
+
+
+{% block footer %}
+<th>ID</th>
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Asesor</th>
+{% endif %}
+<th>Cliente</th>
+<th>Diseño</th>
+<th>Cotizacion</th>
+<th>Contrato</th>
+<th>Estado</th>
+{% endblock %}
