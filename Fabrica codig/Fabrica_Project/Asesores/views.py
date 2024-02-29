@@ -41,17 +41,21 @@ def listado_cotizaciones_diseno(request, diseno_id):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
-#Listado de contrato, carta y hojas de producción
+#Listado de contrato, carta, hojas de producción
 @login_required(login_url='index')
 def listado_documentos_produccion(request, presupuesto_id):
     user = request.user
     if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
-        # Obtener el diseño con el ID proporcionado
+       # Obtener el presupuesto con el ID proporcionado
         presupuesto = get_object_or_404(Presupuesto, pk=presupuesto_id)
-        
-        #Orden de trabajo del presupuesto
+
+        # Orden de trabajo del presupuesto
         orden = Orden_trabajo.objects.filter(presupuesto_id=presupuesto)
-        return render(request,'Asesor/listado_documentos_produccion.html', {'presupuesto':presupuesto, 'orden': orden})
+
+        # Hojas de produccion de la orden
+        hojas = Hoja_de_Produccion.objects.filter(orden_trabajo__pk=orden.first().id)
+
+        return render(request, 'Asesor/listado_documentos_produccion.html', {'presupuesto': presupuesto, 'orden': orden, 'hojas': hojas})
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
@@ -280,6 +284,7 @@ def descargar_contrato(request, id):
     
     return response
 
+#Descargar archivo de la carta
 def descargar_carta(request, id):
     contrato = get_object_or_404(Orden_trabajo, presupuesto_id=id)
     
@@ -288,17 +293,10 @@ def descargar_carta(request, id):
     
     return response     
 
-def descargar_hoja_produccion(request, id,tipo):
+#Descargar archivo de la hoja de producción
+def descargar_hoja_produccion(request, id):
     hoja_produccion = get_object_or_404(Hoja_de_Produccion, pk=id)
         
-    if tipo == 1 and hoja_de_produccion.diseno_CNC:
-        archivo = hoja_de_produccion.diseno_CNC.archivo
-    elif tipo == 2 and hoja_de_produccion.diseno_produccion:
-        archivo = hoja_de_produccion.diseno_produccion.archivo
-    else:
-        archivo = hoja_de_produccion.archivo
-    
-    with open(archivo.path, 'rb') as f:
-        response = HttpResponse(f.read(), content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=' + archivo.name
-        return response
+    response = HttpResponse(hoja_produccion.archivo.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{hoja_produccion.archivo.name}"'
+    return response
