@@ -57,7 +57,13 @@
 {% for diseno in disenos %}
 <tr>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+
+    {% if diseno.usuario.first_name and diseno.usuario.last_name %}
     <td>{{ diseno.usuario.first_name}} {{ diseno.usuario.last_name}}</td>
+    {% else %}
+    <td>{{ diseno.usuario.username}}</td>
+    {% endif %}
+
     {% endif %}
     <td>{{ diseno.id }}</td>
     <td>{{ diseno.fecha }}</td>

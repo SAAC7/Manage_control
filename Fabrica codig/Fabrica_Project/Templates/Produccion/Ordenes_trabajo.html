@@ -29,7 +29,13 @@
     <tr>
         <td>{{o.orden.id}}</td>
         {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+
+        {% if o.orden.presupuesto.asesor.first_name and o.orden.presupuesto.asesor.last_name %}
         <td>{{o.orden.presupuesto.asesor.first_name}} {{o.orden.presupuesto.asesor.last_name}}</td>
+        {% else %}
+        <td>{{o.orden.presupuesto.asesor.username}}</td>
+        {% endif %}
+
         {% endif %}
         <td>{{o.orden.presupuesto.cliente}}</td>
         <td>

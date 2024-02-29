@@ -27,7 +27,13 @@
 <tr>
     <td>{{ c.id }}</td>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    
+    {% if c.diseno.presupuesto.asesor.first_name and c.diseno.presupuesto.asesor.last_name %}
     <td>{{ c.diseno.presupuesto.asesor.first_name}} {{ c.diseno.presupuesto.asesor.last_name}}</td>
+    {% else %}
+    <td>{{ c.diseno.presupuesto.asesor.username}}</td>
+    {% endif %}
+    
     {% endif %}
     <td>{{ c.diseno.presupuesto.cliente }}</td>
     <td>{{ c.diseno.presupuesto.descripcion }}</td>
