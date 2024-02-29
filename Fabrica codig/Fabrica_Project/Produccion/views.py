@@ -243,3 +243,12 @@ def descargar_hoja_produccion(request, id,tipo):
         response = HttpResponse(f.read(), content_type='application/octet-stream')
         response['Content-Disposition'] = 'attachment; filename=' + archivo.name
         return response
+    
+#Descargar archivo del contrato
+def descargar_contrato(request, id):
+    contrato = get_object_or_404(Orden_trabajo, pk=id)
+    
+    response = HttpResponse(contrato.contrato.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{contrato.contrato.name}"'
+    
+    return response
