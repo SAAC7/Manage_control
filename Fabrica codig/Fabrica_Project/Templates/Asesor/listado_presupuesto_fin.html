@@ -27,8 +27,12 @@
 {% for p in pres %}
 <tr>
     <td>{{ p.id }}</td>
-    {% if user.is_superuser or  user.groups.all.0.name == "Administrador" %}
-        <td>{{ p.asesor }}</td>
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        {% if p.asesor.first_name and p.asesor.last_name %}
+            <td>{{ p.asesor.first_name}} {{ p.asesor.last_name}}</td>
+        {% else %}
+            <td>{{ p.asesor.username}}</td>
+        {% endif %}
     {% endif %}
     <td>{{ p.cliente }}</td>
     <td>{{ p.descripcion }}</td>

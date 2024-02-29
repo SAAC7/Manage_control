@@ -62,7 +62,13 @@
 {% for diseno in pres %}
 <tr>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-    <td>{{ diseno.usuario.first_name}} {{ diseno.usuario.last_name}}</td>
+
+    {% if diseno.usuario.first_name and diseno.usuario.last_name %}
+        <td>{{ diseno.usuario.first_name }} {{ diseno.usuario.last_name }}</td>
+    {% else %}
+        <td>{{ diseno.usuario.username }}</td>
+    {% endif %}
+
     {% endif %}
     <td>{{ diseno.id }}</td>
     <td>{{ diseno.fecha }}</td>
@@ -143,10 +149,13 @@
         </a>
     </td>
     <td>
-        {% for contrato in contratos %}
-            <a class="btn btn-primary btn-sm btn-block" href="/Presupuesto/Informacion/Documentos-Produccion/{{presupuesto.id}}/">
-                <i class="bi bi-eye"></i>
-            </a>
+        {% for cotizacion in diseno.cotizacion_set.all  %}
+        {% if not cotizacion.comentario and cotizacion.estado == "Aprobado" %}
+        <a class="btn btn-primary btn-sm btn-block" href="/Presupuesto/Informacion/Documentos-Produccion/{{presupuesto.id}}/">
+            <i class="bi bi-eye"></i>
+        </a>
+        {% endif %}
+        
         {% endfor %}
         </div>
     </td>

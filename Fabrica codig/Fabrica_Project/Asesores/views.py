@@ -46,6 +46,7 @@ def listado_cotizaciones_diseno(request, diseno_id):
 def listado_documentos_produccion(request, presupuesto_id):
     user = request.user
     if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+        
         # Obtener el diseño con el ID proporcionado
         presupuesto = get_object_or_404(Presupuesto, pk=presupuesto_id)
         

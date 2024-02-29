@@ -23,7 +23,11 @@
 {% for orden in orden %}
 <tr>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-    <td>{{ orden.asesor.first_name}} {{ orden.asesor.last_name}}</td>
+        {% if orden.presupuesto.asesor.first_name and orden.presupuesto.asesor.last_name %}
+            <td>{{ orden.presupuesto.asesor.first_name }} {{ orden.presupuesto.asesor.last_name }}</td>
+        {% else %}
+            <td>{{ orden.presupuesto.asesor.username }}</td>
+        {% endif %}
     {% endif %}
     <td>{{ orden.id }}</td>
     <td>{{ orden.fecha_inicio }}</td>
