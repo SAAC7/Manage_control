@@ -54,7 +54,12 @@
             </a>
         </td>
         <td>
+            {% if o.orden.presupuesto.estado == 'Enviado a producción'  %}
+            <a class="btn btn-success btn-sm btn-block" href="{% url 'aceptarOrdenes' id_o=o.orden.id%}"><i class="bi bi-info-circle"></i> Aceptar</a>
+            {% comment %} <a class="btn btn-danger btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=o.orden.id fin=finalizados %}"><i class="bi bi-x-octagon"></i> Rechazar</a> {% endcomment %}
+            {% else %}
             <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=o.orden.id fin=finalizados %}"><i class="bi bi-info-circle"></i> Info</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}

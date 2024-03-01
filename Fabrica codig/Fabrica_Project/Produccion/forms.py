@@ -10,4 +10,4 @@ class DisenoProduccionForm(forms.Form):
 class HojaProduccionUpdateForm(forms.ModelForm):
     class Meta:
         model = Hoja_de_Produccion
-        fields = ['diseno_CNC_id', 'diseno_produccion_id', 'estado']
+        fields = ['diseno_CNC', 'diseno_produccion', 'estado']

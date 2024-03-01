@@ -4,7 +4,8 @@ from django.contrib.auth import authenticate
 from django.http import HttpResponse, JsonResponse, FileResponse
 from django.core.serializers import serialize
 from django.utils import timezone
-from forms import DisenoCNCForm, DisenoProduccionForm, HojaProduccionUpdateForm
+from .forms import *
+
 
 #Modelos
 from .models import *
@@ -194,50 +195,51 @@ def subir_contrato(request,id_h):
             
             return render(request,'Asesor/subir_documentos_finales.html',{'form':form,'presupuesto':presupuesto})
         
-# @login_required(login_url='index')  
-# def subir_diseno_cnc(request,id_o):
-#     user = request.user
-#     if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer_CNC').exists()):
-#         if request.method == 'POST':
-        
-#             form = coti_form.CotForm(request.POST, request.FILES)
-#             orden_de_trabajo = get_object_or_404(Orden_trabajo, pk=id_o)  
-#             if form.is_valid():
-#                 archivo = form.cleaned_data['archivo']
+def subir_diseno_cnc(request, id_o):
+    user = request.user
+    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer_CNC').exists()):
+        if request.method == 'POST':
+            form = CotForm(request.POST, request.FILES)
+            orden_de_trabajo = get_object_or_404(Orden_trabajo, pk=id_o)  
+            if form.is_valid():
+                archivo = form.cleaned_data['archivo']
     
-#                 # Crear una nueva instancia de Diseno_CNC y guardar el archivo allí
-#                 diseno_cnc = Diseno_CNC(archivo=archivo,disenador=user)
-#                 diseno_cnc.save()
+                # Crear una nueva instancia de Diseno_Produccion y guardar el archivo allí
+                diseno_produccion = Diseno_Produccion(archivo=archivo, disenador=user)
+                diseno_produccion.save()
                 
-#                 # Ahora puedes asignar la instancia de Diseno_CNC a orden_de_trabajo.diseno_CNC
-#                 orden_de_trabajo.diseno_CNC = diseno_cnc
-#                 orden_de_trabajo.save()
+                # Ahora puedes asignar la instancia de Diseno_Produccion a Hoja_de_Produccion.diseno_produccion
+                hoja_produccion = orden_de_trabajo.hojaproduccion.first()  # Obtenemos la hoja de producción asociada
+                if hoja_produccion:
+                    hoja_produccion.diseno_produccion = diseno_produccion
+                    hoja_produccion.save()
                 
-#                  # Busca los trabajos asociados a esa orden de trabajo donde el grupo es 'Designer_CNC'
-#                 trabajos_ord = Trabajos_Orden.objects.filter(orden=orden_de_trabajo, trabajo__grup__name='Designer_CNC')
+                # Actualizar el estado de la hoja de producción
+                hoja_produccion.estado = 'Diseño de producción completado'  # Cambiar este estado según tu lógica
+                hoja_produccion.save()
+                
+                # Buscar los trabajos asociados a esa orden de trabajo donde el grupo es 'Designer_CNC'
+                trabajos_ord = Trabajos_Orden.objects.filter(orden=orden_de_trabajo, trabajo__grup__name='Designer_CNC')
 
-#                 # Extrae los objetos Trabajo de los Trabajos_Orden
-#                 for trabajo_ord in trabajos_ord:
-#                     trabajo = get_object_or_404(Trabajo, id=trabajo_ord.trabajo.id)
-#                     trabajo.fecha_fin = timezone.now()
-#                     trabajo.save()
+                # Extraer los objetos Trabajo de los Trabajos_Orden y actualizar sus fechas
+                for trabajo_ord in trabajos_ord:
+                    trabajo = get_object_or_404(Trabajo, id=trabajo_ord.trabajo.id)
+                    trabajo.fecha_fin = timezone.now()
+                    trabajo.save()
 
-                
-                
-                    
-#                 return redirect('/Produccion/Trabajos/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
-#             else:
-#                 error = "No se puede adjuntar Cotizacion"
-#                 return render(request, '404.html', {'error': error})
-#         else:
-#             form = coti_form.CotForm(request.POST, request.FILES)
-#             orden_de_trabajo = get_object_or_404(Orden_trabajo, pk=id_o) 
-#             print(orden_de_trabajo)
+                return redirect('/Produccion/Trabajos/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+            else:
+                error = "No se puede adjuntar Cotizacion"
+                return render(request, '404.html', {'error': error})
+        else:
+            form = CotForm(request.POST, request.FILES)
+            orden_de_trabajo = get_object_or_404(Orden_trabajo, pk=id_o) 
+            print(orden_de_trabajo)
             
-#             return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':orden_de_trabajo})
-#     else:
-#         error = "No tienes permiso para acceder a esta página."
-#         return render(request, '404.html', {'error': error})
+            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':orden_de_trabajo})
+    else:
+        error = "No tienes permiso para acceder a esta página."
+        return render(request, '404.html', {'error': error})
     
 @login_required(login_url='index')     
 def finalizar_trabajo(request,id_t):
@@ -287,3 +289,27 @@ def descargar_contrato(request, id):
     response['Content-Disposition'] = f'attachment; filename="{contrato.contrato.name}"'
     
     return response
+
+
+
+def aceptar_orden(request, id_o):
+    orden = get_object_or_404(Orden_trabajo, pk=id_o)
+    presupuesto = get_object_or_404(Presupuesto, pk=orden.presupuesto.id)
+    presupuesto.estado = "Produciendo"
+    presupuesto.save()
+    
+    
+    datos_post = {
+        'grupo': 'valor1',
+        'integrante': 'valor2',
+        'comment': 'valor2',
+        'fecha_program': 'valor2',
+        }
+
+    # Redirigir a la vista 'TrabajosCrear' con el parámetro id_orden y los datos POST
+    error = datos_post
+    return render(request, '404.html', {'error': error})
+    # return redirect('TrabajosCrear', id_orden=id_o, data=post_data, method='POST')
+
+    
+     

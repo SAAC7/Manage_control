@@ -3,6 +3,7 @@ from . import views as produccion_views
 
 urlpatterns = [
     path('Ordenes-de-Trabajo/<int:fin>/', produccion_views.ordenes_listado , name='OrdenesDeTrabajo'),
+    path('Ordenes-de-Trabajo/Aceptar/<int:id_o>/', produccion_views.aceptar_orden , name='aceptarOrdenes'),
     path('Ordenes/Informacion/<int:id_o>/<int:fin>/', produccion_views.ordenes_info , name='ordenes_trabajo_info'),
     path('Ordenes/Informacion/Finalizar/<int:id_o>/', produccion_views.finalizar_orden , name='ordenes_trabajo_fin'),
     path('Ordenes/Informacion/Descargar/<int:id_o>/<int:tipo>/', produccion_views.descargar_hoja_produccion , name='descargar_cnc'),
