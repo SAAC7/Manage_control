@@ -12,11 +12,7 @@
 <!-- Tabla para visualizar contrato y carta -->
 {% block table1_head %}
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        {% if orden.presupuesto.asesor.first_name and orden.presupuesto.asesor.last_name %}
-            <td>{{ orden.presupuesto.asesor.first_name }} {{ orden.presupuesto.asesor.last_name }}</td>
-        {% else %}
-            <td>{{ orden.presupuesto.asesor.username }}</td>
-        {% endif %}
+        <th>Asesor</th>
     {% endif %}
     <th>ID</th>
     <th>Fecha</th>
@@ -27,8 +23,10 @@
 {% block table1_tbody %}
     {% for orden in orden %}
         <tr>
-            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-                <td>{{ orden.asesor.first_name}} {{ orden.asesor.last_name}}</td>
+            {% if orden.presupuesto.asesor.first_name and orden.presupuesto.asesor.last_name %}
+                <td>{{ orden.presupuesto.asesor.first_name }} {{ orden.presupuesto.asesor.last_name }}</td>
+            {% else %}
+                <td>{{ orden.presupuesto.asesor.username }}</td>
             {% endif %}
             <td>{{ orden.id }}</td>
             <td>{{ orden.fecha_inicio }}</td>
@@ -49,8 +47,18 @@
         </tr>
     {% endfor %}
 {% endblock %}
+{% block table1_footer %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    <th>Asesor</th>
+{% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Contrato</th>
+<th>Carta</th>
+{% endblock %}
 
 <!-- Tabla para visualizar hojas de produccion -->
+{% block title %} Hojas de Producción {%endblock%}
 {% block table2_head %}
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
         <th>Diseñador</th>

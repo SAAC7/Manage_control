@@ -1,0 +1,58 @@
+{% extends 'core.html' %}
+{% block content%}
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="card o-hidden border-0 shadow-lg " >
+            <div class="row mb-3 mt-3">
+                <div class="col-6">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="custom-file">
+                            <h4>Diseño CNC</h4>
+                            <label for="cnc">Seleccione el archivo:</label>
+                            <input type="file" id="cnc" name="cnc" class="form-control cursor-pointer">
+                            <small id="fileError" class="text-danger"></small>
+                            <br>
+                        </div>
+                        <div class="custom-file">
+                            <h4>Diseño de Producción</h4>
+                            <label for="diseno-p">Seleccione el archivo:</label>
+                            <input type="file" id="diseno-p" name="diseno-p" class="form-control cursor-pointer">
+                            <small id="fileError" class="text-danger"></small>
+                            <br>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input id="botonEnvio" class="btn btn-primary btn-lg" type="submit" value="Guardar" name="botonEnvio">
+                        </div>
+                        <input name="presupuesto_num" type="hidden" value={{presupuesto.id}}>
+                        <input name="diseno_antiguo"  type="hidden" value={{pres}}>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <div id="archivos-seleccionados"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputArchivos = document.getElementById('archivos');
+        const archivosSeleccionados = document.getElementById('archivos-seleccionados');
+    
+        inputArchivos.addEventListener('change', function() {
+            archivosSeleccionados.innerHTML = ''; // Limpiar cualquier contenido anterior
+    
+            // Iterar sobre los archivos seleccionados y mostrar sus nombres
+            for (let i = 0; i < this.files.length; i++) {
+                const nombreArchivo = this.files[i].name;
+                const parrafo = document.createElement('p');
+                parrafo.textContent = nombreArchivo;
+                archivosSeleccionados.appendChild(parrafo);
+            }
+        });
+    });
+</script>
+
+{% endblock %}

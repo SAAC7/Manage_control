@@ -19,6 +19,7 @@
 <th>Descripcion</th>
 <th>Fecha ubido</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Opciones</th>
 {% endblock %}
 
@@ -40,6 +41,10 @@
     <td>{{ c.fecha }}</td>
     <td>{{ c.estado }}</td>
     <td>
+        {% if c.estado == 'Rechazado' %}
+            {{ c.comentario }}
+        {% endif %}
+    <td>
         <div>
             <a class="btn btn-info btn-sm btn-block" href="/Cotizaciones/descargar/{{c.id}}/"><i class="bi bi-cloud-download"></i></a>
             {% comment %} <a class="btn btn-success btn-sm btn-block" href="#">Generar Orden</a> {% endcomment %}
@@ -60,5 +65,6 @@
 <th>Descripcion</th>
 <th>Fecha Subido</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Opciones</th>
 {% endblock %}

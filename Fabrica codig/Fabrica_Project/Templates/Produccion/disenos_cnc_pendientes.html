@@ -13,42 +13,32 @@
 {% block head %}
 <th>ID</th>
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+<th>Diseñador</th>
 {% endif %}
-<th>Cliente</th>
-<th>Diseño</th>
-<th>Cotizacion</th>
-<th>Contrato</th>
+<th>Hoja de Producción</th>
 <th>Estado</th>
+<th>Opciones</th>
 {% endblock %}
 
 
 
 {% block tbody %}
-    {% for o in lista_Ordenes %}
+    {% for hoja in hojas %}
     <tr>
-        <td>{{o.orden.id}}</td>
+        <td>{{hoja.id}}</td>
         {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        <td>{{o.orden.presupuesto.asesor.first_name}} {{o.orden.presupuesto.asesor.last_name}}</td>
+        <td>{{hoja.disenador.first_name}} {{hoja.disenador.last_name}}</td>
         {% endif %}
-        <td>{{o.orden.presupuesto.cliente}}</td>
         <td>
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=o.diseno_aprobado.id %}" download>
+            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_hoja-produccion' id=hoja.id %}" download>
                 <i class="bi bi-cloud-download"></i>
             </a>
         </td>
+        <td>{{hoja.estado}}</td>
         <td>
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo_Cotizacion' id=o.cotizacion_aprobada.id %}" download>
-                <i class="bi bi-cloud-download"></i>
-            </a>
-        </td>
-        <td>
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=o.orden.id %}" download>
-                <i class="bi bi-cloud-download"></i>
-            </a>
-        </td>
-        <td>
-            <a class="btn btn-info btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=o.orden.id fin=finalizados %}"><i class="bi bi-info-circle"></i> Info</a>
+            {% if hoja.estado == 'Esperando diseño CNC' %}
+                <a class="btn btn-primary btn-sm btn-block" href="/Hojas/Informacion/{{ p.presupuesto.id}}/">Subir Cotizacion</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
@@ -60,11 +50,9 @@
 {% block footer %}
 <th>ID</th>
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+<th>Diseñador</th>
 {% endif %}
-<th>Cliente</th>
-<th>Diseño</th>
-<th>Cotizacion</th>
-<th>Contrato</th>
+<th>Hoja de Producción</th>
 <th>Estado</th>
+<th>Opciones</th>
 {% endblock %}

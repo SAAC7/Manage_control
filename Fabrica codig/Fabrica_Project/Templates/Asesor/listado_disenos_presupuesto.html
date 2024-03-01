@@ -89,52 +89,51 @@
     <td>
         <div>
             {% if diseno.estado == 'Esperando aprobación' %}
-            <div class="text-center">
-                <a style="margin-bottom: 5px; width: 100%;" class="btn btn-success btn-md" href="/Presupuesto/Diseno/Aprobar/{{presupuesto.id }}/{{diseno.id }}"><i class="bi bi-check-circle"></i></a>
-                <br>
-                <button style="margin-bottom: 5px; width: 100%;" class="btn btn-danger btn-md" type="button" data-bs-toggle="modal" data-bs-target="#editDisenoModal">
-                    <i class="bi bi-x-octagon"></i>
-                </button>
-            </div>
+                <div class="text-center">
+                    <a style="margin-bottom: 5px; width: 100%;" class="btn btn-success btn-md" href="/Presupuesto/Diseno/Aprobar/{{presupuesto.id }}/{{diseno.id }}"><i class="bi bi-check-circle"></i></a>
+                    <br>
+                    <button style="margin-bottom: 5px; width: 100%;" class="btn btn-danger btn-md" type="button" data-bs-toggle="modal" data-bs-target="#editDisenoModal">
+                        <i class="bi bi-x-octagon"></i>
+                    </button>
+                </div>
 
-            <!-- Script para mandar el valor del comentario -->
-            <script>
-                function rechazarDiseno() {
-                    var comentarioValue = $('#comentario').val();
-                    var disenoId = $('#id').val();
-                    var presupuestoId = $('#presupuestoId').val(); // assuming you have a hidden input with the presupuestoId
-                    var url = '/Presupuesto/Diseno/Rechazar/' + presupuestoId + '/' + disenoId + '/?comentario=' + encodeURIComponent(comentarioValue);
-                    window.location.href = url;
-                }
-            </script>
+                <!-- Script para mandar el valor del comentario -->
+                <script>
+                    function rechazarDiseno() {
+                        var comentarioValue = $('#comentario').val();
+                        var disenoId = $('#id').val();
+                        var presupuestoId = $('#presupuestoId').val(); // assuming you have a hidden input with the presupuestoId
+                        var url = '/Presupuesto/Diseno/Rechazar/' + presupuestoId + '/' + disenoId + '/?comentario=' + encodeURIComponent(comentarioValue);
+                        window.location.href = url;
+                    }
+                </script>
 
-            <!-- Modal -->
-            <div class="modal fade" id="editDisenoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDisenoModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editDisenoModalLabel">Rechazar diseño</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        {% csrf_token %}
-                        <div class="modal-body">
-                            <div>
-                                <input type="hidden" class="form-control" name="id" id="id" value={{diseno.id}} >
-                                <input type="hidden" class="form-control" name="presupuestoId" id="presupuestoId" value={{presupuesto.id}} >
+                <!-- Modal -->
+                <div class="modal fade" id="editDisenoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editDisenoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editDisenoModalLabel">Rechazar diseño</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div>
-                                <label for="comentario">Motivo de rechazo:</label>
-                                <textarea class="form-control" name="comentario" id="comentario" required> </textarea>    
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div>
+                                    <input type="hidden" class="form-control" name="id" id="id" value={{diseno.id}} >
+                                    <input type="hidden" class="form-control" name="presupuestoId" id="presupuestoId" value={{presupuesto.id}} >
+                                </div>
+                                <div>
+                                    <label for="comentario">Motivo de rechazo:</label>
+                                    <textarea class="form-control" name="comentario" id="comentario" required> </textarea>    
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" onclick="rechazarDiseno()">Rechazar</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" onclick="rechazarDiseno()">Rechazar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
             {% endif %}
             <div class="text-center">
                 <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_archivo' id=diseno.id %}" download>
@@ -144,9 +143,11 @@
         </div>
     </td>
     <td>
-        <a class="btn btn-primary btn-sm btn-block" href="/Presupuesto/Informacion/Diseno/{{diseno.id}}/">
-            <i class="bi bi-eye"></i>
-        </a>
+        {% if diseno.estado != 'Rechazado' and diseno.estado != 'Diseño guía' %}
+            <a class="btn btn-primary btn-sm btn-block" href="/Presupuesto/Informacion/Diseno/{{diseno.id}}/">
+                <i class="bi bi-eye"></i>
+            </a>
+        {% endif %}
     </td>
     <td>
         {% for cotizacion in diseno.cotizacion_set.all  %}

@@ -42,6 +42,7 @@
 {% endif %}
 <th>Fecha</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Descargar</th>
 {% endblock %}
 
@@ -53,6 +54,11 @@
     {% endif %}
     <td>{{ diseno.fecha }}</td>
     <td>{{ diseno.estado }}</td>
+    <td>
+        {% if diseno.estado == 'Rechazado' %}
+            {{ diseno.comentario }}
+        {% endif %}
+    </td>
     <td>
         <div>
             {% if diseno.estado == 'Diseñando' %}
@@ -75,5 +81,6 @@
 {% endif %}
 <th>Fecha</th>
 <th>Estado</th>
+<th>Comentario</th>
 <th>Descargar</th>
 {% endblock %}
