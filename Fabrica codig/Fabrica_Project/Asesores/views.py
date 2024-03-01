@@ -25,7 +25,6 @@ def listadoP(request):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
-
 #Listado de cotizaciones por diseño
 @login_required(login_url='index')
 def listado_cotizaciones_diseno(request, diseno_id):
@@ -85,7 +84,7 @@ def listadoD(request):
     if user.groups.filter(name='Diseñador').exists():
         fordesign = Diseno.objects.filter(necesita_diseño=False) 
         return render(request,'Asesor/listado_presupuesto.html',{'fordesign':fordesign})
-
+    
 #Crear presupuesto
 @login_required(login_url='index')
 def presupuesto(request):
