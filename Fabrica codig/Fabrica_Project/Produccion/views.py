@@ -120,7 +120,8 @@ def ordenes_info(request, id_o,fin):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
-    
+
+#Asignar trabajo a un trabajador   
 @login_required(login_url='index')  
 def Asignar(request,id_orden):
     user = request.user
@@ -138,7 +139,7 @@ def Asignar(request,id_orden):
             
             new_trabajo = Trabajo.objects.create(trabajador=trabajador_verificado,grup=grupo_verificado,descripcion=commentario_form,fecha_programada=fecha_programada_form)
             new_trabajo_Orden = Trabajos_Orden.objects.create(administrador=user,trabajo=new_trabajo,orden=orden_verificado)
-            return redirect('/Produccion/Ordenesinfo/{}'.format(id_orden)+'/0')
+            return redirect('/Produccion/Ordenes/Informacion/{}'.format(id_orden)+'/0')
             
             
         else:
@@ -200,7 +201,8 @@ def subir_CNC_produccion(request,id_h):
             hoja = get_object_or_404(Hoja_de_Produccion, pk=id_h)
             
             return render(request,'Produccion/subir_cnc.html',{'form':form,'presupuesto':hoja})
-    
+
+#Finalizar trabajo 
 @login_required(login_url='index')     
 def finalizar_trabajo(request,id_t):
     user = request.user
@@ -209,6 +211,7 @@ def finalizar_trabajo(request,id_t):
     trabajos.save()                        
     return redirect('/Produccion/Trabajos/')
 
+#Descargar archivo de diseño
 @login_required(login_url='index')
 def descargar_diseno(request, id_o):
     # Obtén la orden de trabajo por su ID

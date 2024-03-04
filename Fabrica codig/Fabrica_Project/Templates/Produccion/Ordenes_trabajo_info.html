@@ -1,4 +1,4 @@
-{% extends 'tables.html' %}
+{% extends 'two-tables.html' %}
 
 {% block botones%}
 <div class="container">
@@ -30,9 +30,7 @@
             </a>
             {% endif %}
         </div>
-
     </div>
-
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -47,61 +45,109 @@
         btnFinalizar.removeAttribute("href");
       }
     });
-    </script>
+</script>
 {% endblock %}
 
 {% load static %}
 
-
-{% block head %}
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>ID</th>
-<th>Trabajador</th>
-<th>Grupo</th>
-<th>Inicio</th>
-<th>Progamado</th>
-<th>Finalizado</th>
-<th>Descripcion</th>
-{% endif %} 
+{% block table1_head %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>ID</th>
+        <th>Trabajador</th>
+        <th>Grupo</th>
+        <th>Inicio</th>
+        <th>Progamado</th>
+        <th>Finalizado</th>
+        <th>Descripcion</th>
+    {% endif %} 
 {% endblock %}
 
+{% block table1_tbody %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        {% for trabajoq in Trabajos %}
+            <tr>
+                <td>{{trabajoq.id}}</td>
+                <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
+                <td>{{trabajoq.trabajo.grup}}</td>
+                <td>{{trabajoq.trabajo.fecha_inicio}}</td>
 
+                {% if trabajoq.trabajo.fecha_programada %}
+                    <td>{{trabajoq.trabajo.fecha_programada}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
 
-{% block tbody %}
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-{% for trabajoq in Trabajos %}
-<tr>
-    <td>{{trabajoq.id}}</td>
-    <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
-    <td>{{trabajoq.trabajo.grup}}</td>
-    <td>{{trabajoq.trabajo.fecha_inicio}}</td>
-    {% if trabajoq.trabajo.fecha_programada %}
-    <td>{{trabajoq.trabajo.fecha_programada}}</td>
-    {% else %}
-    <td></td>
+                {% if trabajoq.trabajo.fecha_fin %}
+                    <td>{{trabajoq.trabajo.fecha_fin}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+
+                <td>{{trabajoq.trabajo.descripcion}}</td>
+            </tr>
+        {% endfor %}
     {% endif %}
-    {% if trabajoq.trabajo.fecha_fin %}
-    <td>{{trabajoq.trabajo.fecha_fin}}</td>
-    {% else %}
-    <td></td>
-    {% endif %}
-    <td>{{trabajoq.trabajo.descripcion}}</td>
-</tr>
-    {% endfor %}
-{% endif %}
 {% endblock %}
 
+{% block table1_footer %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>ID</th>
+        <th>Trabajador</th>
+        <th>Grupo</th>
+        <th>Inicio</th>
+        <th>Progamado</th>
+        <th>Finalizado</th>
+        <th>Descripcion</th>
+    {% endif %}
+{% endblock %}
 
+{% block table2_head %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>ID</th>
+        <th>Trabajador</th>
+        <th>Grupo</th>
+        <th>Inicio</th>
+        <th>Progamado</th>
+        <th>Finalizado</th>
+        <th>Descripcion</th>
+    {% endif %} 
+{% endblock %}
 
+{% block table2_tbody %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        {% for trabajoq in Trabajos %}
+            <tr>
+                <td>{{trabajoq.id}}</td>
+                <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
+                <td>{{trabajoq.trabajo.grup}}</td>
+                <td>{{trabajoq.trabajo.fecha_inicio}}</td>
 
-{% block footer %}
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>ID</th>
-<th>Trabajador</th>
-<th>Grupo</th>
-<th>Inicio</th>
-<th>Progamado</th>
-<th>Finalizado</th>
-<th>Descripcion</th>
-{% endif %}
+                {% if trabajoq.trabajo.fecha_programada %}
+                    <td>{{trabajoq.trabajo.fecha_programada}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+
+                {% if trabajoq.trabajo.fecha_fin %}
+                    <td>{{trabajoq.trabajo.fecha_fin}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+
+                <td>{{trabajoq.trabajo.descripcion}}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+{% block title %} Hojas de Producción {%endblock%}
+{% block table2_footer %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>ID</th>
+        <th>Trabajador</th>
+        <th>Grupo</th>
+        <th>Inicio</th>
+        <th>Progamado</th>
+        <th>Finalizado</th>
+        <th>Descripcion</th>
+    {% endif %}
 {% endblock %}
