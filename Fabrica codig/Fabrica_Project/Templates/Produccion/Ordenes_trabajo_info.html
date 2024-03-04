@@ -16,9 +16,6 @@
                 Contrato
             </a>
             {% endif %}
-            <a class="btn btn-success btn-lg " href="" download>
-                    Optimizacion CNC
-            </a>
             {% if datos.orden.diseno_CNC %}
                 <a class="btn btn-secondary btn-lg " href="{% url 'descargar_cnc' id_o=datos.orden.id %}" download>
                     Corte Optimizado

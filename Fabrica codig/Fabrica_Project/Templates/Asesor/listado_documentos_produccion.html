@@ -85,12 +85,25 @@
                     </a>
                 </div>
             </td>
-            <td>
-                CNC
-            </td>
-            <td>
-                Diseño de producción
-            </td>
+            {%if hoja.estado != 'Esperando diseño CNC' %}
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'cnc_descargar' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'produccion_descargar' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+            {% else %}
+                <td>
+                    Pendiente
+                </td>
+                <td>
+                    Pendiente
+                </td>
+            {% endif %}
         </tr>
     {% endfor %}
 {% endblock %}

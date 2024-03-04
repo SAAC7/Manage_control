@@ -6,7 +6,6 @@ from django.core.serializers import serialize
 from django.utils import timezone
 from .forms import *
 
-
 #Modelos
 from .models import *
 from Asesores.models import Presupuesto, Diseno
@@ -48,11 +47,17 @@ def ordenes_listado(request,fin):
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
 
-#Listado de presupuestos que necesitan diseño CNC
+#Listado de hojas de produccion que necesitan diseño CNC
 @login_required(login_url='index')
 def listado_Diseno_CNC_pendiente(request):
     hojas = Hoja_de_Produccion.objects.filter(estado='Esperando diseño CNC') 
     return render(request,'Produccion/disenos_cnc_pendientes.html',{'hojas':hojas})
+
+#Listado de hojas de produccion que necesitan diseño CNC
+@login_required(login_url='index')
+def listado_Diseno_CNC_enviados(request):
+    hojas = Hoja_de_Produccion.objects.filter(estado='Enviado a producción') 
+    return render(request,'Produccion/disenos_cnc_enviados.html',{'hojas':hojas})
     
 @login_required(login_url='index')        
 def trabajo(request):
@@ -159,87 +164,42 @@ def Asignar(request,id_orden):
         error = "No se puede adjuntar contrato"
         return render(request, '404.html', {'error': error})
 
-#Subir diseno CNC y diseño de produccion
+#Subir diseño CNC y de Producción a la hoja de producción
 @login_required(login_url='index')
-def subir_contrato(request,id_h):
+def subir_CNC_produccion(request,id_h):
     user = request.user
     if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Cotizador').exists()):
         if request.method == 'POST':
             form = DisenoCNCForm(request.POST, request.FILES)
             form2 = DisenoProduccionForm(request.POST, request.FILES)
             hoja_obtenida = get_object_or_404(Hoja_de_Produccion, pk=id_h)  
-            validar_hoja = Presupuesto.objects.filter(id=id_h, estado="Esperando diseño CNC")
+            validar_hoja = Hoja_de_Produccion.objects.filter(id=id_h)
             if validar_hoja.exists():
                 if form.is_valid() and form2.is_valid():
                     # Guardar el Diseño
-                    cnc = form.cleaned_data['archivo']
+                    cnc = form.cleaned_data['archivo_cnc']
                     diseno = form2.cleaned_data['archivo']
-                    hojasform=request.FILES.getlist('archivos')
                     
                     hoja_obtenida.estado="Enviado a producción"
                     hoja_obtenida.save()
                     pres = validar_hoja.first()  # O cualquier otra lógica para seleccionar un diseno de la lista
-                    
-                    diseno_cnc =Diseno_CNC.objects.create(archivo=cnc, disenador_id=User.objects.get(id=user.id))
-                    diseno_produccion =Diseno_Produccion.objects.create(archivo=diseno, disenador_id=User.objects.get(id=user.id))
+                    diseno_cnc =Diseno_CNC.objects.create(archivo=cnc, disenador=user)
                     diseno_cnc.save()
+                    diseno_produccion =Diseno_Produccion.objects.create(archivo=diseno, disenador=user, estado="Enviado a producción")
                     diseno_produccion.save()
                     
-                    return redirect('/Presupuesto/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+                    hoja_obtenida.diseno_CNC_id = diseno_cnc.id
+                    hoja_obtenida.diseno_produccion_id = diseno_produccion.id
+                    hoja_obtenida.save()
+                    return redirect('/Produccion/Diseno-CNC/Pendientes')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
                 else:
                     error = "No se puede adjuntar contrato"
                     return render(request, '404.html', {'error': error})
         else:
-            form = ContratoForm()
-            presupuesto = get_object_or_404(Presupuesto, pk=id_p)
+            form = DisenoCNCForm()
+            hoja = get_object_or_404(Hoja_de_Produccion, pk=id_h)
             
-            return render(request,'Asesor/subir_documentos_finales.html',{'form':form,'presupuesto':presupuesto})
-        
-def subir_diseno_cnc(request, id_o):
-    user = request.user
-    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer_CNC').exists()):
-        if request.method == 'POST':
-            form = CotForm(request.POST, request.FILES)
-            orden_de_trabajo = get_object_or_404(Orden_trabajo, pk=id_o)  
-            if form.is_valid():
-                archivo = form.cleaned_data['archivo']
-    
-                # Crear una nueva instancia de Diseno_Produccion y guardar el archivo allí
-                diseno_produccion = Diseno_Produccion(archivo=archivo, disenador=user)
-                diseno_produccion.save()
-                
-                # Ahora puedes asignar la instancia de Diseno_Produccion a Hoja_de_Produccion.diseno_produccion
-                hoja_produccion = orden_de_trabajo.hojaproduccion.first()  # Obtenemos la hoja de producción asociada
-                if hoja_produccion:
-                    hoja_produccion.diseno_produccion = diseno_produccion
-                    hoja_produccion.save()
-                
-                # Actualizar el estado de la hoja de producción
-                hoja_produccion.estado = 'Diseño de producción completado'  # Cambiar este estado según tu lógica
-                hoja_produccion.save()
-                
-                # Buscar los trabajos asociados a esa orden de trabajo donde el grupo es 'Designer_CNC'
-                trabajos_ord = Trabajos_Orden.objects.filter(orden=orden_de_trabajo, trabajo__grup__name='Designer_CNC')
-
-                # Extraer los objetos Trabajo de los Trabajos_Orden y actualizar sus fechas
-                for trabajo_ord in trabajos_ord:
-                    trabajo = get_object_or_404(Trabajo, id=trabajo_ord.trabajo.id)
-                    trabajo.fecha_fin = timezone.now()
-                    trabajo.save()
-
-                return redirect('/Produccion/Trabajos/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
-            else:
-                error = "No se puede adjuntar Cotizacion"
-                return render(request, '404.html', {'error': error})
-        else:
-            form = CotForm(request.POST, request.FILES)
-            orden_de_trabajo = get_object_or_404(Orden_trabajo, pk=id_o) 
-            print(orden_de_trabajo)
-            
-            return render(request,'Designer/subir_diseno.html',{'form':form,'presupuesto':orden_de_trabajo})
-    else:
-        error = "No tienes permiso para acceder a esta página."
-        return render(request, '404.html', {'error': error})
+            return render(request,'Produccion/subir_cnc.html',{'form':form,'presupuesto':hoja})
     
 @login_required(login_url='index')     
 def finalizar_trabajo(request,id_t):
@@ -272,15 +232,38 @@ def finalizar_orden(request,id_o):
     orden.save()
     return redirect('/Produccion/Ordenes-de-Trabajo/0/')
 
+#Descargar archivo de la hoja de producción
 @login_required(login_url='index')
-def descargar_hoja_produccion(request, id):
+def hoja_produccion(request, id):
     hojas_produccion = get_object_or_404(Hoja_de_Produccion, pk=id)
     
     response = HttpResponse(hojas_produccion.archivo.read(), content_type='application/octet-stream')
     response['Content-Disposition'] = f'attachment; filename="{hojas_produccion.archivo.name}"'
     
     return response
+
+#Descargar archivo del diseño de producción
+@login_required(login_url='index')
+def diseno_produccion(request, id):
+    hoja_de_produccion = get_object_or_404(Hoja_de_Produccion, pk=id)
+    diseno_produccion = hoja_de_produccion.diseno_produccion
     
+    response = HttpResponse(diseno_produccion.archivo.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{diseno_produccion.archivo.name}"'
+    
+    return response
+
+#Descargar archivo del diseño cnc
+@login_required(login_url='index')
+def diseno_cnc(request, id):
+    hoja_de_produccion = get_object_or_404(Hoja_de_Produccion, pk=id)
+    diseno_cnc = hoja_de_produccion.diseno_CNC
+    
+    response = HttpResponse(diseno_cnc.archivo.read(), content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{diseno_cnc.archivo.name}"'
+    
+    return response
+
 #Descargar archivo del contrato
 def descargar_contrato(request, id):
     contrato = get_object_or_404(Orden_trabajo, pk=id)
@@ -290,12 +273,10 @@ def descargar_contrato(request, id):
     
     return response
 
-
-
 def aceptar_orden(request, id_o):
     orden = get_object_or_404(Orden_trabajo, pk=id_o)
     presupuesto = get_object_or_404(Presupuesto, pk=orden.presupuesto.id)
-    presupuesto.estado = "Produciendo"
+    presupuesto.estado = "Produciendo"  
     presupuesto.save()
     
     
@@ -310,6 +291,3 @@ def aceptar_orden(request, id_o):
     error = datos_post
     return render(request, '404.html', {'error': error})
     # return redirect('TrabajosCrear', id_orden=id_o, data=post_data, method='POST')
-
-    
-     

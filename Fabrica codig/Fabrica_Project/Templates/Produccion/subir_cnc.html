@@ -5,19 +5,19 @@
         <div class="card o-hidden border-0 shadow-lg " >
             <div class="row mb-3 mt-3">
                 <div class="col-6">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="custom-file">
                             <h4>Diseño CNC</h4>
                             <label for="cnc">Seleccione el archivo:</label>
-                            <input type="file" id="cnc" name="cnc" class="form-control cursor-pointer">
+                            <input type="file" id="archivo_cnc" name="archivo_cnc" class="form-control cursor-pointer" required>
                             <small id="fileError" class="text-danger"></small>
                             <br>
                         </div>
                         <div class="custom-file">
                             <h4>Diseño de Producción</h4>
                             <label for="diseno-p">Seleccione el archivo:</label>
-                            <input type="file" id="diseno-p" name="diseno-p" class="form-control cursor-pointer">
+                            <input type="file" id="archivo" name="archivo" class="form-control cursor-pointer" required>
                             <small id="fileError" class="text-danger"></small>
                             <br>
                         </div>

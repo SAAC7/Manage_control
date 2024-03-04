@@ -151,12 +151,11 @@
     </td>
     <td>
         {% for cotizacion in diseno.cotizacion_set.all  %}
-        {% if not cotizacion.comentario and cotizacion.estado == "Aprobado" %}
-        <a class="btn btn-primary btn-sm btn-block" href="/Presupuesto/Informacion/Documentos-Produccion/{{presupuesto.id}}/">
-            <i class="bi bi-eye"></i>
-        </a>
-        {% endif %}
-        
+            {% if not cotizacion.comentario and cotizacion.estado == "Aprobado" and cotizacion.diseno.presupuesto.estado != 'Pendiente de contrato' %}
+                <a class="btn btn-primary btn-sm btn-block" href="/Presupuesto/Informacion/Documentos-Produccion/{{presupuesto.id}}/">
+                    <i class="bi bi-eye"></i>
+                </a>
+            {% endif %}
         {% endfor %}
         </div>
     </td>
