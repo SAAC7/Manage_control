@@ -194,7 +194,7 @@ def subir_CNC_produccion(request,id_h):
                     hoja_obtenida.diseno_CNC_id = diseno_cnc.id
                     hoja_obtenida.diseno_produccion_id = diseno_produccion.id
                     hoja_obtenida.save()
-                    return redirect('/Produccion/Diseno-CNC/Pendientes')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+                    return redirect('/Produccion/Diseno-CNC/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
                 else:
                     error = "No se puede adjuntar contrato"
                     return render(request, '404.html', {'error': error})
