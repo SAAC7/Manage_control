@@ -52,7 +52,6 @@
 
 {% block table1_head %}
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        <th>ID</th>
         <th>Trabajador</th>
         <th>Grupo</th>
         <th>Inicio</th>
@@ -66,7 +65,6 @@
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
         {% for trabajoq in Trabajos %}
             <tr>
-                <td>{{trabajoq.id}}</td>
                 <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
                 <td>{{trabajoq.trabajo.grup}}</td>
                 <td>{{trabajoq.trabajo.fecha_inicio}}</td>
@@ -91,7 +89,6 @@
 
 {% block table1_footer %}
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        <th>ID</th>
         <th>Trabajador</th>
         <th>Grupo</th>
         <th>Inicio</th>
@@ -101,53 +98,63 @@
     {% endif %}
 {% endblock %}
 
+{% block title %} Hojas de Producción {%endblock%}
 {% block table2_head %}
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        <th>ID</th>
-        <th>Trabajador</th>
-        <th>Grupo</th>
-        <th>Inicio</th>
-        <th>Progamado</th>
-        <th>Finalizado</th>
-        <th>Descripcion</th>
-    {% endif %} 
+        <th>Diseñador</th>
+    {% endif %}
+    <th>ID</th>
+    <th>Fecha</th>
+    <th>Hoja de producción</th>
+    <th>Diseño CNC</th>
+    <th>Diseño de producción</th>
 {% endblock %}
 
 {% block table2_tbody %}
-    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        {% for trabajoq in Trabajos %}
-            <tr>
-                <td>{{trabajoq.id}}</td>
-                <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
-                <td>{{trabajoq.trabajo.grup}}</td>
-                <td>{{trabajoq.trabajo.fecha_inicio}}</td>
-
-                {% if trabajoq.trabajo.fecha_programada %}
-                    <td>{{trabajoq.trabajo.fecha_programada}}</td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-
-                {% if trabajoq.trabajo.fecha_fin %}
-                    <td>{{trabajoq.trabajo.fecha_fin}}</td>
-                {% else %}
-                    <td></td>
-                {% endif %}
-
-                <td>{{trabajoq.trabajo.descripcion}}</td>
-            </tr>
-        {% endfor %}
-    {% endif %}
+    {% for hoja in hojas_produccion %}
+        <tr>
+            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+                <td>{{ hoja.asesor.first_name}} {{ hoja.asesor.last_name}}</td>
+            {% endif %}
+            <td>{{ hoja.id }}</td>
+            <td>{{ hoja.fecha }}</td>
+            <td>
+                <div class="text-center">
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_hoja_produccion' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </div>
+            </td>
+            {%if hoja.estado != 'Esperando diseño CNC' %}
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'cnc_descargar' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'produccion_descargar' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+            {% else %}
+                <td>
+                    Pendiente
+                </td>
+                <td>
+                    Pendiente
+                </td>
+            {% endif %}
+        </tr>
+    {% endfor %}
 {% endblock %}
-{% block title %} Hojas de Producción {%endblock%}
+
 {% block table2_footer %}
-    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-        <th>ID</th>
-        <th>Trabajador</th>
-        <th>Grupo</th>
-        <th>Inicio</th>
-        <th>Progamado</th>
-        <th>Finalizado</th>
-        <th>Descripcion</th>
-    {% endif %}
+{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+<th>Diseñador</th>
+{% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Hoja de producción</th>
+<th>Diseño CNC</th>
+<th>Diseño de producción</th>
 {% endblock %}

@@ -50,7 +50,7 @@ def ordenes_listado(request,fin):
 #Listado de hojas de produccion que necesitan diseño CNC
 @login_required(login_url='index')
 def listado_Diseno_CNC_pendiente(request):
-    hojas = Hoja_de_Produccion.objects.filter(estado='Esperando diseño CNC') 
+    hojas = Hoja_de_Produccion.objects.filter() 
     return render(request,'Produccion/disenos_cnc_pendientes.html',{'hojas':hojas})
 
 #Listado de hojas de produccion que necesitan diseño CNC
@@ -63,11 +63,9 @@ def listado_Diseno_CNC_enviados(request):
 def trabajo(request):
     usuario_autenticado = request.user
     if (usuario_autenticado.groups.filter(name='Administrador').exists() or usuario_autenticado.is_superuser):
-        print("1")
         trabajos = Trabajo.objects.filter(fecha_fin__isnull=True)
         return render(request, 'Produccion/trabajos.html', {'trabajos': trabajos})
     elif not usuario_autenticado.groups.filter(name__in=['Administrador', 'Superusuario', 'Designer', 'Asesor', 'Cotizador']).exists():
-        print("2")
         trabajos = Trabajo.objects.filter(trabajador=usuario_autenticado,fecha_fin__isnull=True)
         return render(request, 'Produccion/trabajos.html', {'trabajos': trabajos})
     else:
@@ -90,13 +88,17 @@ def trabajofin(request):
     else:
         error = "No tienes permiso para acceder a esta página."
         return render(request, '404.html', {'error': error})
-    
+
+#Trabajos y hojas de produccion asociadas a una orden de trabajo
 @login_required(login_url='index')    
 def ordenes_info(request, id_o,fin):
     user = request.user
     if user :
         orden = get_object_or_404(Orden_trabajo, id=id_o)
-        diseno_aprobado = Diseno.objects.filter(presupuesto=orden.presupuesto, estado='Aprobado').first()  
+        diseno_aprobado = Diseno.objects.filter(presupuesto=orden.presupuesto, estado='Aprobado').first()  \
+        # Filtrar las hojas de producción asociadas a esa orden de trabajo
+        hojas_produccion = orden.hojaproduccion.all()
+        
         if diseno_aprobado:
             cotizacion_aprobada = Cotizacion.objects.filter(diseno=diseno_aprobado, estado='Aprobado').first()
         else:
@@ -113,9 +115,9 @@ def ordenes_info(request, id_o,fin):
         
         # Pasa la cotización al contexto del template para que pueda ser renderizada
         if (fin==1):
-            return render(request, 'Produccion/Ordenes_trabajo_info_fin.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin})
+            return render(request, 'Produccion/Ordenes_trabajo_info_fin.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin, 'hojas_produccion': hojas_produccion})
         else:
-            return render(request, 'Produccion/Ordenes_trabajo_info.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin})
+            return render(request, 'Produccion/Ordenes_trabajo_info.html',{'datos':objeto,'Trabajos':Trabajos_en_Orden,'trabajos_con_fecha_fin': trabajos_con_fecha_fin, 'hojas_produccion': hojas_produccion})
             
     else:
         error = "No tienes permiso para acceder a esta página."
