@@ -146,7 +146,7 @@ def Asignar(request,id_orden):
             
         else:
         # Obtener todos los grupos excepto Administrador y Asesor
-            grupos = Group.objects.exclude(name__in=['Administrador', 'Asesor','Designer','Cotizador'])
+            grupos = Group.objects.exclude(name__in=['Administrador', 'Asesor','Designer','Cotizador','Diseñador CNC'])
             # grupos = Group.objects.all()
 
             # Crear una lista de tuplas con el nombre y el ID de cada grupo
