@@ -39,8 +39,6 @@
       var trabajosSinFechaFin = {{ trabajos_con_fecha_fin|yesno:"true,false" }};
       
       if (trabajosSinFechaFin) {
-        {% comment %} btnAsignar.classList.add("disabled");
-        btnAsignar.removeAttribute("href"); {% endcomment %}
         btnFinalizar.classList.add("disabled");
         btnFinalizar.removeAttribute("href");
       }

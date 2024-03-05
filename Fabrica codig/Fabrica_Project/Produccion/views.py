@@ -50,7 +50,7 @@ def ordenes_listado(request,fin):
 #Listado de hojas de produccion que necesitan diseño CNC
 @login_required(login_url='index')
 def listado_Diseno_CNC_pendiente(request):
-    hojas = Hoja_de_Produccion.objects.filter() 
+    hojas = Hoja_de_Produccion.objects.filter(estado='Esperando diseño CNC') 
     return render(request,'Produccion/disenos_cnc_pendientes.html',{'hojas':hojas})
 
 #Listado de hojas de produccion que necesitan diseño CNC
@@ -194,7 +194,7 @@ def subir_CNC_produccion(request,id_h):
                     hoja_obtenida.diseno_CNC_id = diseno_cnc.id
                     hoja_obtenida.diseno_produccion_id = diseno_produccion.id
                     hoja_obtenida.save()
-                    return redirect('/Produccion/Diseno-CNC/Pendientes')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
+                    return redirect('/Produccion/Diseno-CNC/')  # Cambia 'ruta_de_redireccion' por la URL a la que deseas redirigir después de procesar el formulario
                 else:
                     error = "No se puede adjuntar contrato"
                     return render(request, '404.html', {'error': error})
