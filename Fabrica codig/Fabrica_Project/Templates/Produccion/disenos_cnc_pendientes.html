@@ -36,6 +36,9 @@
         </td>
         <td>{{hoja.estado}}</td>
         <td>
+	    {% for orden_trabajo in hoja.orden_trabajo_set.all %}
+                <a class="btn btn-success btn-sm btn-block" href="{% url 'ordenes_trabajo_info' id_o=orden_trabajo.id fin=1 %}"><i class="bi bi-info-circle"></i> Info</a>
+            {% endfor %}
             {% if hoja.estado == 'Esperando diseño CNC' %}
                 <a class="btn btn-primary btn-sm btn-block" href="/Produccion/CNC/{{hoja.id}}/">Subir Diseño CNC</a>
             {% endif %}

@@ -1,4 +1,4 @@
-{% extends 'tables.html' %}
+{% extends 'two-tables.html' %}
 
 {% block botones%}
 <div class="container">
@@ -8,90 +8,143 @@
     </div>
     <div class="mb-3 ">
         <div class="justify-content-between  d-flex">
+            {% if user.is_superuser or user.groups.all.0.name == "Administrador" or user.groups.all.0.name == "Diseñador CNC" %}
             <a class="btn btn-info btn-lg " href="{% url 'descargar_archivo_Cotizacion' id=datos.cotizacion_aprobada.id %}" download>
                 Cotizacion
             </a>
             <a class="btn btn-success btn-lg " href="{% url 'descargar_archivo' id=datos.diseno_aprobado.id %}" download>
-                    Diseno
+                Diseno
             </a>
+            {% endif %}
+            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
             <a class="btn btn-success btn-lg " href="{% url 'descargar_contrato' id=datos.orden.id %}" download>
                 Contrato
             </a>
-            {% if datos.orden.diseno_CNC %}
-                <a class="btn btn-secondary btn-lg " href="{% url 'descargar_cnc' id_o=datos.orden.id %}" download>
-                    CNC
-                </a>
             {% endif %}
         </div>
-
     </div>
-
 </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
       var btnAsignar = document.getElementById("btn-asignar");
+      var btnFinalizar = document.getElementById("btn-finalizar");
       var trabajosSinFechaFin = {{ trabajos_con_fecha_fin|yesno:"true,false" }};
       
       if (trabajosSinFechaFin) {
-        btnAsignar.classList.add("disabled");
-        btnAsignar.removeAttribute("href");
+        btnFinalizar.classList.add("disabled");
+        btnFinalizar.removeAttribute("href");
       }
     });
-    </script>
+</script>
 {% endblock %}
 
 {% load static %}
 
-
-{% block head %}
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>ID</th>
-<th>Trabajador</th>
-<th>Grupo</th>
-<th>Inicio</th>
-<th>Progamado</th>
-<th>Finalizado</th>
-<th>Descripcion</th>
-{% endif %} 
+{% block table1_head %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>Trabajador</th>
+        <th>Grupo</th>
+        <th>Inicio</th>
+        <th>Progamado</th>
+        <th>Finalizado</th>
+        <th>Descripcion</th>
+    {% endif %} 
 {% endblock %}
 
+{% block table1_tbody %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        {% for trabajoq in Trabajos %}
+            <tr>
+                <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
+                <td>{{trabajoq.trabajo.grup}}</td>
+                <td>{{trabajoq.trabajo.fecha_inicio}}</td>
 
+                {% if trabajoq.trabajo.fecha_programada %}
+                    <td>{{trabajoq.trabajo.fecha_programada}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
 
-{% block tbody %}
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-{% for trabajoq in Trabajos %}
-<tr>
-    <td>{{trabajoq.id}}</td>
-    <td>{{trabajoq.trabajo.trabajador.first_name}} {{trabajoq.trabajo.trabajador.last_name}}</td>
-    <td>{{trabajoq.trabajo.grup}}</td>
-    <td>{{trabajoq.trabajo.fecha_inicio}}</td>
-    {% if trabajoq.trabajo.fecha_programada %}
-    <td>{{trabajoq.trabajo.fecha_programada}}</td>
-    {% else %}
-    <td></td>
+                {% if trabajoq.trabajo.fecha_fin %}
+                    <td>{{trabajoq.trabajo.fecha_fin}}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+
+                <td>{{trabajoq.trabajo.descripcion}}</td>
+            </tr>
+        {% endfor %}
     {% endif %}
-    {% if trabajoq.trabajo.fecha_fin %}
-    <td>{{trabajoq.trabajo.fecha_fin}}</td>
-    {% else %}
-    <td></td>
+{% endblock %}
+
+{% block table1_footer %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>Trabajador</th>
+        <th>Grupo</th>
+        <th>Inicio</th>
+        <th>Progamado</th>
+        <th>Finalizado</th>
+        <th>Descripcion</th>
     {% endif %}
-    <td>{{trabajoq.trabajo.descripcion}}</td>
-</tr>
+{% endblock %}
+
+{% block title %} Hojas de Producción {%endblock%}
+{% block table2_head %}
+    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+        <th>Diseñador</th>
+    {% endif %}
+    <th>ID</th>
+    <th>Fecha</th>
+    <th>Hoja de producción</th>
+    <th>Diseño CNC</th>
+    <th>Diseño de producción</th>
+{% endblock %}
+
+{% block table2_tbody %}
+    {% for hoja in hojas_produccion %}
+        <tr>
+            {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+                <td>{{ hoja.asesor.first_name}} {{ hoja.asesor.last_name}}</td>
+            {% endif %}
+            <td>{{ hoja.id }}</td>
+            <td>{{ hoja.fecha }}</td>
+            <td>
+                <div class="text-center">
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_hoja_produccion' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </div>
+            </td>
+            {%if hoja.estado != 'Esperando diseño CNC' %}
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'cnc_descargar' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'produccion_descargar' id=hoja.id %}" download>
+                        <i class="bi bi-cloud-download"></i>
+                    </a>
+                </td>
+            {% else %}
+                <td>
+                    Pendiente
+                </td>
+                <td>
+                    Pendiente
+                </td>
+            {% endif %}
+        </tr>
     {% endfor %}
-{% endif %}
 {% endblock %}
 
-
-
-
-{% block footer %}
+{% block table2_footer %}
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>ID</th>
-<th>Trabajador</th>
-<th>Grupo</th>
-<th>Inicio</th>
-<th>Progamado</th>
-<th>Finalizado</th>
-<th>Descripcion</th>
+<th>Diseñador</th>
 {% endif %}
+<th>ID</th>
+<th>Fecha</th>
+<th>Hoja de producción</th>
+<th>Diseño CNC</th>
+<th>Diseño de producción</th>
 {% endblock %}

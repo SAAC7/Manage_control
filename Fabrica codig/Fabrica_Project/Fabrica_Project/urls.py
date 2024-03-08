@@ -27,5 +27,4 @@ urlpatterns = [
     path('Presupuesto/', include('Asesores.urls')),
     path('Diseno/', include('Disenadores.urls')),
     path('Produccion/', include('Produccion.urls')),
-    path("__debug__/", include("debug_toolbar.urls")),
 ]

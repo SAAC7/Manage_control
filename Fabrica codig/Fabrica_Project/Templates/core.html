@@ -95,7 +95,7 @@
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" and not user.groups.all.0.name == "Cotizador" %}
+                        {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" and not user.groups.all.0.name == "Cotizador" and not user.groups.all.0.name == "Diseñador CNC" %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Trabajos</a>

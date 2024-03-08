@@ -171,7 +171,7 @@ def Asignar(request,id_orden):
 @login_required(login_url='index')
 def subir_CNC_produccion(request,id_h):
     user = request.user
-    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Cotizador').exists()):
+    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Diseñador CNC').exists()):
         if request.method == 'POST':
             form = DisenoCNCForm(request.POST, request.FILES)
             form2 = DisenoProduccionForm(request.POST, request.FILES)

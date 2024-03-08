@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-kde9zf1xu^fw*-n^m#xell6df2-it8vzc-fdhrq0%(!eu&u6-+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = ['89.116.49.199']
 ALLOWED_HOSTS = []
 
 
@@ -37,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "debug_toolbar",
     'Cotizadores',
     'Asesores',
     'Disenadores',
@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #"debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'Fabrica_Project.urls'
@@ -131,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+   BASE_DIR / "static",
 ]
 # STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 

@@ -18,6 +18,7 @@
 <th>Usario</th>
 <th>Nombre</th>
 <th>Apellido</th>
+<th>Grupo</th>
 <th>Correo</th>
 <th>Activo</th>
 <th>Opciones</th>
@@ -30,6 +31,11 @@
     <td>{{usuario.username}}</td>
     <td>{{usuario.first_name}}</td>
     <td>{{usuario.last_name}}</td>
+    <td>
+{% for group in usuario.groups.all %}
+            {{ group.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </td>
     <td>{{usuario.email}}</td>
     <td>
         {% if usuario.is_active %} <!-- Verifica si el campo está marcado en el modelo -->
@@ -53,6 +59,7 @@
 <th>Usario</th>
 <th>Nombre</th>
 <th>Apellido</th>
+<th>Grupo</th>
 <th>Correo</th>
 <th>Activo</th>
 <th>Opciones</th>
