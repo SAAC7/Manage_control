@@ -44,7 +44,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
                         </li>
-                        {% if user.is_superuser or user.groups.all.0.name == "Asesor" or user.groups.all.0.name == "Administrador"%}
+                        {% if user.is_superuser or "Asesor" in user_groups or "Administrador" in user_groups %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Presupuesto</a>
@@ -55,7 +55,7 @@
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or user.groups.all.0.name == "Designer" or user.groups.all.0.name == "Administrador" %}
+                        {% if user.is_superuser or "Designer" in user_groups or "Administrador" in user_groups %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Diseños</a>
@@ -65,30 +65,34 @@
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or user.groups.all.0.name == "Cotizador" or user.groups.all.0.name == "Administrador" %}
+
+                        {% if user.is_superuser or "Cotizador" in user_groups or "Administrador" in user_groups %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Cotizaciones</a>
+                            <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Cotizaciones</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/Cotizaciones/">Pendientes</a></li>
                                 <li><a class="dropdown-item" href="/Cotizaciones/Finalizados/">Enviados</a></li>
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or user.groups.all.0.name == "Diseñador CNC" or user.groups.all.0.name == "Administrador" %}
+                        
+                        
+                        
+                        
+                        {% if user.is_superuser or "Diseñador CNC" in user_groups or "Administrador" in user_groups %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Diseño CNC</a>
+                            aria-expanded="false">Diseño CNC</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/Produccion/Diseno-CNC/">Pendientes</a></li>
                                 <li><a class="dropdown-item" href="/Produccion/Diseno-CNC/Enviados">Enviados</a></li>
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+                        {% if user.is_superuser or "Administrador" in user_groups %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Ordenes de Trabajo</a>
+                            aria-expanded="false">Ordenes de Trabajo</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/Produccion/Ordenes-de-Trabajo/0/">En Curso</a></li>
                                 <li><a class="dropdown-item" href="/Produccion/Ordenes-de-Trabajo/1/">Finalizados</a></li>
@@ -98,14 +102,14 @@
                         {% if user.is_superuser or not user.groups.all.0.name == "Asesor"  and not user.groups.all.0.name == "Designer" and not user.groups.all.0.name == "Cotizador" and not user.groups.all.0.name == "Diseñador CNC" %}
                         <li class="nav-item dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Trabajos</a>
+                            aria-expanded="false">Trabajos</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/Produccion/Trabajos/">En Curso</a></li>
                                 <li><a class="dropdown-item" href="/Produccion/Trabajos/Finalizados/">Finalizados</a></li>
                             </ul>
                         </li>
                         {% endif %}
-                        {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+                        {% if user.is_superuser or "Administrador" in user_groups %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'usuarios' %}">Usuarios</a>
                         </li>
