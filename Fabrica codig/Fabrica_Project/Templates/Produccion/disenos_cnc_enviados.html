@@ -15,6 +15,8 @@
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>Diseñador</th>
 {% endif %}
+<th>Asesor</th>
+<th>Cliente</th>
 <th>Hoja de Producción</th>
 <th>Diseño CNC</th>
 <th>Diseño de Producción</th>
@@ -30,6 +32,14 @@
         {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
         <td>{{hoja.disenador.first_name}} {{hoja.disenador.last_name}}</td>
         {% endif %}
+        {% for orden_trabajo in hoja.orden_trabajo_set.all %}
+        <td>
+            {{orden_trabajo.presupuesto.asesor.first_name}} {{orden_trabajo.presupuesto.asesor.last_name}}
+        </td>
+        <td>
+            {{orden_trabajo.presupuesto.cliente}}
+        </td>
+        {% endfor %}
         <td>
             <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_hoja-produccion' id=hoja.id %}" download>
                 <i class="bi bi-cloud-download"></i>
@@ -62,6 +72,8 @@
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>Diseñador</th>
 {% endif %}
+<th>Asesor</th>
+<th>Cliente</th>
 <th>Hoja de Producción</th>
 <th>Diseño CNC</th>
 <th>Diseño de Producción</th>

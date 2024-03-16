@@ -126,7 +126,7 @@ def presupuesto(request):
 @login_required(login_url='index')
 def subir_contrato(request,id_p):
     user = request.user
-    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Cotizador').exists()):
+    if (user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Asesor').exists()):
         if request.method == 'POST':
             form = ContratoForm(request.POST, request.FILES)
             form2 = CartaForm(request.POST, request.FILES)
