@@ -12,9 +12,9 @@
 
 {% block head %}
 <th>ID</th>
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+{% comment %} {% if user.is_superuser or user.groups.all.0.name == "Administrador" %} {% endcomment %}
 <th>Asesor</th>
-{% endif %}
+{% comment %} {% endif %} {% endcomment %}
 <th>Cliente</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>
@@ -26,7 +26,7 @@
 {% for p in pres %}
 <tr>
     <td>{{ p.presupuesto.id }}</td>
-    {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    {% comment %} {% if user.is_superuser or user.groups.all.0.name == "Administrador" %} {% endcomment %}
 
     {% if p.presupuesto.asesor.first_name and p.presupuesto.asesor.last_name %}
     <td>{{ p.presupuesto.asesor.first_name}} {{ p.presupuesto.asesor.last_name}}</td>
@@ -34,7 +34,7 @@
     <td>{{ p.presupuesto.asesor.username}}</td>
     {% endif %}
 
-    {% endif %}
+    {% comment %} {% endif %} {% endcomment %}
     <td>{{ p.presupuesto.cliente }}</td>
     <td>{{ p.presupuesto.descripcion }}</td>
     <td>{{ p.presupuesto.fecha_inicio }}</td>
@@ -53,9 +53,9 @@
 
 {% block footer %}
 <th>ID</th>
-{% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+{% comment %} {% if user.is_superuser or user.groups.all.0.name == "Administrador" %} {% endcomment %}
 <th>Asesor</th>
-{% endif %}
+{% comment %} {% endif %} {% endcomment %}
 <th>Cliente</th>
 <th>Descripcion</th>
 <th>Fecha de Inicio</th>

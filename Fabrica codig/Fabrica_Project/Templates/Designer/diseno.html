@@ -10,12 +10,19 @@
     <br>
     <div class="row">
         <div class="col-md-6">
-            <label for="cliente">Descripción:</label>
-            <input type="text" class="form-control form-control-user" name="cliente" id="cliente" readonly value="{{presupuesto.cliente}}">
+            <div>
+                <label for="asesor">Asesor:</label>
+                <input type="text" class="form-control form-control-user" name="asesor" id="asesor" readonly value="{{presupuesto.asesor}}">
+            </div>
+            <div>
+                <label for="cliente">CLiente:</label>
+                <input type="text" class="form-control form-control-user" name="cliente" id="cliente" readonly value="{{presupuesto.cliente}}">
+            </div>
+
         </div>
         <div class="col-md-6">
             <label for="presupuesto_desc">Descripción:</label>
-            <textarea class="form-control form-control-user" readonly name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
+            <textarea class="form-control form-control-user" readonly rows="4"  name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
         </div>
     </div>
     <br>

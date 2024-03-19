@@ -15,6 +15,7 @@
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
 <th>Cotizador</th>
 {% endif %}
+<th>Asesor</th>
 <th>Cliente</th>
 <th>Descripcion</th>
 <th>Fecha ubido</th>
@@ -28,6 +29,12 @@
 <tr>
     <td>{{ c.id }}</td>
     {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
+    {% if c.cotizador.first_name and c.cotizador.last_name %}
+    <td>{{ c.cotizador.first_name }} {{ c.cotizador.last_name }}</td>
+    {% else %}
+    <td>{{ c.cotizador.username }}</td>
+    {% endif %}
+    {% endif %}
     
     {% if c.diseno.presupuesto.asesor.first_name and c.diseno.presupuesto.asesor.last_name %}
     <td>{{ c.diseno.presupuesto.asesor.first_name}} {{ c.diseno.presupuesto.asesor.last_name}}</td>
@@ -35,7 +42,6 @@
     <td>{{ c.diseno.presupuesto.asesor.username}}</td>
     {% endif %}
     
-    {% endif %}
     <td>{{ c.diseno.presupuesto.cliente }}</td>
     <td>{{ c.diseno.presupuesto.descripcion }}</td>
     <td>{{ c.fecha }}</td>
@@ -59,8 +65,9 @@
 {% block footer %}
 <th>ID</th>
 {% if user.is_superuser or user.groups.all.0.name == "Administrador" %}
-<th>Asesor</th>
+<th>Cotizador</th>
 {% endif %}
+<th>Asesor</th>
 <th>Cliente</th>
 <th>Descripcion</th>
 <th>Fecha Subido</th>
