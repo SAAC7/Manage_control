@@ -13,10 +13,7 @@ def listadoP(request):
     if user.groups.filter(name='Designer').exists():
         pres = Presupuesto.objects.filter(fecha_fin=None, estado='Diseñando') 
         return render(request, 'Designer/listado_disenos_pendientes.html', {'pres': pres})
-    elif (user.groups.filter(name='Administrador').exists()):
-        pres = Presupuesto.objects.filter(fecha_fin=None, asesor=user, estado='Diseñando') 
-        return render(request, 'Designer/listado_disenos_pendientes.html', {'pres': pres})
-    elif (user.is_superuser):
+    elif (user.is_superuser or user.groups.filter(name='Administrador').exists()):
         pres = Presupuesto.objects.filter(fecha_fin=None, estado='Diseñando') 
         return render(request, 'Designer/listado_disenos_pendientes.html', {'pres': pres})
     else:

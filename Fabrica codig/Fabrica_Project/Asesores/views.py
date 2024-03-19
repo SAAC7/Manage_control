@@ -29,7 +29,7 @@ def listadoP(request):
 @login_required(login_url='index')
 def listado_cotizaciones_diseno(request, diseno_id):
     user = request.user
-    if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists()):
+    if (user.groups.filter(name='Asesor').exists() or user.groups.filter(name='Administrador').exists() or user.is_superuser or user.groups.filter(name='Designer').exists() or user.groups.filter(name='Cotizador').exists()):
         # Obtener el diseño con el ID proporcionado
         diseno = get_object_or_404(Diseno, pk=diseno_id)
         
