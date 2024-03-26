@@ -32,14 +32,14 @@
             <td>{{ orden.fecha_inicio }}</td>
             <td>
                 <div class="text-center">
-                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=orden.presupuesto_id %}" download>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_contrato' id=orden.id %}" download>
                         <i class="bi bi-cloud-download"></i>
                     </a>
                 </div>
             </td>
             <td>
                 <div class="text-center">
-                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_carta' id=orden.presupuesto_id %}" download>
+                    <a class="btn btn-info btn-sm btn-block" href="{% url 'descargar_carta' id=presupuesto.id %}" download>
                         <i class="bi bi-cloud-download"></i>
                     </a>
                 </div>

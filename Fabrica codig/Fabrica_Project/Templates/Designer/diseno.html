@@ -25,13 +25,12 @@
             <textarea class="form-control form-control-user" readonly rows="4"  name="presupuesto_desc">{{ presupuesto.descripcion }}</textarea>
         </div>
     </div>
-    <br>
-    <div class="row justify-content-end">
+    <div class="row justify-content-end my-3">
         <div class="col-md-12 col-lg-6 text-right">
             <a class="btn btn-success btn-lg" href="{% url 'subir_Diseno_nuevo' id_p=presupuesto.id %}"><i class="bi bi-upload"></i> Subir Diseño</a>
         </div>
     </div>
-    <br>
+
     <div class="row">
         <div class="col">
             <h4>Diseños previos</h4>
