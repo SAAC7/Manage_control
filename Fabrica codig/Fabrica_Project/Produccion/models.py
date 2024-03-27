@@ -28,8 +28,8 @@ class Hoja_de_Produccion(models.Model):
     disenador = models.ForeignKey(User, on_delete=models.PROTECT, null=False, blank=False)
     fecha = models.DateTimeField(auto_now_add=True)
     estado=models.TextField(default='Esperando diseño CNC', null=True, blank=True)
-    diseno_CNC = models.ForeignKey(Diseno_CNC, on_delete=models.PROTECT, null=True)
-    diseno_produccion = models.ForeignKey(Diseno_Produccion, on_delete=models.PROTECT, null=True)
+    diseno_CNC = models.ForeignKey(Diseno_CNC, on_delete=models.PROTECT, null=True,blank=True) 
+    diseno_produccion = models.ForeignKey(Diseno_Produccion, on_delete=models.PROTECT, null=True,blank=True)
     archivo = models.FileField(upload_to='media/Produccion/')
 
 class Contrato(models.Model):
