@@ -18,7 +18,8 @@
 <th>Asesor</th>
 <th>Cliente</th>
 <th>Descripcion</th>
-<th>Fecha ubido</th>
+<th>Fecha Subido</th>
+<th>Fecha Estado</th>
 <th>Estado</th>
 <th>Comentario</th>
 <th>Opciones</th>
@@ -45,6 +46,7 @@
     <td>{{ c.diseno.presupuesto.cliente }}</td>
     <td>{{ c.diseno.presupuesto.descripcion }}</td>
     <td>{{ c.fecha }}</td>
+    <td>{{ c.fecha_cambio }}</td>
     <td>{{ c.estado }}</td>
     <td>
         {% if c.estado == 'Rechazado' %}
@@ -71,6 +73,7 @@
 <th>Cliente</th>
 <th>Descripcion</th>
 <th>Fecha Subido</th>
+<th>Fecha Estado</th>
 <th>Estado</th>
 <th>Comentario</th>
 <th>Opciones</th>

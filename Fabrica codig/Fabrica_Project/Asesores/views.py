@@ -180,6 +180,7 @@ def diseno_rechazar(request, pres_id, dis_id):
     # Actualizar el estado del diseño
     diseno.estado = "Rechazado"
     diseno.comentario = request.GET.get('comentario')
+    diseno.fecha_cambio = datetime.datetime.now()
     diseno.save()  # Guardar los cambios en la base de datos
     
      # Obtener el presupuesto con el ID proporcionado
@@ -197,6 +198,7 @@ def cotizacion_rechazar(request, pres_id, coti_id):
     # Actualizar el estado de la cotizacion
     cotizacion.estado = "Rechazado"
     cotizacion.comentario = request.GET.get('comentario')
+    cotizacion.fecha_cambio=datetime.datetime.now()
     cotizacion.save()  # Guardar los cambios en la base de datos
     
     # Obtener el presupuesto con el ID proporcionado
@@ -213,6 +215,7 @@ def diseno_aprobar(request, pres_id, dis_id):
     diseno = get_object_or_404(Diseno, pk=dis_id)
     # Actualizar el estado del diseño
     diseno.estado = "Aprobado"
+    diseno.fecha_cambio=datetime.datetime.now()
     diseno.save()  # Guardar los cambios en la base de datos
     
      # Obtener el presupuesto con el ID proporcionado
@@ -229,6 +232,7 @@ def cotizacion_aprobar(request, pres_id, coti_id):
     cotizacion = get_object_or_404(Cotizacion, pk=coti_id)
     # Actualizar el estado de la cotización
     cotizacion.estado = "Aprobado"
+    cotizacion.fecha_cambio = datetime.datetime.now()
     cotizacion.save()  # Guardar los cambios en la base de datos
     
      # Obtener el presupuesto con el ID proporcionado

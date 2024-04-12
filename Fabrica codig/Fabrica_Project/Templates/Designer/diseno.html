@@ -47,6 +47,7 @@
 <th>Asesor</th>
 {% endif %}
 <th>Fecha</th>
+<th>Fecha Fin</th>
 <th>Estado</th>
 <th>Comentario</th>
 <th>Descargar</th>
@@ -59,6 +60,7 @@
     <td>{{ diseno.usuario.first_name}} {{ diseno.usuario.last_name}}</td>
     {% endif %}
     <td>{{ diseno.fecha }}</td>
+    <td>{{ diseno.fecha_cambio }}</td>
     <td>{{ diseno.estado }}</td>
     <td>
         {% if diseno.estado == 'Rechazado' %}
@@ -86,6 +88,7 @@
 <th>Asesor</th>
 {% endif %}
 <th>Fecha</th>
+<th>Fecha Fin</th>
 <th>Estado</th>
 <th>Comentario</th>
 <th>Descargar</th>

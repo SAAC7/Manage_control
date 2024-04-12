@@ -51,6 +51,7 @@
 {% endif %}
 <th>ID</th>
 <th>Fecha</th>
+<th>Fecha Estado</th>
 <th>Estado</th>
 <th>Comentario</th>
 <th>Diseño</th>
@@ -72,6 +73,7 @@
     {% endif %}
     <td>{{ diseno.id }}</td>
     <td>{{ diseno.fecha }}</td>
+    <td>{{ diseno.fecha_cambio }}</td>
     <td>
         {{ diseno.estado }} 
     </td>
@@ -170,6 +172,7 @@
 {% endif %}
 <th>ID</th>
 <th>Fecha</th>
+<th>Fecha Estado</th>
 <th>Estado</th>
 <th>Comentario</th>
 <th>Diseño</th>
